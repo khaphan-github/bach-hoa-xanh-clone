@@ -15,14 +15,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Category extends SelfValidating<Category> implements Serializable{
-
-	@Min(0)
-	private Long id;
+	@NotEmpty
+	private String id;
 
 	@NotEmpty
 	private String name;
-
+	private String thumbImage;
 	private Boolean available;
-
-	
 }
