@@ -1,4 +1,4 @@
-package com.bhx.shared.exceptions;
+package com.bhx.global.exceptions;
 
 import org.springframework.http.HttpStatus;
 

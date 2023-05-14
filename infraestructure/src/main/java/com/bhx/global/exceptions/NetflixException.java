@@ -1,4 +1,4 @@
-package com.bhx.shared.exceptions;
+package com.bhx.global.exceptions;
 
 public abstract class NetflixException extends Exception {
 

@@ -1,4 +1,4 @@
-package com.bhx.shared;
+package com.bhx.global.shared;
 
 import java.io.Serializable;
 
@@ -11,5 +11,4 @@ public interface RepositoryConverter<T extends Serializable, P extends Serializa
 	default P mapToEntity(final T tableObject) {
 		throw new UnsupportedOperationException();
 	}
-
 }

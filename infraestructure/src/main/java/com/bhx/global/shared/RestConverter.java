@@ -1,4 +1,4 @@
-package com.bhx.shared;
+package com.bhx.global.shared;
 
 import java.io.Serializable;
 

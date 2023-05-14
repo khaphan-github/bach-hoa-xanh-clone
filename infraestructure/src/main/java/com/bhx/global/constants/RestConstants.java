@@ -1,4 +1,4 @@
-package com.bhx.shared.constants;
+package com.bhx.global.constants;
 
 public class RestConstants {
 
