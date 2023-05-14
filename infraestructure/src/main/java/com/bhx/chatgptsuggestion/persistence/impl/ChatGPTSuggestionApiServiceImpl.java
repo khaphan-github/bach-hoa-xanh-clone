@@ -3,12 +3,12 @@ package com.bhx.chatgptsuggestion.persistence.impl;
 import com.bhx.chatgpt.ChatGPTSuggestionApiResponse;
 import com.bhx.chatgpt.ChatGPTSuggestionMessageRequire;
 import com.bhx.chatgpt.ports.ChatGPTSuggestionApiService;
-import com.bhx.chatgptsuggestion.configuration.Variable;
-import com.bhx.product.Product;
+import com.bhx.chatgptsuggestion.configuration.ConfigVariable;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
@@ -20,18 +20,18 @@ import java.util.*;
 @AllArgsConstructor
 public class ChatGPTSuggestionApiServiceImpl implements ChatGPTSuggestionApiService {
 
-    private final Variable variable;
+    private final ConfigVariable configVariable;
 
     private ChatGPTSuggestionApiResponse getResponse(String content) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = variable.getChatGPTEndpoint();
+        String url = configVariable.getChatGPTEndpoint();
 
         HttpHeaders headers = new HttpHeaders();
 
         headers.setContentType(MediaType.APPLICATION_JSON);
 
         Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("model", variable.getChatGPTModel());
+        requestBody.put("model", configVariable.getChatGPTModel());
 
         List<Map<String, String>> messagesList = new ArrayList<>();
         Map<String, String> message = new HashMap<>();

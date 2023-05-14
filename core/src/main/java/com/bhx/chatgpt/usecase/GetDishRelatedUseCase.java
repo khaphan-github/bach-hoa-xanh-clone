@@ -12,5 +12,5 @@ import java.util.List;
  * @project clean-architecture
  */
 public interface GetDishRelatedUseCase {
-    Collection<ChatGPTSuggestionMessageRequire.Dish> execute(int top, List<Product> productInCart);
+    Collection<ChatGPTSuggestionMessageRequire.Dish> execute(String content);
 }

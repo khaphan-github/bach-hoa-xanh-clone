@@ -21,7 +21,7 @@ public class GetDishRelatedUseCaseImpl implements GetDishRelatedUseCase {
 
 
     @Override
-    public Collection<ChatGPTSuggestionMessageRequire.Dish> execute(int top, List<Product> productInCart) {
-        return chatGPTSuggestionApiService.getRelatedDishes(top, productInCart);
+    public Collection<ChatGPTSuggestionMessageRequire.Dish> execute(String content) {
+        return chatGPTSuggestionApiService.getRelatedDishes(content);
     }
 }

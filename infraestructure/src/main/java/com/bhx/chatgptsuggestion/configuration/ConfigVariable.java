@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Variable {
+public class ConfigVariable {
     @Value("${chat.gpt.endpoint}")
     private String chatGPTEndpoint;
 

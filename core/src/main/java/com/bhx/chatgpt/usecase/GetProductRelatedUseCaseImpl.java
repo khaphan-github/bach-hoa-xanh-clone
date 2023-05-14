@@ -19,8 +19,8 @@ public class GetProductRelatedUseCaseImpl implements GetProductRelatedUseCase {
     private final ChatGPTSuggestionApiService chatGPTSuggestionApiService;
 
     @Override
-    public Collection<ChatGPTSuggestionMessageRequire.RelatedProduct> execute(int top, List<Product> productsName)
+    public Collection<ChatGPTSuggestionMessageRequire.RelatedProduct> execute(String content)
             throws ProductNotFoundException {
-        return chatGPTSuggestionApiService.getRelatedProducts(top, productsName);
+        return chatGPTSuggestionApiService.getRelatedProducts(content);
     }
 }

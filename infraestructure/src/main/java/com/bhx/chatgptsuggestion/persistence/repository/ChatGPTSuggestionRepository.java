@@ -14,5 +14,4 @@ import java.util.Collection;
  */
 @Repository
 public interface ChatGPTSuggestionRepository extends MongoRepository<ChatGPTSuggestionEntity, String> {
-    ChatGPTSuggestionEntity findByName(String name);
 }

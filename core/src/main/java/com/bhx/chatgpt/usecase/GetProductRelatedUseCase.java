@@ -12,6 +12,6 @@ import java.util.List;
  * @project clean-architecture
  */
 public interface GetProductRelatedUseCase {
-    Collection<ChatGPTSuggestionMessageRequire.RelatedProduct> execute(int top, List<Product> productName)
+    Collection<ChatGPTSuggestionMessageRequire.RelatedProduct> execute(String content)
             throws ProductNotFoundException;
 }
