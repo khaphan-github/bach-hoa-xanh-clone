@@ -6,7 +6,6 @@ import com.bhx.chatgptsuggestion.persistence.converters.ChatGPTSuggestionReposit
 import com.bhx.chatgptsuggestion.persistence.entities.ChatGPTSuggestionEntity;
 import com.bhx.chatgptsuggestion.persistence.repository.ChatGPTSuggestionRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -28,7 +27,11 @@ public class ChatGPTSuggestionServiceImpl implements ChatGPTSuggestionRepository
 
     @Override
     public ChatGPTSuggestion getMessageByName(String name) {
-        return null;
+        Optional<ChatGPTSuggestionEntity> chatGPTSuggestionEntityStored
+                = chatGPTSuggestionRepository.findByTypeName(name).stream().findFirst();
+
+        return chatGPTSuggestionEntityStored.map(chatGPTSuggestionRepositoryConverter::mapToEntity).orElse(null);
+
     }
 
     @Override
