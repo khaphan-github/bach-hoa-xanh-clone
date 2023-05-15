@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <!-- Footer Section Begin -->
+  <footer class="footer spad" th:fragment="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer__about">
+            <div class="footer__about__logo">
+              <a th:href="@{/}"><img src="/static/img/logo.png" alt=""></a>
+            </div>
+            <ul>
+              <li>Địa chỉ: Hutech Khu E</li>
+              <li>Điện thoại: +84 99.999.999</li>
+              <li>Email: oragni@hutech.edu.vn</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+          <div class="footer__widget">
+            <h6>Liên kết</h6>
+            <ul>
+              <li><a href="#">Về chúng tôi</a></li>
+              <li><a href="#">Thông tin giao hàng</a></li>
+              <li><a href="#">Chính sách bảo mật</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Dự án</a></li>
+              <li><a href="#">Liên hệ</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+          <div class="footer__widget">
+            <h6>Tham gia bản tin của chúng tôi ngay bây giờ</h6>
+            <p>Nhận thông tin cập nhật qua email về cửa hàng mới nhất của chúng tôi và các ưu đãi đặc biệt.</p>
+            <form action="#">
+              <input type="text" placeholder="Nhập Email của bạn">
+              <button type="submit" class="site-btn">Đăng ký</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="footer__copyright">
+
+
+            <div class="footer__copyright__payment"><img src="/static/img/payment-item.png" alt=""></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer Section End -->
+
+
+</body>
+</html>
