@@ -5,9 +5,11 @@ import com.bhx.chatgpt.ChatGPTSuggestionMessageRequire;
 import com.bhx.chatgpt.ports.ChatGPTSuggestionApiService;
 import com.bhx.chatgptsuggestion.configuration.ConfigVariable;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,48 +19,32 @@ import java.util.*;
  * @author "KhaPhan" on 13-May-23
  * @project clean-architecture
  */
+@Slf4j
 @AllArgsConstructor
 public class ChatGPTSuggestionApiServiceImpl implements ChatGPTSuggestionApiService {
 
     private final ConfigVariable configVariable;
+    private final RestTemplate restTemplate;
 
-    private ChatGPTSuggestionApiResponse getResponse(String content) {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = configVariable.getChatGPTEndpoint();
+    public ResponseEntity<ChatGPTSuggestionApiResponse> getResponse(String content) {
+        String url = "https://api.openai.com/v1/chat/completions";
 
         HttpHeaders headers = new HttpHeaders();
-
         headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer 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");
 
-        Map<String, Object> requestBody = new HashMap<>();
-        requestBody.put("model", configVariable.getChatGPTModel());
+        String requestBody = "{\"model\": \""
+                + "gpt-3.5-turbo-0301"
+                + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + content + "\"}]}";
 
-        List<Map<String, String>> messagesList = new ArrayList<>();
-        Map<String, String> message = new HashMap<>();
-        message.put("role", "user");
-        message.put("content", content);
-        messagesList.add(message);
+        HttpEntity<String> request = new HttpEntity<>(requestBody, headers);
+        System.out.println(requestBody);
 
-        requestBody.put("messages", messagesList);
-
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
-
-        ChatGPTSuggestionApiResponse response =
-                restTemplate.postForObject(url, request, ChatGPTSuggestionApiResponse.class);
-
-        return response;
+        return restTemplate.postForEntity(url, request, ChatGPTSuggestionApiResponse.class);
     }
 
     @Override
     public Collection<ChatGPTSuggestionMessageRequire.Dish> getRelatedDishes(String content) {
-        // TODO: parse data receive from chat gpt;
-        ChatGPTSuggestionApiResponse apiResponse = getResponse(content);
-        String receiveContent = Arrays.stream(apiResponse.getChoices())
-                .findFirst()
-                .get()
-                .getMessage()
-                .getContent();
-
         return null;
     }
 

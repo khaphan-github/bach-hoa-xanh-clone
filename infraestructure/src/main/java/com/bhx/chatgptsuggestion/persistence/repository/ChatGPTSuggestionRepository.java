@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author "KhaPhan" on 13-May-23
@@ -14,4 +15,11 @@ import java.util.Collection;
  */
 @Repository
 public interface ChatGPTSuggestionRepository extends MongoRepository<ChatGPTSuggestionEntity, String> {
+    /**
+     * Retrieves a list of chat suggestions by the type name.
+     *
+     * @param typeName the type name to search for
+     * @return a list of chat suggestions matching the type name
+     */
+    Collection<ChatGPTSuggestionEntity> findByTypeName(String typeName);
 }

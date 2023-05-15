@@ -7,6 +7,7 @@ import com.bhx.chatgptsuggestion.persistence.repository.ChatGPTSuggestionReposit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author "KhaPhan" on 13-May-23
@@ -30,8 +31,10 @@ public class ChatGPTSuggestionConfiguration {
     }
 
     @Bean
+    public RestTemplate restTemplate() { return  new RestTemplate(); }
+    @Bean
     public ChatGPTSuggestionApiServiceImpl chatGPTSuggestionApiService() {
-        return new ChatGPTSuggestionApiServiceImpl(variable());
+        return new ChatGPTSuggestionApiServiceImpl(variable(), restTemplate());
     }
 
     @Bean

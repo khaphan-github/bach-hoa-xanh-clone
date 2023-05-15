@@ -1,9 +1,8 @@
 package com.bhx.chatgpt.ports;
 
 import com.bhx.chatgpt.ChatGPTSuggestion;
-import com.bhx.product.Product;
 
-import java.util.Collection;
+import java.util.Optional;
 
 /**
  * @author "KhaPhan" on 13-May-23
