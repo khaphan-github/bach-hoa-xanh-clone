@@ -1,10 +1,11 @@
 package com.bhx.product.delivery;
 
+import com.bhx.product.exception.ProductNotFoundException;
 import org.springframework.ui.Model;
 
 public interface ProductController {
 
-    String index(Model model);
+    String index(Model model) throws ProductNotFoundException;
 
     String contact(Model model);
 

@@ -1,8 +1,10 @@
-package com.bhx.product;
+package com.bhx.product.persistence.entities;
 
 import com.bhx.category.Category;
-import com.bhx.shared.SelfValidating;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -11,13 +13,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author "KhaPhan" on 13-May-23
+ * @author "KhaPhan" on 17-May-23
  * @project clean-architecture
  */
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
-public class Product extends SelfValidating<Product> implements Serializable {
+@Document(collection = "products")
+public class ProductEntity implements Serializable {
     @Min(0)
     private String id;
     @NotEmpty()

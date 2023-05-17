@@ -19,7 +19,8 @@ public class CategoryServiceImpl implements CategoryRepositoryService {
 
 	@Override
 	public Collection<Category> getAllCategories() {
-		return categoryRepository.findAll().stream().map(category -> categoryRepositoryConverter.mapToEntity(category))
+		return categoryRepository.findAll().stream()
+				.map(category -> categoryRepositoryConverter.mapToEntity(category))
 				.collect(Collectors.toList());
 		
 	}

@@ -1,16 +1,41 @@
 package com.bhx.product.delivery.impl;
 
+import com.bhx.category.usecase.GetAllCategoriesUseCase;
+import com.bhx.product.Product;
 import com.bhx.product.delivery.ProductController;
+import com.bhx.product.delivery.converters.ProductMvcConverter;
+import com.bhx.product.delivery.converters.view.ProductView;
+import com.bhx.product.exception.ProductNotFoundException;
+import com.bhx.product.usecase.GetAllProductsUseCase;
+import com.bhx.product.usecase.GetOneProductUseCase;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
+@Slf4j
+@RequiredArgsConstructor
 public class ProductControllerImpl implements ProductController {
+    private final GetAllProductsUseCase getAllProductsUseCase;
+
+    private final ProductMvcConverter productMvcConverter;
     @Override
     @GetMapping({"/", "/index"})
-    public String index(Model model) {
+    public String index(Model model) throws ProductNotFoundException {
         model.addAttribute("active","home");
+
+        List<ProductView> products = getAllProductsUseCase.execute()
+                .stream().map(productMvcConverter::mapToRest)
+                .collect(Collectors.toList());
+
+        log.debug(String.valueOf(products.size()));
+        model.addAttribute("products", products);
+
         return "public/home/index";
     }
 

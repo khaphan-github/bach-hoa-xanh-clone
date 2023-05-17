@@ -30,18 +30,18 @@ public class CategoryConfiguration {
 	}
 
 	@Bean
-	public CategoryServiceImpl createCategoriServiceImpl() {
+	public CategoryServiceImpl createCategoriesServiceImpl() {
 		return new CategoryServiceImpl(categoryRepository, createCategoryRepositoryConverter());
 	}
 
 	@Bean
 	public GetAllCategoriesUseCaseImpl createGetAllCategoriesUseCase() {
-		return new GetAllCategoriesUseCaseImpl(createCategoriServiceImpl());
+		return new GetAllCategoriesUseCaseImpl(createCategoriesServiceImpl());
 	}
 	
 	@Bean
 	public CreateCategoryUseCaseImpl createCreateCategoryUseCase() {
-		return new CreateCategoryUseCaseImpl(createCategoriServiceImpl());
+		return new CreateCategoryUseCaseImpl(createCategoriesServiceImpl());
 	}
 
 }

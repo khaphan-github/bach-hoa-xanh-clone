@@ -11,10 +11,16 @@ import java.util.Collection;
  */
 public interface ProductRepositoryService {
     public Collection<Product> getProducts();
+
     public Collection<Product> getProductsPaging(int page, int size);
+
     public Product getProductById(String id);
+
     public Product getProductByCategoryId(String categoryId);
+
     public void saveProduct(Product product);
+
     public boolean isExistProductByName(String name);
+
     public void inValidProductById(String id);
 }
