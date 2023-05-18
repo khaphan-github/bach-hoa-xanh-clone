@@ -1,10 +1,12 @@
 package com.bhx.category.persistence.impl;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.bhx.category.Category;
 import com.bhx.category.persistence.converters.CategoryRepositoryConverter;
+import com.bhx.category.persistence.entities.CategoryEntity;
 import com.bhx.category.persistence.repositories.CategoryRepository;
 import com.bhx.category.ports.CategoryRepositoryService;
 
@@ -17,6 +19,8 @@ public class CategoryServiceImpl implements CategoryRepositoryService {
 
 	private final CategoryRepositoryConverter categoryRepositoryConverter;
 
+	private final CategoryServiceImpl categoryService;
+
 	@Override
 	public Collection<Category> getAllCategories() {
 		return categoryRepository.findAll().stream()
@@ -28,6 +32,33 @@ public class CategoryServiceImpl implements CategoryRepositoryService {
 	@Override
 	public void saveCategory(final Category category) {
 		categoryRepository.save(categoryRepositoryConverter.mapToTable(category));
+	}
+
+	@Override
+	public void updateCategory(Category category) {
+		Optional<CategoryEntity> categoryFind = categoryRepository.findById(category.getId());
+		categoryFind.ifPresent(categoryEntity -> {
+			// Update the category entity with the new data
+			categoryEntity.setName(category.getName());
+			categoryEntity.setAvailable(category.getAvailable());
+			categoryEntity.setParent_id(category.getParent_id());
+			// Save the updated category entity
+			categoryRepository.save(categoryEntity);
+		});
+	}
+
+	@Override
+	public void deleteCategory(final String id) {
+		Optional<CategoryEntity> categoryFind = categoryRepository.findById(id);
+		categoryFind.ifPresent(categoryEntity -> {
+			categoryRepository.delete(categoryEntity);
+		});
+	}
+	@Override
+	public Optional<Category> getCategoryById(String id) {
+		Optional<CategoryEntity> categoryFind = categoryRepository.findById(id);
+
+		return categoryFind.map(categoryRepositoryConverter::mapToEntity);
 	}
 
 	public Boolean doesCategoryNameExists(final String name) {

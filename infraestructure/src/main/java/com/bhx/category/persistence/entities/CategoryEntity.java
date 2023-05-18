@@ -22,6 +22,6 @@ public class CategoryEntity implements Serializable {
 	@Id
 	private String id;
 	private String name;
-	private String thumbImage;
+	private String parent_id;
 	private Boolean available;
 }

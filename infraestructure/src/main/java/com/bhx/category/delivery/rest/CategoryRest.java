@@ -18,7 +18,7 @@ public class CategoryRest implements Serializable {
 	@NotNull
 	private String name;
 
-	private String thumbImage;
+	private String parent_id;
 
 	@NotNull
 	private Boolean available;
