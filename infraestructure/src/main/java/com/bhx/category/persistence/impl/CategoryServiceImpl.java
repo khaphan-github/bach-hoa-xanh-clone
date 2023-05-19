@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryRepositoryService {
 			// Update the category entity with the new data
 			categoryEntity.setName(category.getName());
 			categoryEntity.setAvailable(category.getAvailable());
-			categoryEntity.setParent_id(category.getParent_id());
+			categoryEntity.setParentId(category.getParentId());
 			// Save the updated category entity
 			categoryRepository.save(categoryEntity);
 		});

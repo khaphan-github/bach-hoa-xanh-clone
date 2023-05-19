@@ -8,6 +8,6 @@ import javax.validation.constraints.NotNull;
 public class CategoryView {
     private String id;
     private String name;
-    private String parent_id;
+    private String parentId;
     private Boolean available;
 }
