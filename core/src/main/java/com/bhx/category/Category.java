@@ -18,7 +18,7 @@ import lombok.Data;
 public class Category extends SelfValidating<Category> implements Serializable{
 	@NotEmpty
 	private String id;
-	private String parent_id;
+	private String parentId;
 
 	@NotEmpty
 	private String name;

@@ -11,7 +11,7 @@ public class CategoryRepositoryConverter implements RepositoryConverter<Category
 		return new CategoryEntity(
 				persistenceObject.getId(),
 				persistenceObject.getName(),
-				persistenceObject.getParent_id(),
+				persistenceObject.getParentId(),
 				persistenceObject.getAvailable());
 	}
 
@@ -20,7 +20,7 @@ public class CategoryRepositoryConverter implements RepositoryConverter<Category
 		return new Category(
 				entityObject.getId(),
 				entityObject.getName(),
-				entityObject.getParent_id(),
+				entityObject.getParentId(),
 				entityObject.getAvailable());
 	}
 }
