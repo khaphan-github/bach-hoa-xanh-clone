@@ -73,4 +73,18 @@ public class ProductControllerImpl implements ProductController {
         model.addAttribute("active","direct");
         return "public/direct/checkout";
     }
+
+    @Override
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        model.addAttribute("selected","dashboard");
+        return "admin/main/index";
+    }
+
+    @Override
+    @GetMapping("/admin/products")
+    public String admin_products(Model model) {
+        model.addAttribute("selected","products");
+        return "admin/products/index";
+    }
 }
