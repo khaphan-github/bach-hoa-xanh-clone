@@ -38,7 +38,7 @@ public class CategoryConfiguration {
 
 	@Bean
 	public CategoryServiceImpl createCategoriesServiceImpl() {
-		return new CategoryServiceImpl(categoryRepository, createCategoryRepositoryConverter(), categoryService);
+		return new CategoryServiceImpl(categoryRepository, createCategoryRepositoryConverter());
 	}
 
 	@Bean

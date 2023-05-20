@@ -1,7 +1,5 @@
 package com.bhx.product.delivery.converters;
 
-import com.bhx.category.Category;
-import com.bhx.category.delivery.rest.CategoryRest;
 import com.bhx.global.shared.RestConverter;
 import com.bhx.product.Product;
 import com.bhx.product.delivery.converters.view.ProductView;
@@ -27,7 +25,7 @@ public class ProductMvcConverter implements RestConverter<ProductView, Product> 
                 entity.getDescription(),
                 entity.getPrice(),
                 entity.getThumbImage(),
-                entity.getCategory().getName(),
+                entity.getCategoryId(),
                 addToCartUrl,
                 detailUrl
         );

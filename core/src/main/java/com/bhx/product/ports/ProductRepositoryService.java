@@ -1,7 +1,7 @@
 package com.bhx.product.ports;
 
-import com.bhx.category.Category;
 import com.bhx.product.Product;
+import com.bhx.product.exception.ProductNotFoundException;
 
 import java.util.Collection;
 
@@ -14,9 +14,9 @@ public interface ProductRepositoryService {
 
     public Collection<Product> getProductsPaging(int page, int size);
 
-    public Product getProductById(String id);
+    public Product getProductById(String id) throws ProductNotFoundException;
 
-    public Product getProductByCategoryId(String categoryId);
+    public Collection<Product> getProductByCategoryId(String categoryId);
 
     public void saveProduct(Product product);
 

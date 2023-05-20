@@ -2,7 +2,6 @@ package com.bhx.product.delivery.converters.view;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;

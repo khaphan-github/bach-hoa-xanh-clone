@@ -1,13 +1,11 @@
 package com.bhx.product.persistence.entities;
 
-import com.bhx.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,30 +19,19 @@ import java.util.List;
 @AllArgsConstructor
 @Document(collection = "products")
 public class ProductEntity implements Serializable {
-    @Min(0)
+    @Id
     private String id;
-    @NotEmpty()
     private String name;
     private String searchName;
-
     private String description;
-
     private String thumbImage;
-
     private List<String> descriptionImages;
-
     private Date outDate;
-    @Min(0)
     private double price;
-    @Min(0)
     private double discount;
-    @Min(0)
     private int quantity;
-
-    private Category category;
-
+    private String categoryId;
     private Date createdDate;
     private Date updatedDate;
-
     private boolean isAvailable;
 }

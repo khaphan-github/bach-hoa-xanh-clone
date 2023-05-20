@@ -1,6 +1,5 @@
 package com.bhx.product;
 
-import com.bhx.category.Category;
 import com.bhx.shared.SelfValidating;
 import lombok.*;
 
@@ -14,11 +13,11 @@ import java.util.List;
  * @author "KhaPhan" on 13-May-23
  * @project clean-architecture
  */
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product extends SelfValidating<Product> implements Serializable {
-    @Min(0)
+    @NotEmpty
     private String id;
     @NotEmpty()
     private String name;
@@ -38,7 +37,7 @@ public class Product extends SelfValidating<Product> implements Serializable {
     @Min(0)
     private int quantity;
 
-    private Category category;
+    private String categoryId;
 
     private Date createdDate;
     private Date updatedDate;
