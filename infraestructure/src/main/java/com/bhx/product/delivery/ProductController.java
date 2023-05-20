@@ -20,4 +20,7 @@ public interface ProductController {
     String admin(Model model);
 
     String admin_products(Model model);
+
+    String error();
+
 }
