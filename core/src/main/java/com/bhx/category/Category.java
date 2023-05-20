@@ -1,6 +1,7 @@
 package com.bhx.category;
 
 import java.io.Serializable;
+import java.util.function.Function;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -17,9 +18,10 @@ import lombok.Data;
 public class Category extends SelfValidating<Category> implements Serializable{
 	@NotEmpty
 	private String id;
+	private String parentId;
 
 	@NotEmpty
 	private String name;
-	private String thumbImage;
+
 	private Boolean available;
 }
