@@ -29,12 +29,7 @@ public class ProductControllerImpl implements ProductController {
     public String index(Model model) throws ProductNotFoundException {
         model.addAttribute("active","home");
 
-        List<ProductView> products = getAllProductsUseCase.execute()
-                .stream().map(productMvcConverter::mapToRest)
-                .collect(Collectors.toList());
 
-        log.debug(String.valueOf(products.size()));
-        model.addAttribute("products", products);
 
         return "public/home/index";
     }
@@ -86,5 +81,11 @@ public class ProductControllerImpl implements ProductController {
     public String admin_products(Model model) {
         model.addAttribute("selected","products");
         return "admin/products/index";
+    }
+
+    @Override
+    @GetMapping("/error/test")
+    public String error() {
+        return "_layout/error/test";
     }
 }
