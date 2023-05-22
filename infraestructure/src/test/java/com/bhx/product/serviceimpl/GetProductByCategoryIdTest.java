@@ -1,7 +1,9 @@
 package com.bhx.product.serviceimpl;
 
+import com.bhx.category.Category;
+import com.bhx.category.persistence.impl.CategoryServiceImpl;
+import com.bhx.category.persistence.repositories.CategoryRepository;
 import com.bhx.product.Product;
-import com.bhx.product.exception.ProductNotFoundException;
 import com.bhx.product.persistence.impl.ProductServiceImpl;
 import com.bhx.product.persistence.repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,40 +27,59 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @Slf4j
 @SpringJUnitConfig
 @SpringBootTest
-class GetProductById {
-
+public class GetProductByCategoryIdTest {
     @Autowired
     private ProductServiceImpl productServiceImpl;
     @Autowired
     private ProductRepository productRepository;
 
-    private void createTestData(String id) {
+    @Autowired
+    private CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryServiceImpl categoryService;
+    private void createTestData(String categoryId) {
 
         Product product = new Product();
 
-        product.setId(id);
+        product.setId(new ObjectId().toString());
 
         product.setName("TestProductName");
+        product.setCategoryId(categoryId);
 
         product.setAvailable(true);
 
         productServiceImpl.saveProduct(product);
     }
 
-    private final String productId = new ObjectId().toString();
+    private final int maxSize = 20;
+    private final String categoryId = new ObjectId().toString();
     @BeforeEach()
     public void setUp() {
-        createTestData(productId);
+        productRepository.deleteAll();
+
+        Category category = new Category(categoryId, categoryId, "TestCategory", true);
+        categoryService.saveCategory(category);
+
+        for (int i = 0; i < maxSize; i++) {
+            createTestData(categoryId);
+        }
+
+        for (int i = 0; i < maxSize; i++) {
+            createTestData("OtherCategoryId");
+        }
+
     }
 
     @AfterEach()
     public void restore() {
-        productRepository.deleteById(productId);
+        productRepository.deleteAll();
+        categoryRepository.deleteById(categoryId);
     }
 
     @Test
-    void getAllProductTest() throws ProductNotFoundException {
-        Product products = productServiceImpl.getProductById(productId);
-        assertEquals(productId, products.getId());
+    void getProductByCategoryIdTest() {
+        Collection<Product> products = productServiceImpl.getProductByCategoryId(categoryId);
+        assertFalse(products.isEmpty());
+        assertEquals(products.size(), maxSize);
     }
 }

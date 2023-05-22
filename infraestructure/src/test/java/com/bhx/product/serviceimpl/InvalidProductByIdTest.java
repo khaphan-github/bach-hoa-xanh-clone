@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Slf4j
 @SpringJUnitConfig
 @SpringBootTest
-class InvalidProductById {
+class InvalidProductByIdTest {
     @Autowired
     private ProductServiceImpl productServiceImpl;
     @Autowired
