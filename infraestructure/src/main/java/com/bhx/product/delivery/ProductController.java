@@ -16,4 +16,11 @@ public interface ProductController {
     String direct_shopping_cart(Model model);
 
     String direct_checkout(Model model);
+
+    String admin(Model model);
+
+    String admin_products(Model model);
+
+    String error();
+
 }
