@@ -17,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@Data
 public class Product extends SelfValidating<Product> implements Serializable {
     @Min(0)
     private String id;

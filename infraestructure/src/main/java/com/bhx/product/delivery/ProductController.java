@@ -19,8 +19,7 @@ public interface ProductController {
 
     String admin(Model model);
 
-    String admin_products(Model model);
-
-    String error();
+    String show_admin_login();
+    String admin_products(Model model) throws ProductNotFoundException;
 
 }

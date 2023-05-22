@@ -30,15 +30,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Allow access to Swagger UI and other static resources
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**");
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**","/static/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/","/error/test").permitAll() // Allow access to the authentication endpoint
-                    .antMatchers("/admin").authenticated()
+                    .antMatchers("/","/shop/**","/direct/**","/contact/**","/error/**").permitAll() // Allow access to the authentication endpoint
+                    .antMatchers("/admin/**").authenticated()
+                .and().formLogin()
+                .loginPage("/admin/login").permitAll()
                     .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

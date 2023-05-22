@@ -1,3 +1,9 @@
+// Search handle
+function handleSearchInputChange() {
+    var inputElement = document.getElementById("search-box-input");
+    var enteredText = inputElement.value;
+    console.log("Entered text: " + enteredText);
+}
 
 // Convert csv to json
 function uploadCSVFile(file) {
