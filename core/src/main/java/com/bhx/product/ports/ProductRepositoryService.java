@@ -7,7 +7,6 @@ import java.util.Collection;
 
 /**
  * @author "KhaPhan" on 13-May-23
- * @project clean-architecture
  */
 public interface ProductRepositoryService {
     public Collection<Product> getProducts();

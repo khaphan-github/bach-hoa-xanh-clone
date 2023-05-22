@@ -1,8 +1,12 @@
 package com.bhx.user.usecase;
 
+import com.bhx.permission.exception.PermissionNotFoundException;
+
+import javax.security.auth.login.AccountNotFoundException;
+
 /**
  * @author "KhaPhan" on 20-May-23
- * @project clean-architecture
  */
 public interface UpdatePermissionUseCase {
+    void execute(String accountId, String permissionId) throws AccountNotFoundException, PermissionNotFoundException;
 }

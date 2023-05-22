@@ -1,8 +1,12 @@
 package com.bhx.permission.usecase;
 
+import com.bhx.permission.Permission;
+
+import java.util.Collection;
+
 /**
  * @author "KhaPhan" on 20-May-23
- * @project clean-architecture
  */
 public interface GetAllPermissionUseCase {
+    public Collection<Permission> execute();
 }

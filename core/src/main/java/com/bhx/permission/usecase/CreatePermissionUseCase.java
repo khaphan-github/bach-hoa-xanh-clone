@@ -1,8 +1,11 @@
 package com.bhx.permission.usecase;
 
+import com.bhx.permission.Permission;
+import com.bhx.permission.exception.PermissionAlreadyExist;
+
 /**
  * @author "KhaPhan" on 20-May-23
- * @project clean-architecture
  */
-public interface CreatePermissionUseCase {
+interface CreatePermissionUseCase {
+    void execute(Permission permission) throws PermissionAlreadyExist;
 }
