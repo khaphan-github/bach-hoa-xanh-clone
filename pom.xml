@@ -18,6 +18,14 @@
     <spring-boot.version>4.2.3.RELEASE</spring-boot.version>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>firebase</id>
+      <url>https://maven.google.com</url>
+    </repository>
+  </repositories>
+
+
 
   <modules>
     <module>infraestructure</module>
