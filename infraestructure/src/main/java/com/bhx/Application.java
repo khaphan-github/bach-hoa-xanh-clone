@@ -3,10 +3,11 @@ package com.bhx;
 import com.bhx.firebase.FirebaseService;
 import com.bhx.firebase.GoogleCloudStorageConfig;
 import com.google.cloud.storage.Storage;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class Application {
@@ -15,13 +16,22 @@ public class Application {
             Storage storage = GoogleCloudStorageConfig.initialize();
             FirebaseService firebaseService = new FirebaseService(storage);
 
-            String imagePath = "C:\\Users\\VITNHTHIENVU.COM\\OneDrive\\Documents\\anhdamhoi\\test.jpg";
-            String bucketName = "bhx-clone.appspot.com";
-            String fileName = "image.jpg";
+            List<String> imagePaths = Arrays.asList(
+                    "C:\\Users\\Depv247\\Desktop\\kk.jpg",
+                    "C:\\Users\\Depv247\\Desktop\\kimkhanhhhhhh.jpg"
+            );
+            List<String> imageNames = Arrays.asList(
+                    "kk.jpg",
+                    "kimkhanhhhhhh.jpg"
+            );
 
-            firebaseService.uploadImage(bucketName, imagePath, fileName);
+            String bucketName = "bhx-clone.appspot.com";
+
+            firebaseService.uploadImages(bucketName, imagePaths, imageNames);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

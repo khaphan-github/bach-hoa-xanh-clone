@@ -28,8 +28,6 @@
 			<artifactId>google-cloud-storage</artifactId>
 			<version>1.113.0</version>
 		</dependency>
-
-
 		<!-- Core project-->
 		<dependency>
 			<groupId>com.bhx</groupId>
