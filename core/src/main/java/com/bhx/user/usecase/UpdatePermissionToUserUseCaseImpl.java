@@ -13,7 +13,7 @@ import javax.security.auth.login.AccountNotFoundException;
  * @author "KhaPhan" on 22-May-23
  */
 @AllArgsConstructor
-public class UpdatePermissionUseCaseImpl implements UpdatePermissionUseCase{
+public class UpdatePermissionToUserUseCaseImpl implements UpdatePermissionToUserUseCase {
     private final AccountRepositoryService accountRepositoryService;
 
     private final PermissionRepositoryService permissionRepositoryService;

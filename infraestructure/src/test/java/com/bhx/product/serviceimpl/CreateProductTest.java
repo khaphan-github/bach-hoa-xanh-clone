@@ -39,7 +39,7 @@ class CreateProductTest {
     private ProductRepository productRepository;
     private String productIdTest;
 
-    @BeforeEach()
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         productIdTest = new ObjectId().toString();

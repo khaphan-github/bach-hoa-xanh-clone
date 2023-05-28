@@ -11,7 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -26,9 +28,7 @@ public class ProductServiceImpl implements ProductRepositoryService {
 
     @Override
     public Collection<Product> getProducts() {
-        return productRepository.findAll().stream()
-                .map(productRepositoryConverter::mapToEntity)
-                .collect(Collectors.toList());
+        return productRepository.findAll().stream().map(productRepositoryConverter::mapToEntity).collect(Collectors.toList());
     }
 
     @Override
@@ -36,9 +36,7 @@ public class ProductServiceImpl implements ProductRepositoryService {
         Pageable pageable = PageRequest.of(page, size);
         Page<ProductEntity> productEntityPage = productRepository.findAll(pageable);
 
-        return productEntityPage.stream()
-                .map(productRepositoryConverter::mapToEntity)
-                .collect(Collectors.toList());
+        return productEntityPage.stream().map(productRepositoryConverter::mapToEntity).collect(Collectors.toList());
     }
 
     @Override
@@ -52,9 +50,7 @@ public class ProductServiceImpl implements ProductRepositoryService {
 
     @Override
     public Collection<Product> getProductByCategoryId(String categoryId) {
-        return productRepository.findByCategoryId(categoryId).stream()
-                .map(productRepositoryConverter::mapToEntity)
-                .collect(Collectors.toList());
+        return productRepository.findByCategoryId(categoryId).stream().map(productRepositoryConverter::mapToEntity).collect(Collectors.toList());
     }
 
     @Override
@@ -70,9 +66,14 @@ public class ProductServiceImpl implements ProductRepositoryService {
     @Override
     public void inValidProductById(String id) {
         Optional<ProductEntity> product = productRepository.findById(id);
-        if(product.isPresent()) {
+        if (product.isPresent()) {
             product.get().setAvailable(false);
             productRepository.save(product.get());
         }
+    }
+
+    @Override
+    public void saveMultipleProduct(List<Product> productList) {
+        productRepository.saveAll(productList.stream().map(productRepositoryConverter::mapToTable).collect(Collectors.toList()));
     }
 }

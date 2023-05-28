@@ -30,23 +30,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Allow access to Swagger UI and other static resources
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**");
+        web.ignoring().antMatchers(
+                "/v2/api-docs",
+                "/configuration/**",
+                "/swagger-resources/**",
+                "/swagger-ui.html",
+                "/webjars/**"
+        );
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/","/error/test").permitAll() // Allow access to the authentication endpoint
-                    .antMatchers("/admin").authenticated()
-                    .and()
+                .antMatchers("/", "/error/test").permitAll() // Allow access to the authentication endpoint
+                .antMatchers("/admin").authenticated()
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
     private AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> response.sendRedirect("/error/test");
     }
+
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {

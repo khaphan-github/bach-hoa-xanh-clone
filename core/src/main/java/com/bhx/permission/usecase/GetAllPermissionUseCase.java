@@ -8,5 +8,5 @@ import java.util.Collection;
  * @author "KhaPhan" on 20-May-23
  */
 public interface GetAllPermissionUseCase {
-    public Collection<Permission> execute();
+    Collection<Permission> execute();
 }

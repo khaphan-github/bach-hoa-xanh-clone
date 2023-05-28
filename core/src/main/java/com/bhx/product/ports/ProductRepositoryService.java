@@ -4,6 +4,7 @@ import com.bhx.product.Product;
 import com.bhx.product.exception.ProductNotFoundException;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author "KhaPhan" on 13-May-23
@@ -22,4 +23,6 @@ public interface ProductRepositoryService {
     public boolean isExistProductByName(String name);
 
     public void inValidProductById(String id);
+
+    public void saveMultipleProduct(List<Product> productList);
 }

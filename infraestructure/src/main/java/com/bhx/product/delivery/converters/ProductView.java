@@ -1,4 +1,4 @@
-package com.bhx.product.delivery.converters.view;
+package com.bhx.product.delivery.converters;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
