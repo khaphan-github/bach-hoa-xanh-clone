@@ -18,7 +18,7 @@ public class InvalidPermissionUseCaseImpl implements InvalidPermissionUseCase {
     public void execute(String id) throws PermissionNotFoundException, CanNotInvalidPermission {
         Permission permissionStored = permissionRepositoryService.getPermissionById(id);
         if (permissionStored == null) {
-            throw new PermissionNotFoundException();
+            throw new PermissionNotFoundException(id);
         }
         try {
             permissionRepositoryService.invalidPermission(permissionStored.getId());

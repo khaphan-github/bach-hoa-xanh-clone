@@ -26,7 +26,7 @@ public class UpdatePermissionToUserUseCaseImpl implements UpdatePermissionToUser
             throw new AccountNotFoundException();
         }
         if (permissionStored == null) {
-            throw new PermissionNotFoundException();
+            throw new PermissionNotFoundException(permissionId);
         }
 
         accountRepositoryService.addPermissionToAccount(accountId, permissionId);

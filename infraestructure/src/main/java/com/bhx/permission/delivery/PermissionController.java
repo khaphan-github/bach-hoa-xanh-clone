@@ -8,6 +8,7 @@ import com.bhx.permission.delivery.response.PermissionView;
 public interface PermissionController {
 
     String createPermission(PermissionView permissionView);
+
     String getAllPermission();
 
     String getOnePermission(String id);

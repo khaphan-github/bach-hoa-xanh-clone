@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author "KhaPhan" on 17-May-23
- * @project clean-architecture
  */
 @Configuration
 public class ProductConfiguration {

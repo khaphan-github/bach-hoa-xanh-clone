@@ -17,7 +17,7 @@ public class GetOnePermissionUseCaseImpl implements GetOnePermissionUseCase {
     public Permission execute(String id) throws PermissionNotFoundException {
         Permission permissionStored = permissionRepositoryService.getPermissionById(id);
         if (permissionStored == null) {
-            throw new PermissionNotFoundException();
+            throw new PermissionNotFoundException(id);
         }
         return permissionStored;
     }

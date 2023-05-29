@@ -15,7 +15,7 @@ public class UpdatePermissionUseCaseImpl implements UpdatePermissionUseCase{
     public void execute(Permission permission) throws PermissionNotFoundException {
         Permission permissionStored = permissionRepositoryService.getPermissionById(permission.getId());
         if (permissionStored == null) {
-            throw new PermissionNotFoundException();
+            throw new PermissionNotFoundException(permission.getId());
         }
         permissionRepositoryService.updatePermission(permission);
     }
