@@ -19,8 +19,6 @@ public class CategoryServiceImpl implements CategoryRepositoryService {
 
 	private final CategoryRepositoryConverter categoryRepositoryConverter;
 
-	private final CategoryServiceImpl categoryService;
-
 	@Override
 	public Collection<Category> getAllCategories() {
 		return categoryRepository.findAll().stream()

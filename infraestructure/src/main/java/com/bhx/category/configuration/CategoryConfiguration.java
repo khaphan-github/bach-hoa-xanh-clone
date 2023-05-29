@@ -18,7 +18,6 @@ import com.bhx.category.persistence.impl.CategoryServiceImpl;
 @Configuration
 public class CategoryConfiguration {
 
-	
 	@Autowired
 	private CategoryRepository categoryRepository;
 
@@ -38,7 +37,7 @@ public class CategoryConfiguration {
 
 	@Bean
 	public CategoryServiceImpl createCategoriesServiceImpl() {
-		return new CategoryServiceImpl(categoryRepository, createCategoryRepositoryConverter(), categoryService);
+		return new CategoryServiceImpl(categoryRepository, createCategoryRepositoryConverter());
 	}
 
 	@Bean
@@ -60,5 +59,4 @@ public class CategoryConfiguration {
 	public DeleteACategoryUseCaseImpl deleteACategoryUseCase() {
 		return new DeleteACategoryUseCaseImpl(createCategoriesServiceImpl());
 	}
-
 }

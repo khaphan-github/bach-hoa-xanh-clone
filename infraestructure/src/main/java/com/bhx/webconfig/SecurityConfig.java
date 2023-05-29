@@ -30,7 +30,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Allow access to Swagger UI and other static resources
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**","/static/**");
+        web.ignoring().antMatchers(
+                "/v2/api-docs",
+                "/configuration/**",
+                "/swagger-resources/**",
+                "/swagger-ui.html",
+                "/webjars/**"
+        );
     }
 
     @Override
@@ -46,9 +52,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
     private AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> response.sendRedirect("/error/test");
     }
+
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {

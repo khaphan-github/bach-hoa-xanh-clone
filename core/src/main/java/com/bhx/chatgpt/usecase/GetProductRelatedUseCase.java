@@ -1,11 +1,9 @@
 package com.bhx.chatgpt.usecase;
 
 import com.bhx.chatgpt.ChatGPTSuggestionMessageRequire;
-import com.bhx.product.Product;
 import com.bhx.product.exception.ProductNotFoundException;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author "KhaPhan" on 13-May-23
