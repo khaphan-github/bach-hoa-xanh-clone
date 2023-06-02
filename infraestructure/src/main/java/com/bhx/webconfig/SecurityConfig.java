@@ -38,16 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/","/shop/**","/direct/**","/contact/**","/error/**").permitAll() // Allow access to the authentication endpoint
-                    .antMatchers("/admin/**").authenticated()
+                    .antMatchers("/admin/**").permitAll()
                 .and().formLogin()
                 .loginPage("/admin/login").permitAll()
                     .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-    private AccessDeniedHandler accessDeniedHandler() {
-        return (request, response, accessDeniedException) -> response.sendRedirect("/error/test");
     }
     @Override
     @Bean

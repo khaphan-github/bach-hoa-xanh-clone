@@ -1,7 +1,5 @@
 package com.bhx.product.delivery.impl;
 
-import com.bhx.category.usecase.GetAllCategoriesUseCase;
-import com.bhx.product.Product;
 import com.bhx.product.delivery.ProductController;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.delivery.converters.view.ProductView;
@@ -28,8 +26,7 @@ public class ProductControllerImpl implements ProductController {
 
     private final ProductMvcConverter productMvcConverter;
 
-    @Autowired
-    private EmailService emailService;
+
     @Override
     @GetMapping({"/", "/index"})
     public String index(Model model) throws ProductNotFoundException {
@@ -54,49 +51,22 @@ public class ProductControllerImpl implements ProductController {
 
     @Override
     @GetMapping("/direct/details")
-    public String direct_detail(Model model) {
+    public String directDetails(Model model) {
         model.addAttribute("active","direct");
         return "public/direct/details";
     }
 
     @Override
     @GetMapping("/direct/shopping_cart")
-    public String direct_shopping_cart(Model model) {
+    public String directShoppingCart(Model model) {
         model.addAttribute("active","direct");
         return "public/direct/shopping_cart";
     }
 
     @Override
     @GetMapping("/direct/checkout")
-    public String direct_checkout(Model model) {
+    public String directCheckout(Model model) {
         model.addAttribute("active","direct");
         return "public/direct/checkout";
-    }
-
-    @Override
-    @GetMapping("/admin")
-    public String admin(Model model) {
-        model.addAttribute("selected","dashboard");
-        return "admin/main/index";
-    }
-    @GetMapping("/admin/login")
-    @Override
-    public String show_admin_login() {
-        return "admin/auth/login";
-    }
-
-    @Override
-    @GetMapping("/admin/products")
-    public String admin_products(Model model) throws ProductNotFoundException {
-        model.addAttribute("selected","products");
-        List<Product> products = getAllProductsUseCase.execute().stream().collect(Collectors.toList());
-        System.out.println(products.get(0).toString());
-        model.addAttribute("list_products",products);
-        try {
-            emailService.sendEmail("ledothanhdat1208@gmail.com","Test","Khánh ngu");
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-        return "admin/products/index";
     }
 }
