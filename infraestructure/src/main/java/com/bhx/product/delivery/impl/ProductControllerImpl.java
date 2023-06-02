@@ -2,7 +2,6 @@ package com.bhx.product.delivery.impl;
 
 import com.bhx.product.delivery.ProductController;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
-import com.bhx.product.delivery.converters.view.ProductView;
 import com.bhx.product.exception.ProductNotFoundException;
 import com.bhx.product.usecase.GetAllProductsUseCase;
 import com.bhx.product.usecase.GetOneProductUseCase;

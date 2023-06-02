@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
  * @author "KhaPhan" on 13-May-23
  * @project clean-architecture
  */
+@Component
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "chat.gpt")
-@Configuration("application")
 public class ConfigVariable {
-    String endpoint;
+    @Value("${chat.gpt.endpoint}")
+    private String endpoint;
     String secretKey;
     String model;
     Boolean enable;
