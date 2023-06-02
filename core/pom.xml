@@ -49,6 +49,12 @@
             <version>2.14.2</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-storage</artifactId>
+            <version>1.113.0</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
