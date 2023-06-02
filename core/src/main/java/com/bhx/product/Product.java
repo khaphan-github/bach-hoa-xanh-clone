@@ -19,7 +19,7 @@ import java.util.List;
 public class Product extends SelfValidating<Product> implements Serializable {
     @NotEmpty
     private String id;
-    @NotEmpty()
+    @NotEmpty
     private String name;
     private String searchName;
 
