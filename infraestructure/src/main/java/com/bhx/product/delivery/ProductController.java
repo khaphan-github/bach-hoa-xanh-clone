@@ -5,15 +5,16 @@ import org.springframework.ui.Model;
 
 public interface ProductController {
 
-    String index(Model model) throws ProductNotFoundException;
+    String index(Model model) throws Exception;
 
     String contact(Model model);
 
     String shop(Model model);
 
-    String direct_detail(Model model);
+    String directDetails(Model model);
 
-    String direct_shopping_cart(Model model);
+    String directShoppingCart(Model model);
 
-    String direct_checkout(Model model);
+    String directCheckout(Model model);
+
 }

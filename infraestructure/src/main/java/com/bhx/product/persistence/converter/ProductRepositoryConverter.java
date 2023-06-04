@@ -1,7 +1,5 @@
 package com.bhx.product.persistence.converter;
 
-import com.bhx.category.Category;
-import com.bhx.category.persistence.entities.CategoryEntity;
 import com.bhx.global.shared.RepositoryConverter;
 import com.bhx.product.Product;
 import com.bhx.product.persistence.entities.ProductEntity;
@@ -24,7 +22,7 @@ public class ProductRepositoryConverter implements RepositoryConverter<ProductEn
                 persistenceObject.getPrice(),
                 persistenceObject.getDiscount(),
                 persistenceObject.getQuantity(),
-                persistenceObject.getCategory(),
+                persistenceObject.getCategoryId(),
                 persistenceObject.getCreatedDate(),
                 persistenceObject.getUpdatedDate(),
                 persistenceObject.isAvailable()
@@ -44,7 +42,7 @@ public class ProductRepositoryConverter implements RepositoryConverter<ProductEn
                 entityObject.getPrice(),
                 entityObject.getDiscount(),
                 entityObject.getQuantity(),
-                entityObject.getCategory(),
+                entityObject.getCategoryId(),
                 entityObject.getCreatedDate(),
                 entityObject.getUpdatedDate(),
                 entityObject.isAvailable()

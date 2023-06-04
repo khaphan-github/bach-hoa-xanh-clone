@@ -1,19 +1,20 @@
 package com.bhx.product.delivery.impl;
 
-import com.bhx.category.usecase.GetAllCategoriesUseCase;
-import com.bhx.product.Product;
 import com.bhx.product.delivery.ProductController;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
-import com.bhx.product.delivery.converters.view.ProductView;
 import com.bhx.product.exception.ProductNotFoundException;
 import com.bhx.product.usecase.GetAllProductsUseCase;
 import com.bhx.product.usecase.GetOneProductUseCase;
+import com.bhx.rootcategory.usecase.GetLastIdUseCase;
+import com.bhx.webconfig.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,20 +23,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductControllerImpl implements ProductController {
     private final GetAllProductsUseCase getAllProductsUseCase;
-
+    private final GetLastIdUseCase getLastIdUseCase;
     private final ProductMvcConverter productMvcConverter;
+
+
     @Override
     @GetMapping({"/", "/index"})
-    public String index(Model model) throws ProductNotFoundException {
+    public String index(Model model) throws Exception {
         model.addAttribute("active","home");
-
-        List<ProductView> products = getAllProductsUseCase.execute()
-                .stream().map(productMvcConverter::mapToRest)
-                .collect(Collectors.toList());
-
-        log.debug(String.valueOf(products.size()));
-        model.addAttribute("products", products);
-
         return "public/home/index";
     }
 
@@ -55,21 +50,21 @@ public class ProductControllerImpl implements ProductController {
 
     @Override
     @GetMapping("/direct/details")
-    public String direct_detail(Model model) {
+    public String directDetails(Model model) {
         model.addAttribute("active","direct");
         return "public/direct/details";
     }
 
     @Override
     @GetMapping("/direct/shopping_cart")
-    public String direct_shopping_cart(Model model) {
+    public String directShoppingCart(Model model) {
         model.addAttribute("active","direct");
         return "public/direct/shopping_cart";
     }
 
     @Override
     @GetMapping("/direct/checkout")
-    public String direct_checkout(Model model) {
+    public String directCheckout(Model model) {
         model.addAttribute("active","direct");
         return "public/direct/checkout";
     }

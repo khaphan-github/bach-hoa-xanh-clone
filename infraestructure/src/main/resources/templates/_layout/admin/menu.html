@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <aside th:fragment="menu" id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo">
+    <a th:href="@{/admin}" class="app-brand-link">
+
+      <span class="app-brand-text demo menu-text fw-bolder ms-2">Organi Base</span>
+    </a>
+
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
+    </a>
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+
+  <ul class="menu-inner py-1">
+    <!-- Dashboard -->
+    <li th:classappend="${selected == 'dashboard' ? 'active' : ''}" class="menu-item">
+      <a th:href="@{/admin}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Analytics">Bảng điều khiển</div>
+      </a>
+    </li>
+
+    <!-- Products -->
+    <li th:classappend="${selected == 'products' ? 'active open' : ''}" class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-barcode-reader"></i>
+        <div data-i18n="Products">Sản phẩm</div>
+      </a>
+
+      <ul class="menu-sub">
+        <li class="menu-item" th:classappend="${subSelected == 'listProducts' ? 'active' : ''}">
+          <a th:href="@{/admin/products}" class="menu-link">
+            <div data-i18n="List Products">Danh sách sản phẩm</div>
+          </a>
+        </li>
+        <li class="menu-item" th:classappend="${subSelected == 'productCategory' ? 'active' : ''}">
+          <a th:href="@{/admin/products/category}" class="menu-link">
+            <div data-i18n="List Products">Loại sản phẩm</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-archive"></i>
+        <div data-i18n="Account Settings">Kho</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="pages-account-settings-account.html" class="menu-link">
+            <div data-i18n="Account">Account</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-purchase-tag"></i>
+        <div data-i18n="Authentications">Khuyến mãi</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="auth-login-basic.html" class="menu-link" target="_blank">
+            <div data-i18n="Basic">Login</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-shield-quarter"></i>
+        <div data-i18n="Authentications">Phân quyền</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="auth-login-basic.html" class="menu-link" target="_blank">
+            <div data-i18n="Basic">Login</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <!--User -->
+    <li class="menu-item">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-user"></i>
+        <div data-i18n="User interface">Khách hàng</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="ui-accordion.html" class="menu-link">
+            <div data-i18n="Accordion">Đơn hàng</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="ui-alerts.html" class="menu-link">
+            <div data-i18n="Alerts">Thanh toán</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!-- User interface -->
+    <li class="menu-item">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-support"></i>
+        <div data-i18n="User interface">Chăm sóc khách hàng</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="ui-accordion.html" class="menu-link">
+            <div data-i18n="Accordion">Đơn hàng</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="ui-alerts.html" class="menu-link">
+            <div data-i18n="Alerts">Thanh toán</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-item">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-box"></i>
+        <div data-i18n="User interface">Đơn hàng</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="ui-accordion.html" class="menu-link">
+            <div data-i18n="Accordion">Đơn hàng</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-item">
+      <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-dollar"></i>
+        <div data-i18n="User interface">Thanh toán</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="ui-accordion.html" class="menu-link">
+            <div data-i18n="Accordion">Đơn hàng</div>
+          </a>
+        </li>
+
+      </ul>
+    </li>
+  </ul>
+</aside>
+</body>
+</html>
