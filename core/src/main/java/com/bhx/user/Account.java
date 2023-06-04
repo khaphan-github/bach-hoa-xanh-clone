@@ -45,4 +45,16 @@ public class Account extends SelfValidating<Account> implements Serializable {
         this.isActive = isActive;
     }
 
+    public Account(String id, String username, String email, String phone, String address, String permissionName, Date createdAt, Date lastLogin, boolean active) {
+        this.id = id;
+        this.username = username;
+        this.displayName = displayName;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.permissionId = permissionId;
+        this.createdAt = createdAt;
+        this.lastLogin = lastLogin;
+        this.isActive = isActive;
+    }
 }
