@@ -20,5 +20,4 @@ public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
 
 		categoryRepositoryService.saveCategory(category);
 	}
-
 }

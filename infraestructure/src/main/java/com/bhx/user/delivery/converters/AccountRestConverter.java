@@ -14,12 +14,29 @@ public class AccountRestConverter implements RestConverter<AccountView, Account>
     @Override
     public Account mapToEntity(final AccountView viewModel) {
         return new Account(
-
+                viewModel.getId(),
+                viewModel.getUsername(),
+                viewModel.getEmail(),
+                viewModel.getPhone(),
+                viewModel.getAddress(),
+                viewModel.getPermissionName(),
+                viewModel.getCreatedAt(),
+                viewModel.getLastLogin(),
+                viewModel.isActive()
         );
     }
 
     @Override
     public AccountView mapToRest(final Account entity) {
-        return new AccountView();
+        return new AccountView(
+                entity.getId(),
+                entity.getUsername(),
+                entity.getEmail(),
+                entity.getPhone(),
+                entity.getAddress(),
+                entity.getPermissionId(),
+                entity.getCreatedAt(),
+                entity.getLastLogin(),
+                entity.isActive());
     }
 }
