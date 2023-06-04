@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/","/shop/**","/direct/**","/contact/**","/error/**").permitAll() // Allow access to the authentication endpoint
+                    .antMatchers("/","/shop/**","/direct/**","/contact/**","/error/**","/test").permitAll() // Allow access to the authentication endpoint
                     .antMatchers("/admin/**").permitAll()
                 .and().formLogin()
                 .loginPage("/admin/login").permitAll()

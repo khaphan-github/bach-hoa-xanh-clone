@@ -6,5 +6,5 @@ import org.springframework.data.mongodb.repository.Query;
 
 public interface RootCategoryRepository extends MongoRepository<RootCategoryEntity, String> {
 
-    int findFirstByOrderByidDesc();
+
 }

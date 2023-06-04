@@ -3,11 +3,13 @@
  */
 'use strict';
 
+import {PerfectScrollbar} from "../../libs/perfect-scrollbar/perfect-scrollbar";
+
 document.addEventListener('DOMContentLoaded', function () {
   (function () {
     const verticalExample = document.getElementById('vertical-example'),
-      horizontalExample = document.getElementById('horizontal-example'),
-      horizVertExample = document.getElementById('both-scrollbars-example');
+        verticalExample2 = document.getElementById('vertical-example2'),
+        verticalExample3 = document.getElementById('vertical-example3');
 
     // Vertical Example
     // --------------------------------------------------------------------
@@ -17,21 +19,17 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
-    // Horizontal Example
-    // --------------------------------------------------------------------
-    if (horizontalExample) {
-      new PerfectScrollbar(horizontalExample, {
-        wheelPropagation: false,
-        suppressScrollY: true
-      });
-    }
-
-    // Both vertical and Horizontal Example
-    // --------------------------------------------------------------------
-    if (horizVertExample) {
-      new PerfectScrollbar(horizVertExample, {
+    if (verticalExample2) {
+      new PerfectScrollbar(verticalExample2,{
         wheelPropagation: false
       });
     }
+
+    if (verticalExample3) {
+      new PerfectScrollbar(verticalExample3, {
+        wheelPropagation: false
+      });
+    }
+
   })();
 });

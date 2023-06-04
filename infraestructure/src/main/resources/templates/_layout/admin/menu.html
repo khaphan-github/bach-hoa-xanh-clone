@@ -25,16 +25,21 @@
     </li>
 
     <!-- Products -->
-    <li th:classappend="${selected == 'products' ? 'active' : ''}" class="menu-item">
+    <li th:classappend="${selected == 'products' ? 'active open' : ''}" class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-barcode-reader"></i>
         <div data-i18n="Products">Sản phẩm</div>
       </a>
 
       <ul class="menu-sub">
-        <li class="menu-item">
+        <li class="menu-item" th:classappend="${subSelected == 'listProducts' ? 'active' : ''}">
           <a th:href="@{/admin/products}" class="menu-link">
             <div data-i18n="List Products">Danh sách sản phẩm</div>
+          </a>
+        </li>
+        <li class="menu-item" th:classappend="${subSelected == 'productCategory' ? 'active' : ''}">
+          <a th:href="@{/admin/products/category}" class="menu-link">
+            <div data-i18n="List Products">Loại sản phẩm</div>
           </a>
         </li>
       </ul>

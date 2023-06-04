@@ -5,6 +5,7 @@ import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.exception.ProductNotFoundException;
 import com.bhx.product.usecase.GetAllProductsUseCase;
 import com.bhx.product.usecase.GetOneProductUseCase;
+import com.bhx.rootcategory.usecase.GetLastIdUseCase;
 import com.bhx.webconfig.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,15 +23,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductControllerImpl implements ProductController {
     private final GetAllProductsUseCase getAllProductsUseCase;
-
+    private final GetLastIdUseCase getLastIdUseCase;
     private final ProductMvcConverter productMvcConverter;
 
 
     @Override
     @GetMapping({"/", "/index"})
-    public String index(Model model) throws ProductNotFoundException {
+    public String index(Model model) throws Exception {
         model.addAttribute("active","home");
-
         return "public/home/index";
     }
 

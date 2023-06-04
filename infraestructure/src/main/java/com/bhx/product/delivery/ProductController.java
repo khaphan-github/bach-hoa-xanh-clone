@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 
 public interface ProductController {
 
-    String index(Model model) throws ProductNotFoundException;
+    String index(Model model) throws Exception;
 
     String contact(Model model);
 

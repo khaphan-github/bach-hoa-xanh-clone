@@ -42,12 +42,24 @@ public class AdminControllerImpl implements AdminController {
         return "admin/auth/login";
     }
 
+
+//Product
     @Override
     @GetMapping("/products")
     public String adminProductsView(Model model) throws ProductNotFoundException {
         model.addAttribute("selected","products");
-        List<Product> products = new ArrayList<Product>(getAllProductsUseCase.execute());
-        model.addAttribute("list_products",products);
+        model.addAttribute("subSelected","listProducts");
+
         return "admin/products/index";
+    }
+
+    @GetMapping("/products/category")
+    @Override
+    public String adminProductCategoryView(Model model) {
+
+        model.addAttribute("selected","products");
+        model.addAttribute("subSelected","productCategory");
+
+        return "admin/products/category";
     }
 }
