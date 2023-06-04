@@ -1,26 +1,58 @@
-package com.bhx.map;
+package com.bhx.map.persistence.impl;
 
+import com.bhx.map.ports.MapRepositoryService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
-import org.locationtech.jts.io.ParseException;
-import org.locationtech.jts.io.WKTReader;
-import org.locationtech.jts.io.WKTWriter;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
-public class GeocodingService {
-    public static List<Double> geocodeAddress(String address) throws IOException, InterruptedException {
+public class MapServiceImpl implements MapRepositoryService {
+    @Override
+    public String getNearestAddress(String sourceAddress, List<String> addresses) throws IOException, InterruptedException {
+        List<Double> sourceCoordinates = geocodeAddress(sourceAddress);
+        if (sourceCoordinates == null) {
+            return null; // Không tìm thấy tọa độ cho địa chỉ nguồn
+        }
+
+        Point sourcePoint = createPoint(sourceCoordinates.get(1), sourceCoordinates.get(0));
+        if (sourcePoint == null) {
+            return null; // Không thể tạo điểm từ tọa độ nguồn
+        }
+
+        String nearestAddress = null;
+        double minDistance = Double.MAX_VALUE;
+
+        for (String address : addresses) {
+            List<Double> coordinates = geocodeAddress(address);
+            if (coordinates != null) {
+                Point point = createPoint(coordinates.get(1), coordinates.get(0));
+                if (point != null) {
+                    double distance = calculateDistance(sourcePoint.getY(), sourcePoint.getX(), point.getY(), point.getX());
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        nearestAddress = address;
+                    }
+                }
+            }
+        }
+
+        return nearestAddress;
+    }
+
+    @Override
+    public List<Double> geocodeAddress(String address) throws IOException, InterruptedException {
         String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8.toString());
         String apiUrl = "https://nominatim.openstreetmap.org/search?format=geojson&q=" + encodedAddress;
 
@@ -53,7 +85,8 @@ public class GeocodingService {
         return null;
     }
 
-    public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+    @Override
+    public double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         double earthRadius = 6371; // Bán kính Trái Đất (đơn vị: kilômét)
         double dLat = Math.toRadians(lat2 - lat1);
         double dLon = Math.toRadians(lon2 - lon1);
@@ -66,43 +99,9 @@ public class GeocodingService {
         return distance;
     }
 
-    public String findNearestAddress(String sourceAddress, List<String> addresses) throws IOException, InterruptedException {
-        List<Double> sourceCoordinates = geocodeAddress(sourceAddress);
-        if (sourceCoordinates == null) {
-            return null; // Không tìm thấy tọa độ cho địa chỉ nguồn
-        }
-
-        Point sourcePoint = createPoint(sourceCoordinates.get(1), sourceCoordinates.get(0));
-        if (sourcePoint == null) {
-            return null; // Không thể tạo điểm từ tọa độ nguồn
-        }
-
-        String nearestAddress = null;
-        double minDistance = Double.MAX_VALUE;
-
-        for (String address : addresses) {
-            List<Double> coordinates = geocodeAddress(address);
-            if (coordinates != null) {
-                Point point = createPoint(coordinates.get(1), coordinates.get(0));
-                if (point != null) {
-                    double distance = calculateDistance(sourcePoint.getY(), sourcePoint.getX(), point.getY(), point.getX());
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        nearestAddress = address;
-                    }
-                }
-            }
-        }
-
-        return nearestAddress;
-    }
 
     private Point createPoint(double latitude, double longitude) {
         GeometryFactory geometryFactory = new GeometryFactory();
         return geometryFactory.createPoint(new Coordinate(longitude, latitude));
     }
-
-
-
-
 }

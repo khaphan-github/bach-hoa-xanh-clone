@@ -7,6 +7,8 @@ import com.bhx.firebase.usecase.UploadImagesProductImpl;
 import com.bhx.firebase.FirebaseService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.BasicConfigurator;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,23 +32,30 @@ public class UploadImagesProductTest {
 
     @Autowired
     private FirebaseService firebaseService;
+
     private UploadImagesProduct uploadImagesProduct;
 
+    @Autowired
     private FirebaseRepositoryService firebaseRepositoryService;
+
+    @BeforeEach
+    public void setUp(){
+        firebaseService = Mockito.mock(FirebaseService.class);
+    }
 
     @Test
     public void testUploadMultipleImages() throws Exception {
-        firebaseService = Mockito.mock(FirebaseService.class);
+
         List<Image> images = new ArrayList<>();
         uploadImagesProduct = new UploadImagesProductImpl(firebaseRepositoryService);
         firebaseRepositoryService = new FirebaseServiceImpl();
         try {
             // Read the first image from file
-            Image image1 = ImageIO.read(new File("C:\\Users\\VITNHTHIENVU.COM\\OneDrive\\Desktop\\anhthuchanhbmmt\\deDES.PNG"));
+            Image image1 = ImageIO.read(new File("C:\\Users\\Depv247\\Desktop\\kk.jpg"));
             images.add(image1);
 
             // Read the second image from file
-            Image image2 = ImageIO.read(new File("C:\\Users\\VITNHTHIENVU.COM\\OneDrive\\Desktop\\anhthuchanhbmmt\\deAES.PNG"));
+            Image image2 = ImageIO.read(new File("C:\\Users\\Depv247\\Desktop\\kimkhanhhhhhh.jpg"));
             images.add(image2);
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,7 +64,7 @@ public class UploadImagesProductTest {
         // Set up the expected values
         String bucketName = "bhx-clone.appspot.com";
         List<String> imageNames = new ArrayList<>(Arrays.asList("image1.jpg", "image2.jpg"));
-        List<String> imagePaths = new ArrayList<>(Arrays.asList("C:\\Users\\VITNHTHIENVU.COM\\OneDrive\\Desktop\\anhthuchanhbmmt\\deDES.PNG", "C:\\Users\\VITNHTHIENVU.COM\\OneDrive\\Desktop\\anhthuchanhbmmt\\deAES.PNG"));
+        List<String> imagePaths = new ArrayList<>(Arrays.asList("C:\\Users\\Depv247\\Desktop\\kk.jpg", "C:\\Users\\Depv247\\Desktop\\kimkhanhhhhhh.jpg"));
         List<String> publicUrls = new ArrayList<>(Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg"));
 
 

@@ -1,29 +1,40 @@
 package com.bhx.map.rest;
 
-import com.bhx.map.GeocodingService;
+import com.bhx.firebase.FirebaseService;
+import com.bhx.map.persistence.impl.MapServiceImpl;
+import com.bhx.map.ports.MapRepositoryService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
+import org.junit.jupiter.api.BeforeEach;
 import org.locationtech.jts.io.ParseException;
-import org.locationtech.jts.io.WKTReader;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
+@SpringJUnitConfig
+@SpringBootTest
 public class DistanceCalculationTest {
 
-    private GeocodingService geocodingService = new GeocodingService();
+    @Autowired
+    private MapRepositoryService mapRepositoryService;
+
     @Test
     public void testCalculateDistance() throws ParseException, IOException, InterruptedException {
+        mapRepositoryService = new MapServiceImpl();
         String address = "xã Trí Bình ,huyện Châu Thành,tỉnh Tây Ninh, Viet Nam";
-        List<Double> point = GeocodingService.geocodeAddress(address);
+        List<Double> point = mapRepositoryService.geocodeAddress(address);
 
         String address2 = "Quận 10, Thành phố hồ chí minh, Việt Nam";
-        List<Double> point2 = GeocodingService.geocodeAddress(address2);
+        List<Double> point2 = mapRepositoryService.geocodeAddress(address2);
 
-        double result = GeocodingService.calculateDistance(point.get(1), point.get(0), point2.get(1), point2.get(0));
+        double result = mapRepositoryService.calculateDistance(point.get(1), point.get(0), point2.get(1), point2.get(0));
         Assert.assertNotNull(result);
 
     }
