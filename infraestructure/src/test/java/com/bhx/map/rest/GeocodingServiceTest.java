@@ -24,7 +24,6 @@ public class GeocodingServiceTest {
         double expectedLatitude = 11.3127189;
         double expectedLongitude = 106.0228282;
         double epsilon = 0.1; // Độ chính xác mong đợi
-
         Assert.assertEquals(expectedLatitude, point.get(1), epsilon);
         Assert.assertEquals(expectedLongitude, point.get(0), epsilon);
     }
