@@ -1,9 +1,9 @@
 package com.bhx.user.serviceimpl;
 
-import com.bhx.user.Account;
+import com.bhx.securityconfig.user.Account;
 import com.bhx.user.persistence.entities.AccountEntity;
 import com.bhx.user.persistence.repository.AccountRepository;
-import com.bhx.user.ports.AccountRepositoryService;
+import com.bhx.securityconfig.user.ports.AccountRepositoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
@@ -38,16 +38,17 @@ public class CreateAccountTest {
 
     @AfterEach
     void restore() {
-        accountRepository.deleteAll();
+
     }
 
     @Test
     void createAccountTest() {
         String accountId = new ObjectId().toString();
-        String username = "TestUsername";
+        String username = "admin";
         Account newAccount = new Account();
         newAccount.setId(accountId);
         newAccount.setUsername(username);
+        newAccount.setPassword("admin");
 
         accountRepositoryService.saveAccount(newAccount);
         Optional<AccountEntity> accountEntity = accountRepository.findById(accountId);

@@ -2,8 +2,9 @@ package com.bhx.permission.usecase;
 
 import com.bhx.permission.persistence.converters.PermissionRepositoryConverter;
 import com.bhx.permission.persistence.repository.PermissionRepository;
-import com.bhx.permission.Permission;
-import com.bhx.permission.exception.PermissionNotFoundException;
+import com.bhx.securityconfig.permission.Permission;
+import com.bhx.securityconfig.permission.exception.PermissionNotFoundException;
+import com.bhx.securityconfig.permission.usecase.GetOnePermissionUseCase;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;

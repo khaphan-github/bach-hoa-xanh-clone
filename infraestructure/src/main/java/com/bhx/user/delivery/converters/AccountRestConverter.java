@@ -1,9 +1,7 @@
 package com.bhx.user.delivery.converters;
 
 import com.bhx.global.shared.RestConverter;
-import com.bhx.permission.Permission;
-import com.bhx.permission.delivery.response.PermissionView;
-import com.bhx.user.Account;
+import com.bhx.securityconfig.user.Account;
 import com.bhx.user.delivery.response.AccountView;
 
 /**

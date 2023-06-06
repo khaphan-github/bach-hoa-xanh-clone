@@ -2,12 +2,12 @@ package com.bhx.user.configuration;
 
 import com.bhx.permission.persistence.impl.PermissionServiceImpl;
 import com.bhx.permission.persistence.repository.PermissionRepository;
+import com.bhx.securityconfig.user.usecase.*;
 import com.bhx.user.delivery.converters.AccountRestConverter;
 import com.bhx.user.persistence.converters.AccountRepositoryConverter;
 import com.bhx.user.persistence.impl.AccountServiceImpl;
 import com.bhx.user.persistence.impl.CryptoServiceImpl;
 import com.bhx.user.persistence.repository.AccountRepository;
-import com.bhx.user.usecase.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -75,8 +75,4 @@ public class AccountConfiguration {
         return new UpdateAccountUseCaseImpl(accountService());
     }
 
-    @Bean
-    public UpdatePermissionToUserUseCaseImpl updatePermissionToUserUseCase() {
-        return new UpdatePermissionToUserUseCaseImpl(accountService(), permissionService);
-    }
 }

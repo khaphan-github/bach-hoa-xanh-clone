@@ -3,8 +3,8 @@ package com.bhx.permission.persistence.impl;
 import com.bhx.permission.persistence.converters.PermissionRepositoryConverter;
 import com.bhx.permission.persistence.entities.PermissionEntity;
 import com.bhx.permission.persistence.repository.PermissionRepository;
-import com.bhx.permission.Permission;
-import com.bhx.permission.ports.PermissionRepositoryService;
+import com.bhx.securityconfig.permission.Permission;
+import com.bhx.securityconfig.permission.ports.PermissionRepositoryService;
 import lombok.AllArgsConstructor;
 
 import java.util.Collection;

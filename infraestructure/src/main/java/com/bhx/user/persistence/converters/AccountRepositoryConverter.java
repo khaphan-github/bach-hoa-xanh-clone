@@ -1,7 +1,7 @@
 package com.bhx.user.persistence.converters;
 
 import com.bhx.global.shared.RepositoryConverter;
-import com.bhx.user.Account;
+import com.bhx.securityconfig.user.Account;
 import com.bhx.user.persistence.entities.AccountEntity;
 
 /**
