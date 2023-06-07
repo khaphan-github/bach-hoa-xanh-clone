@@ -26,6 +26,7 @@ public class Account extends SelfValidating<Account> implements Serializable {
     private String displayName;
     private String email;
     private String phone;
+    private Group group;
     private String address;
     private String permissionId;
     private Permission permission;

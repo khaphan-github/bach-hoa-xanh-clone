@@ -1,7 +1,7 @@
-package com.bhx.permission.persistence.converters;
+package com.bhx.securityconfig.permission.persistence.converters;
 
+import com.bhx.securityconfig.permission.persistence.entities.PermissionEntity;
 import com.bhx.global.shared.RepositoryConverter;
-import com.bhx.permission.persistence.entities.PermissionEntity;
 import com.bhx.securityconfig.permission.Permission;
 
 /**

@@ -1,7 +1,7 @@
-package com.bhx.permission.delivery.converters;
+package com.bhx.securityconfig.permission.delivery.converters;
 
+import com.bhx.securityconfig.permission.delivery.response.PermissionView;
 import com.bhx.global.shared.RestConverter;
-import com.bhx.permission.delivery.response.PermissionView;
 import com.bhx.securityconfig.permission.Permission;
 
 /**

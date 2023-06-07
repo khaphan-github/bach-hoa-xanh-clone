@@ -1,6 +1,6 @@
-package com.bhx.permission.delivery;
+package com.bhx.securityconfig.permission.delivery;
 
-import com.bhx.permission.delivery.response.PermissionView;
+import com.bhx.securityconfig.permission.delivery.response.PermissionView;
 
 /**
  * @author "KhaPhan" on 22-May-23

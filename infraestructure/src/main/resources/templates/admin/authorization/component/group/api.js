@@ -3,7 +3,7 @@ function fetchGroupPermission() {
       {
         group: 'Admin',
         description: 'Quản trị viên hệ thống',
-        status: 'Active',
+        active: true,
         id: 1,
       },
     ];

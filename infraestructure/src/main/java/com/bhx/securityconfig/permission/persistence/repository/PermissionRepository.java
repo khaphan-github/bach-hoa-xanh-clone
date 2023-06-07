@@ -1,6 +1,6 @@
-package com.bhx.permission.persistence.repository;
+package com.bhx.securityconfig.permission.persistence.repository;
 
-import com.bhx.permission.persistence.entities.PermissionEntity;
+import com.bhx.securityconfig.permission.persistence.entities.PermissionEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

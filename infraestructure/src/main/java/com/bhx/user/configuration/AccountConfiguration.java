@@ -1,7 +1,7 @@
 package com.bhx.user.configuration;
 
-import com.bhx.permission.persistence.impl.PermissionServiceImpl;
-import com.bhx.permission.persistence.repository.PermissionRepository;
+import com.bhx.securityconfig.permission.persistence.impl.PermissionServiceImpl;
+import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
 import com.bhx.securityconfig.user.usecase.*;
 import com.bhx.user.delivery.converters.AccountRestConverter;
 import com.bhx.user.persistence.converters.AccountRepositoryConverter;

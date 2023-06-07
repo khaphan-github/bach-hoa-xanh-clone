@@ -1,8 +1,8 @@
 package com.bhx.user.persistence.impl;
 
 import com.bhx.securityconfig.permission.exception.PermissionNotFoundException;
-import com.bhx.permission.persistence.entities.PermissionEntity;
-import com.bhx.permission.persistence.repository.PermissionRepository;
+import com.bhx.securityconfig.permission.persistence.entities.PermissionEntity;
+import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
 import com.bhx.securityconfig.user.Account;
 import com.bhx.securityconfig.user.exception.WrongUsernameOrPasswordException;
 import com.bhx.user.persistence.converters.AccountRepositoryConverter;

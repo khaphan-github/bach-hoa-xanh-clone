@@ -29,8 +29,6 @@ public class CreateAccountConverter implements RestConverter<CreateAccountDto, A
 
         accountConvertFromCreateAccountDto.setCreatedAt(new Date());
 
-        accountConvertFromCreateAccountDto.setPermissionId(createAccountDto.getPermissionId());
-
         return accountConvertFromCreateAccountDto;
     }
 }

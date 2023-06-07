@@ -3,7 +3,10 @@
 <body>
 <div class="d-flex justify-content-between" style="margin-button: 5px">
     <h5 class="">Danh sách tài khoản</h5>
-    <button type="button" class="btn btn-sm btn-primary">Thêm tài khoản</button>
+    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeAccountModal"
+            onclick="renderAccountFormModel('empty')">
+        Thêm Tài Khoản
+    </button>
 </div>
 <br>
 
@@ -12,7 +15,6 @@
         <table id="authorization-account-data-table" class="table table-bordered">
             <thead>
             <tr>
-                <th>Ảnh đại diện</th>
                 <th>Họ và tên</th>
                 <th>username</th>
                 <th>Số điện thoại</th>
@@ -23,6 +25,7 @@
             </tr>
             </thead>
             <tbody>
+            <!--                Binding d-->
             </tbody>
         </table>
     </div>

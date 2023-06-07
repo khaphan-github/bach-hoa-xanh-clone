@@ -1,7 +1,7 @@
 package com.bhx.permission.usecase;
 
-import com.bhx.permission.persistence.entities.PermissionEntity;
-import com.bhx.permission.persistence.repository.PermissionRepository;
+import com.bhx.securityconfig.permission.persistence.entities.PermissionEntity;
+import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
 import com.bhx.securityconfig.permission.Permission;
 import com.bhx.securityconfig.permission.exception.PermissionAlreadyExist;
 import com.bhx.securityconfig.permission.usecase.CreatePermissionUseCase;

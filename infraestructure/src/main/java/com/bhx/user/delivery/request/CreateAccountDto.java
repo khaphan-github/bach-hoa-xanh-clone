@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author "KhaPhan" on 29-May-23
@@ -18,5 +19,6 @@ public class CreateAccountDto implements Serializable {
     private String email;
     private String phone;
     private String address;
-    private String permissionId;
+    private Boolean active;
+    private List<String> groupIds;
 }

@@ -1,7 +1,7 @@
-package com.bhx.permission.delivery.impl;
+package com.bhx.securityconfig.permission.delivery.impl;
 
-import com.bhx.permission.delivery.PermissionController;
-import com.bhx.permission.delivery.response.PermissionView;
+import com.bhx.securityconfig.permission.delivery.PermissionController;
+import com.bhx.securityconfig.permission.delivery.response.PermissionView;
 import org.springframework.stereotype.Controller;
 
 /**

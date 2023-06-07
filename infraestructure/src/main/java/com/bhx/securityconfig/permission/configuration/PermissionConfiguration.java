@@ -1,9 +1,9 @@
-package com.bhx.permission.configuration;
+package com.bhx.securityconfig.permission.configuration;
 
-import com.bhx.permission.delivery.converters.PermissionRestConverter;
-import com.bhx.permission.persistence.converters.PermissionRepositoryConverter;
-import com.bhx.permission.persistence.impl.PermissionServiceImpl;
-import com.bhx.permission.persistence.repository.PermissionRepository;
+import com.bhx.securityconfig.permission.persistence.converters.PermissionRepositoryConverter;
+import com.bhx.securityconfig.permission.persistence.impl.PermissionServiceImpl;
+import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
+import com.bhx.securityconfig.permission.delivery.converters.PermissionRestConverter;
 import com.bhx.securityconfig.permission.usecase.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

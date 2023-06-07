@@ -12,61 +12,9 @@
                 </div>
                 <div class="modal-body">
                     <div class="row g-2">
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>Nhóm quyền</th>
-                                <th>Mô tả</th>
-                                <th>Trạng thái</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <span class="badge bg-label-success me-3">Nhân viên kho</span>
-                                </td>
-                                <td>
-                                    Chức năng tìm kiếm sản phẩm
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-primary"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#exLargeModal">
-                                        Hũy kích hoạt
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="badge bg-label-success me-2">Admin</span>
-                                </td>
-
-                                <td>
-                                    Chức năng tìm kiếm sản phẩm
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-primary"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#exLargeModal">
-                                        Kích hoạt
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="badge bg-label-success me-1">Nhân viên kinh doanh</span>
-                                </td>
-                                <td>Chức năng tìm kiếm sản phẩm</td>
-                                <td>
-                                    <button type="button" class="btn btn-sm btn-primary"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#exLargeModal">
-                                        Kích hoạt
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <div class="card mb-4">
+                            <div th:replace="admin/authorization/shared/group-selection"></div>
+                        </div>
                     </div>
 
                     <div class="row g-2">

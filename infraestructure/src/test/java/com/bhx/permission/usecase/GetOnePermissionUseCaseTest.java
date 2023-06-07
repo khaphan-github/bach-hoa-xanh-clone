@@ -1,7 +1,7 @@
 package com.bhx.permission.usecase;
 
-import com.bhx.permission.persistence.converters.PermissionRepositoryConverter;
-import com.bhx.permission.persistence.repository.PermissionRepository;
+import com.bhx.securityconfig.permission.persistence.converters.PermissionRepositoryConverter;
+import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
 import com.bhx.securityconfig.permission.Permission;
 import com.bhx.securityconfig.permission.exception.PermissionNotFoundException;
 import com.bhx.securityconfig.permission.usecase.GetOnePermissionUseCase;

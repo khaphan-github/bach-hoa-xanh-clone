@@ -4,6 +4,8 @@ import com.bhx.global.shared.RestConverter;
 import com.bhx.securityconfig.user.Account;
 import com.bhx.user.delivery.response.AccountView;
 
+import java.util.Collections;
+
 /**
  * @author "KhaPhan" on 29-May-23
  * @project clean-architecture
@@ -32,6 +34,7 @@ public class AccountRestConverter implements RestConverter<AccountView, Account>
                 entity.getEmail(),
                 entity.getPhone(),
                 entity.getAddress(),
+                Collections.singletonList(entity.getGroup().getName()),
                 entity.getPermissionId(),
                 entity.getCreatedAt(),
                 entity.getLastLogin(),

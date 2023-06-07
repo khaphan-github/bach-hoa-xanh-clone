@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author "KhaPhan" on 29-May-23
@@ -21,6 +22,7 @@ public class AccountView implements Serializable {
     private String email;
     private String phone;
     private String address;
+    private List<String> groupName;
     private String permissionName;
     private Date createdAt;
     private Date lastLogin;

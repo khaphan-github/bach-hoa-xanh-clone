@@ -15,12 +15,12 @@ function renderPermissionTable() {
     row.appendChild(functionCell);
 
     const groupCell = document.createElement('td');
-    const groupBadges = item.group.map((group) => `<span class="badge bg-label-primary me-1">${group}</span>`);
+    const groupBadges = item.group.map((group) => `<span class="badge bg-label-primary me-1">${group.name}</span>`);
     groupCell.innerHTML = groupBadges.join('');
     row.appendChild(groupCell);
 
     const statusCell = document.createElement('td');
-    statusCell.innerHTML = `<span class="badge bg-label-primary me-1">${item.status}</span>`;
+    statusCell.innerHTML = `<span class="badge bg-label-primary me-1">${item.active}</span>`;
     row.appendChild(statusCell);
 
     const descriptionCell = document.createElement('td');
@@ -35,6 +35,7 @@ function renderPermissionTable() {
     viewButton.setAttribute('data-bs-toggle', 'modal');
     viewButton.setAttribute('data-bs-target', '#exLargeModal');
     viewButton.textContent = 'Xem chi tiết';
+    viewButton.addEventListener('click', () =>  renderAccountFormModel(item));
 
     actionsCell.appendChild(viewButton);
     row.appendChild(actionsCell);

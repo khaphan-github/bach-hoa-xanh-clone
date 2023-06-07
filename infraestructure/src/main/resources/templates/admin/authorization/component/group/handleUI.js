@@ -29,6 +29,14 @@ function renderGroupPermissionTable() {
     viewButton.setAttribute('data-bs-toggle', 'modal');
     viewButton.setAttribute('data-bs-target', '#exLargeModal');
     viewButton.textContent = 'Xem chi tiết';
+    viewButton.addEventListener('click', () => {
+         toggleActivation(statusButton);
+
+         const status = statusButton.textContent;
+         handleSelectionGroup(selectedIds, group.id, statusButton.textContent);
+
+         callback(selectedIds);
+       });
 
     actionsCell.appendChild(viewButton);
     row.appendChild(actionsCell);

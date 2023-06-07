@@ -1,8 +1,8 @@
-package com.bhx.permission.persistence.impl;
+package com.bhx.securityconfig.permission.persistence.impl;
 
-import com.bhx.permission.persistence.converters.PermissionRepositoryConverter;
-import com.bhx.permission.persistence.entities.PermissionEntity;
-import com.bhx.permission.persistence.repository.PermissionRepository;
+import com.bhx.securityconfig.permission.persistence.converters.PermissionRepositoryConverter;
+import com.bhx.securityconfig.permission.persistence.entities.PermissionEntity;
+import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
 import com.bhx.securityconfig.permission.Permission;
 import com.bhx.securityconfig.permission.ports.PermissionRepositoryService;
 import lombok.AllArgsConstructor;
