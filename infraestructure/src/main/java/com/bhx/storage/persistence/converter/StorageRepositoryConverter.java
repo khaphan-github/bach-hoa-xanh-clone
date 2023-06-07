@@ -12,7 +12,8 @@ public class StorageRepositoryConverter implements RepositoryConverter<StorageEn
         return new StorageEntity(
                 persistenceObject.getId(),
                 persistenceObject.getProductId(),
-                persistenceObject.getAddress()
+                persistenceObject.getAddress(),
+                persistenceObject.getName()
         );
     }
 
@@ -21,7 +22,8 @@ public class StorageRepositoryConverter implements RepositoryConverter<StorageEn
         return new Storage(
                 entityObject.getId(),
                 entityObject.getProductId(),
-                entityObject.getAddress()
+                entityObject.getAddress(),
+                entityObject.getName()
         );
     }
 }

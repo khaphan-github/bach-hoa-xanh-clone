@@ -21,18 +21,26 @@ public class StorageServiceImpl implements StorageRepositoryService {
     }
 
     @Override
-    public boolean createAStorage(Storage storage) {
+    public boolean saveStorage(Storage storage) {
+        storageRepository.save(storageRepositoryConverter.mapToTable(storage));
+        return true;
+    }
 
-        return false;
+
+    @Override
+    public boolean deleteAStorage(String id) {
+        storageRepository.deleteById(id);
+        return true;
     }
 
     @Override
-    public boolean editAStorage(Storage storage) {
-        return false;
+    public boolean doesStorageNameExits(String name) {
+         storageRepository.findByName(name);
+        return true;
     }
 
     @Override
-    public boolean deleteAStorage(Storage storage) {
-        return false;
+    public boolean doesStorageIdExist(String id) {
+        return storageRepository.findById(id).isPresent();
     }
 }

@@ -6,7 +6,10 @@ import java.util.Optional;
 
 public interface StorageRepositoryService {
     public Optional<Storage> getAStorageById(String id);
-    public boolean createAStorage(Storage storage);
-    public boolean editAStorage(Storage storage);
-    public boolean deleteAStorage(Storage storage);
+    public boolean saveStorage(Storage storage);
+    public boolean deleteAStorage(String id);
+
+    public boolean doesStorageNameExits(String name);
+
+    public boolean doesStorageIdExist(String id);
 }

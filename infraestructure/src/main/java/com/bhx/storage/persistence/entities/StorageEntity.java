@@ -19,4 +19,5 @@ public class StorageEntity implements Serializable {
     private String id;
     private String productId;
     private String address;
+    private String name;
 }

@@ -16,4 +16,6 @@ public class Storage  extends SelfValidating<Storage> implements Serializable {
     private String id;
     private String productId;
     private String address;
+    private String name;
+
 }
