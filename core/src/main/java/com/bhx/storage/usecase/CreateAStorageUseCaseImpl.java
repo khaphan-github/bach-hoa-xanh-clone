@@ -9,6 +9,10 @@ public class CreateAStorageUseCaseImpl implements  CreateAStorageUseCase {
     private final StorageRepositoryService storageRepositoryService;
     @Override
     public Boolean excute(Storage storage) {
-        return storageRepositoryService.saveStorage(storage);
+        if(!storageRepositoryService.doesStorageNameExits(storage.getName()))
+        {
+            return storageRepositoryService.saveStorage(storage);
+        }
+        return false;
     }
 }

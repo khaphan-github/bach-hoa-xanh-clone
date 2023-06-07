@@ -34,4 +34,6 @@ public class ProductEntity implements Serializable {
     private Date createdDate;
     private Date updatedDate;
     private boolean isAvailable;
+    private String storageId;
+    private int inventory;
 }

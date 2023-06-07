@@ -25,7 +25,9 @@ public class ProductRepositoryConverter implements RepositoryConverter<ProductEn
                 persistenceObject.getCategoryId(),
                 persistenceObject.getCreatedDate(),
                 persistenceObject.getUpdatedDate(),
-                persistenceObject.isAvailable()
+                persistenceObject.isAvailable(),
+                persistenceObject.getStorageId(),
+                persistenceObject.getInventory()
         );
     }
 
@@ -45,7 +47,9 @@ public class ProductRepositoryConverter implements RepositoryConverter<ProductEn
                 entityObject.getCategoryId(),
                 entityObject.getCreatedDate(),
                 entityObject.getUpdatedDate(),
-                entityObject.isAvailable()
+                entityObject.isAvailable(),
+                entityObject.getStorageId(),
+                entityObject.getInventory()
         );
     }
 }

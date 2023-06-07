@@ -14,4 +14,5 @@ public interface StorageRepository extends MongoRepository<StorageEntity, String
     Collection<StorageEntity> findByProductId(String categoryId);
 
     Collection<StorageEntity> findByName(String name);
+
 }
