@@ -21,6 +21,5 @@ public interface AccountRepositoryService {
     Boolean isExistingAccountUsername(String name);
     void addPermissionToAccount(String accountId, String permissionId) throws PermissionNotFoundException, AccountNotFoundException;
     Account login(String username, String password) throws WrongUsernameOrPasswordException;
-
-    Account findAccountByUsername(String username);
+    Account findAccountByUsername(String username) throws AccountNotFoundException;
 }

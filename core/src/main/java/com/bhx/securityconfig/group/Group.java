@@ -24,4 +24,5 @@ public class Group extends SelfValidating<Group> implements Serializable {
     private String id;
     private String name;
     private String description;
+    private boolean active;
 }

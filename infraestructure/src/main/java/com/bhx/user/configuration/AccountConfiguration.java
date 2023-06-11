@@ -56,6 +56,11 @@ public class AccountConfiguration {
     }
 
     @Bean
+    public GetAccountsPagingUseCaseImpl getAccountsPagingUseCase() {
+        return new GetAccountsPagingUseCaseImpl(accountService());
+    }
+
+    @Bean
     public GetOneAccountUseCaseImpl getOneAccountUseCase() {
         return new GetOneAccountUseCaseImpl(accountService());
     }
@@ -75,4 +80,8 @@ public class AccountConfiguration {
         return new UpdateAccountUseCaseImpl(accountService());
     }
 
+    @Bean
+    public GetAccountByUserNameUseCaseImpl getAccountByUserNameUseCase() {
+        return new GetAccountByUserNameUseCaseImpl(accountService());
+    }
 }

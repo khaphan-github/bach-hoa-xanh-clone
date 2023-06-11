@@ -4,11 +4,14 @@
 <div th:fragment="authorization-group">
     <div class="d-flex justify-content-between" style="margin-button: 5px">
         <h5 class="">Danh sách nhóm quyền</h5>
-        <button type="button" class="btn btn-sm btn-primary">Thêm nhóm quyền</button>
+        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exLargeGroupModal"
+                onclick="">Thêm nhóm quyền
+        </button>
     </div>
     <br>
     <div class="table-responsive text-nowrap">
-        <table  id="authorization-group-data-table" class="table table-bordered">
+        <table id="authorization-group-data-table" class="table table-bordered">
             <thead>
             <tr>
                 <th>Nhóm quyền</th>

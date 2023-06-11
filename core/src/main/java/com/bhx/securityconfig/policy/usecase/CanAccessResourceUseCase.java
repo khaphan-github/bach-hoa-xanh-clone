@@ -7,5 +7,5 @@ import com.bhx.securityconfig.policy.exceptions.CanNotAccessResourceException;
  * @project clean-architecture
  */
 public interface CanAccessResourceUseCase {
-    void execute() throws CanNotAccessResourceException;
+    void execute(String accountId, String policyId) throws CanNotAccessResourceException;
 }

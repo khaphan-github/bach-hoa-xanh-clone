@@ -5,4 +5,5 @@ package com.bhx.securityconfig.group.usecase;
  * @project clean-architecture
  */
 public interface RemovePermissionFromGroupUseCase {
+    void execute(String permissionId, String groupId);
 }

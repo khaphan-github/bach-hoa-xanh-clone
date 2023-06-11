@@ -103,7 +103,11 @@ public class AccountServiceImpl implements AccountRepositoryService {
     }
 
     @Override
-    public Account findAccountByUsername(String username) {
-        return null;
+    public Account findAccountByUsername(String username) throws AccountNotFoundException {
+        Optional<AccountEntity> accountEntity = accountRepository.findByUsername(username);
+        if (accountEntity.isPresent()) {
+            return accountRepositoryConverter.mapToEntity(accountEntity.get());
+        }
+        throw new AccountNotFoundException("Account not found");
     }
 }

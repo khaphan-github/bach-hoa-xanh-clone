@@ -29,7 +29,7 @@ public interface GroupRepositoryService {
 
     void addAccountsToGroup(String groupId, List<Account> accounts) throws UserAlreadyInGroupException;
 
-    void addPermissionToGroup(String groupId, List<Permission> permissions) throws PermissionAlreadyExistInGroupException;
+    void addPermissionToGroup(String permissionId, List<Group> groups) throws PermissionAlreadyExistInGroupException;
 
     void addMenusToGroup(String groupId, List<Menu> menus) throws MenuAlreadyExistInGroupException;
 }
