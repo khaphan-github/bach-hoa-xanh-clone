@@ -10,6 +10,27 @@
 'use strict';
 
 (function ($) {
+    /*------------------
+            Locate
+        --------------------*/
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+      console.log("latitude: "+ latitude + "  longitude: " + longitude);
+      // Gửi latitude và longitude lên server để lấy địa chỉ tương ứng
+      // Các bước tiếp theo của bạn ở đây...
+
+    }, function(error) {
+      // Xử lý khi có lỗi định vị
+      console.log("Lỗi định vị: " + error.message);
+    });
+  } else {
+    // Trình duyệt không hỗ trợ định vị
+    // Xử lý theo logic của bạn
+    console.log("Trình duyệt không hỗ trợ định vị");
+  }
 
     /*------------------
         Preloader
@@ -220,5 +241,6 @@
         }
         $button.parent().find('input').val(newVal);
     });
+
 
 })(jQuery);

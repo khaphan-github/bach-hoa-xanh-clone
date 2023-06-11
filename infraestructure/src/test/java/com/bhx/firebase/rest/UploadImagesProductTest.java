@@ -1,12 +1,19 @@
 package com.bhx.firebase.rest;
 
-import com.bhx.firebase.FirebaseService;
+import com.bhx.firebase.persistence.impl.FirebaseServiceImpl;
+import com.bhx.firebase.ports.FirebaseRepositoryService;
 import com.bhx.firebase.usecase.UploadImagesProduct;
 import com.bhx.firebase.usecase.UploadImagesProductImpl;
+import com.bhx.firebase.FirebaseService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.log4j.BasicConfigurator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import javax.imageio.ImageIO;
 import java.awt.Image;
@@ -18,32 +25,37 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Slf4j
+@SpringJUnitConfig
+@SpringBootTest
 public class UploadImagesProductTest {
 
     @Autowired
-    UploadImagesProductImpl uploadImagesProduct = new UploadImagesProductImpl();
-    @Autowired
     private FirebaseService firebaseService;
 
-    @BeforeEach
-    public void setUp() {
-        // Create a mock instance of FirebaseService
-        firebaseService = Mockito.mock(FirebaseService.class);
+    private UploadImagesProduct uploadImagesProduct;
 
-        // Initialize the UploadImagesProduct instance with the mock FirebaseService
-        UploadImagesProduct uploadImagesProduct = new UploadImagesProductImpl();
+    @Autowired
+    private FirebaseRepositoryService firebaseRepositoryService;
+
+    @BeforeEach
+    public void setUp(){
+        firebaseService = Mockito.mock(FirebaseService.class);
     }
 
     @Test
     public void testUploadMultipleImages() throws Exception {
+
         List<Image> images = new ArrayList<>();
+        uploadImagesProduct = new UploadImagesProductImpl(firebaseRepositoryService);
+        firebaseRepositoryService = new FirebaseServiceImpl();
         try {
             // Read the first image from file
-            Image image1 = ImageIO.read(new File("C:\\Users\\Depv247\\Desktop\\kimkhanhhhhhh.jpg"));
+            Image image1 = ImageIO.read(new File("C:\\Users\\Depv247\\Desktop\\kk.jpg"));
             images.add(image1);
 
             // Read the second image from file
-            Image image2 = ImageIO.read(new File("C:\\Users\\Depv247\\Desktop\\kk.jpg"));
+            Image image2 = ImageIO.read(new File("C:\\Users\\Depv247\\Desktop\\kimkhanhhhhhh.jpg"));
             images.add(image2);
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,7 +64,7 @@ public class UploadImagesProductTest {
         // Set up the expected values
         String bucketName = "bhx-clone.appspot.com";
         List<String> imageNames = new ArrayList<>(Arrays.asList("image1.jpg", "image2.jpg"));
-        List<String> imagePaths = new ArrayList<>(Arrays.asList("C:\\Users\\Depv247\\Desktop\\kimkhanhhhhhh.jpg", "C:\\Users\\Depv247\\Desktop\\kk.jpg"));
+        List<String> imagePaths = new ArrayList<>(Arrays.asList("C:\\Users\\Depv247\\Desktop\\kk.jpg", "C:\\Users\\Depv247\\Desktop\\kimkhanhhhhhh.jpg"));
         List<String> publicUrls = new ArrayList<>(Arrays.asList("https://example.com/image1.jpg", "https://example.com/image2.jpg"));
 
 
