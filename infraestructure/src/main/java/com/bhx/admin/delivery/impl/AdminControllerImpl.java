@@ -1,6 +1,8 @@
 package com.bhx.admin.delivery.impl;
 
 import com.bhx.admin.delivery.AdminController;
+import com.bhx.category.Category;
+import com.bhx.category.usecase.GetAllCategoriesUseCase;
 import com.bhx.product.Product;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.exception.ProductNotFoundException;
@@ -11,23 +13,25 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin("*")
 @RequestMapping("/admin")
-@RolesAllowed("ADMIN")
 public class AdminControllerImpl implements AdminController {
 
     private final GetAllProductsUseCase getAllProductsUseCase;
 
     private final ProductMvcConverter productMvcConverter;
+
+    private final GetAllCategoriesUseCase getAllCategoriesUseCase;
 
 
     @GetMapping
@@ -38,8 +42,16 @@ public class AdminControllerImpl implements AdminController {
 }
     @GetMapping("/login")
     @Override
-    public String adminLoginForm() {
+    public String adminLoginFormView() {
         return "admin/auth/login";
+    }
+
+    @PostMapping("/login/auth")
+    @Override
+    public String adminLoginForm(@RequestParam("username") String username, @RequestParam("password") String password) {
+
+        System.out.println(username+' '+password);
+        return "redirect:/admin";
     }
 
 
@@ -53,12 +65,10 @@ public class AdminControllerImpl implements AdminController {
         return "admin/products/index";
     }
 
-    @GetMapping("/products/category")
     @Override
     public String adminProductCategoryView(Model model) {
 
-        model.addAttribute("selected","products");
-        model.addAttribute("subSelected","productCategory");
+
 
         return "admin/products/category";
     }

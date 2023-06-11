@@ -120,16 +120,17 @@
                     <h4 class="mb-2">Chào bạn đến với trang quản lý của organi 👋</h4>
                     <p class="mb-4">Vui lòng đăng nhập vào tài khoản quản lý để truy cập</p>
 
-                    <form id="formAuthentication" class="mb-3" action="/admin/login" method="POST">
+                    <form id="formAuthentication" class="mb-3" th:action="@{/admin/login/auth}" th:method="post">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email hoặc Username</label>
+                            <label for="username" class="form-label">Username</label>
                             <input
                                     type="text"
                                     class="form-control"
-                                    id="email"
-                                    name="email-username"
-                                    placeholder="Nhập Email hoặc Username"
+                                    id="username"
+                                    name="username"
+                                    placeholder="Nhập Username"
                                     autofocus
+                                    required
                             />
                         </div>
                         <div class="mb-3 form-password-toggle">
@@ -147,6 +148,7 @@
                                         name="password"
                                         placeholder="Nhập mật khẩu"
                                         aria-describedby="password"
+                                        required
                                 />
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>

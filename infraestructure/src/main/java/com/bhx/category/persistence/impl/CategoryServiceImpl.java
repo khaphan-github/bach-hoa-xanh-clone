@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.bhx.category.Category;
+import com.bhx.category.delivery.converters.CategoryRestConverter;
+import com.bhx.category.delivery.rest.CategoryRest;
 import com.bhx.category.persistence.converters.CategoryRepositoryConverter;
 import com.bhx.category.persistence.entities.CategoryEntity;
 import com.bhx.category.persistence.repositories.CategoryRepository;
@@ -22,7 +24,7 @@ public class CategoryServiceImpl implements CategoryRepositoryService {
 	@Override
 	public Collection<Category> getAllCategories() {
 		return categoryRepository.findAll().stream()
-				.map(category -> categoryRepositoryConverter.mapToEntity(category))
+				.map(categoryRepositoryConverter::mapToEntity)
 				.collect(Collectors.toList());
 		
 	}
@@ -59,8 +61,14 @@ public class CategoryServiceImpl implements CategoryRepositoryService {
 		return categoryFind.map(categoryRepositoryConverter::mapToEntity);
 	}
 
+	@Override
 	public Boolean doesCategoryNameExists(final String name) {
 		return !categoryRepository.findByName(name).isEmpty();
 	}
 
+	@Override
+	public Collection<Category> getAllByParentId(String parentId) {
+		Collection<Category> categories = categoryRepository.findAllByParentId(parentId);
+		return categories;
+	}
 }

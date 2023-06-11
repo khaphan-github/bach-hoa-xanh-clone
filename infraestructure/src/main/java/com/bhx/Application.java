@@ -2,8 +2,6 @@ package com.bhx;
 
 import com.bhx.firebase.FirebaseService;
 import com.bhx.firebase.GoogleCloudStorageConfig;
-import com.bhx.rootcategory.RootCategory;
-import com.bhx.rootcategory.usecase.GetLastIdUseCase;
 import com.google.cloud.storage.Storage;
 import com.bhx.webconfig.EmailService;
 import lombok.RequiredArgsConstructor;

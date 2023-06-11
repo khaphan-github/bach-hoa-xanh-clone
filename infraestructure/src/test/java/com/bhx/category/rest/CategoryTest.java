@@ -57,7 +57,7 @@ public class CategoryTest {
     @Test
     public void testCreateACategory() {
         Collection<Category> categoriesBefore = categoryRepositoryService.getAllCategories();
-        Category category = new Category("21", "2", "Kim Khánh",true);
+        Category category = new Category(null, "2", "Kim Khánh",true);
         categoryRepositoryService.saveCategory(category);
         Collection<Category> categoriesAfter = categoryRepositoryService.getAllCategories();
         // Verify the result

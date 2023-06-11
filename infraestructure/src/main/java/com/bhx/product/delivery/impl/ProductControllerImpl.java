@@ -1,36 +1,28 @@
 package com.bhx.product.delivery.impl;
 
+import com.bhx.category.Category;
+import com.bhx.category.usecase.CreateCategoryUseCase;
 import com.bhx.product.delivery.ProductController;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
-import com.bhx.product.exception.ProductNotFoundException;
 import com.bhx.product.usecase.GetAllProductsUseCase;
-import com.bhx.product.usecase.GetOneProductUseCase;
-import com.bhx.rootcategory.usecase.GetLastIdUseCase;
-import com.bhx.webconfig.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.mail.MessagingException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
 @RequiredArgsConstructor
 public class ProductControllerImpl implements ProductController {
     private final GetAllProductsUseCase getAllProductsUseCase;
-    private final GetLastIdUseCase getLastIdUseCase;
     private final ProductMvcConverter productMvcConverter;
-
-
+    private final CreateCategoryUseCase createCategoryUseCase;
     @Override
     @GetMapping({"/", "/index"})
     public String index(Model model) throws Exception {
         model.addAttribute("active","home");
+
         return "public/home/index";
     }
 

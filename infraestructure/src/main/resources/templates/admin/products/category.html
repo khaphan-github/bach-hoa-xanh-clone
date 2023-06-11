@@ -132,56 +132,109 @@
                                 <h5 class="card-header">Danh mục</h5>
                                 <div class="col-auto card-body">
                                     <div class="btn-group" >
-                                        <button type="button" class="btn btn-primary">Thêm danh mục</button>
-
+                                        <a data-bs-toggle="modal" data-bs-target="#modalAddCategory" class="btn btn-primary text-white">Thêm danh mục</a>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="modalAddCategory" tabindex="-1" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalAddCategoryTitle">Thêm Danh mục</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="post" th:object="${newCategory}" th:action="@{/admin/category/new}">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="name" class="form-label">Tên danh mục</label>
+                                                            <input type="text" id="modalAddCategoryName" th:name="name"  required class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="name" class="form-label">Từ khoá</label>
+                                                            <input type="text" id="modalAddCategoryKeywords" th:name="keywords"  class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="available" class="form-label">Tình trạng</label>
+                                                            <input type="checkbox" id="modalAddCategoryavailable" th:name="available"  class="form-check-input">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                        Huỷ
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="card-body" id="vertical-example">
-                                        <div class="demo-inline-spacing mt-3">
+                                        <div class="demo-inline-spacing">
                                             <div class="list-group">
-                                                <a href="javascript:void(0);" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active">
-                                                    Bear claw cake biscuit
-                                                    <span class="badge">
-                                                        <div class="btn-group" role="group" aria-label="First group">
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-edit"></i>
+                                                <div class="row mb-3" th:each="category, status : ${categories}">
+                                                    <div class="col">
+                                                        <button th:id="'btn-'+${category.id}" th:attr="onclick='replaceParentCategory(\'' + ${category.id} + '\', \'' + ${category.name} + '\')'" class="btn btn-outline-gray text-black" >
+                                                            <!-- Display the category name -->
+                                                            <span th:text="${category.name}"></span>
                                                         </button>
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                    </span>
 
-                                                </a>
-                                                <a href="javascript:void(0);" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                                    Bear claw cake biscuit
-                                                    <span class="badge">
-                                                        <div class="btn-group" role="group" aria-label="First group">
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-edit"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-trash"></i>
-                                                        </button>
                                                     </div>
-                                                    </span>
-
-                                                </a>
-                                                <a href="javascript:void(0);" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                                    Bear claw cake biscuit
-                                                    <span class="badge">
-                                                        <div class="btn-group" role="group" aria-label="First group">
-                                                        <button type="button" class="btn btn-outline-secondary">
+                                                    <div class="col col-auto float-right">
+                                                        <a data-bs-toggle="modal" th:data-bs-target="'#modalCenter'+ ${category.id}" class="btn btn-outline-secondary">
                                                             <i class="tf-icons bx bx-edit"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-secondary">
+                                                        </a>
+                                                        <div class="modal fade" th:id="'modalCenter' + ${category.id}" tabindex="-1" style="display: none;" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="modalCenterTitle">Chỉnh sửa Danh mục</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <form th:action="'/admin/products/category/?id='+${category.id}" th:object="${category}" method="post">
+                                                                        <div class="modal-body">
+                                                                            <input hidden="hidden" type="text" id="id" name="id" class="form-control" th:value="${category.id}">
+                                                                            <div class="row">
+                                                                                <div class="col mb-3">
+                                                                                    <label for="name" class="form-label">Tên danh mục</label>
+                                                                                    <input type="text" id="name" name="name" class="form-control" th:value="${category.name}">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col mb-3">
+                                                                                    <label for="href" class="form-label">Đường dẫn</label>
+                                                                                    <input type="text" id="href" name="href" class="form-control" th:value="${category.href}">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row">
+                                                                                <div class="col mb-3">
+                                                                                    <label for="available" class="form-label">Tình trạng</label>
+                                                                                    <input type="checkbox" id="available" name="available" class="form-check-input" th:checked="${category.available}">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                                                Huỷ
+                                                                            </button>
+                                                                            <button type="submit" class="btn btn-primary">Lưu</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <a th:href="@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-outline-secondary">
                                                             <i class="tf-icons bx bx-trash"></i>
-                                                        </button>
+                                                        </a>
                                                     </div>
-                                                    </span>
+                                                </div>
 
-                                                </a>
                                             </div>
+
                                         </div>
                                 </div>
                             </div>
@@ -189,54 +242,81 @@
                         <!--/ Vertical Scrollbar -->
                         <!-- Vertical Scrollbar -->
                         <div class="col-md-4 col-sm-12">
-                            <div class="card overflow-scroll overflow-hidden mb-4" style="max-height: 100vh">
+                            <div class="card rounded overflow-scroll overflow-hidden mb-4" style="max-height: 100vh">
                                 <h5 class="card-header">Nhóm loại</h5>
-                                <div class="card-body" id="vertical-example2">
-                                    <div class="demo-inline-spacing mt-3">
-                                        <div class="list-group">
-                                            <a href="javascript:void(0);" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active">
-                                                Bear claw cake biscuit
-                                                <span class="badge">
-                                                        <div class="btn-group" role="group" aria-label="First group">
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-edit"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-trash"></i>
-                                                        </button>
+                                <div class="col-auto card-body">
+                                    <div class="btn-group" >
+                                        <a data-bs-toggle="modal" data-bs-target="#modalAddCategory2" class="btn btn-primary text-white">Thêm nhóm loại</a>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="modalAddCategory2" tabindex="-1" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalAddCategoryTitle2">Thêm nhóm loại</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="post" th:object="${newCategory}" th:action="@{/admin/category/new}">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                            <input type="text" hidden="hidden" id="modalAddCategoryParentId2" th:name="parentId" required class="form-control">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Tên danh mục</label>
+                                                            <input type="text" disabled id="modalAddCategoryParentName2" class="form-control">
+                                                        </div>
                                                     </div>
-                                                    </span>
-
-                                            </a>
-                                            <a href="javascript:void(0);" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                                Bear claw cake biscuit
-                                                <span class="badge">
-                                                        <div class="btn-group" role="group" aria-label="First group">
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-edit"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-trash"></i>
-                                                        </button>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Tên nhóm loại</label>
+                                                            <input type="text" id="modalAddCategoryName2" th:name="name"  required class="form-control">
+                                                        </div>
                                                     </div>
-                                                    </span>
-
-                                            </a>
-                                            <a href="javascript:void(0);" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                                Bear claw cake biscuit
-                                                <span class="badge">
-                                                        <div class="btn-group" role="group" aria-label="First group">
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-edit"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-trash"></i>
-                                                        </button>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Từ khoá</label>
+                                                            <input type="text" id="modalAddCategoryKeywords2" th:name="keywords"  class="form-control">
+                                                        </div>
                                                     </div>
-                                                    </span>
-
-                                            </a>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Tình trạng</label>
+                                                            <input type="checkbox" id="modalAddCategoryavailable2" th:name="available" checked class="form-check-input">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                        Huỷ
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                </div>
+                                            </form>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="vertical-example2">
+                                    <div class="demo-inline-spacing">
+                                        <div class="list-group">
+                                            <div class="row mb-3" th:each="category, status : ${categories}">
+                                                <div class="col">
+                                                    <a class="btn btn-outline-gray" >
+                                                        <!-- Display the category name -->
+                                                        <span th:text="${category.name}"></span>
+                                                    </a>
+
+                                                </div>
+                                                <div class="col col-auto float-right">
+                                                    <a data-bs-toggle="modal" th:data-bs-target="'#modalCenter'+ ${category.id}" class="btn btn-outline-secondary">
+                                                        <i class="tf-icons bx bx-edit"></i>
+                                                    </a>
+                                                    <a th:href="@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-outline-secondary">
+                                                        <i class="tf-icons bx bx-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -246,52 +326,72 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="card overflow-scroll mb-4" style="max-height: 100vh">
                                 <h5 class="card-header">Loại</h5>
-                                <div class="card-body" id="vertical-example3">
-                                    <div class="demo-inline-spacing mt-3">
-                                        <div class="list-group">
-                                            <a href="javascript:void(0);" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center active">
-                                                Bear claw cake biscuit
-                                                <span class="badge">
-                                                        <div class="btn-group" role="group" aria-label="First group">
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-edit"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-trash"></i>
-                                                        </button>
+                                <div class="col-auto card-body">
+                                    <div class="btn-group" >
+                                        <a data-bs-toggle="modal" data-bs-target="#modalAddCategory3" class="btn btn-primary text-white">Thêm loại</a>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="modalAddCategory3" tabindex="-1" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalAddCategoryTitle3">Thêm Danh mục</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="post" th:object="${newCategory}" th:action="@{/admin/category/new}">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="name" class="form-label">Tên danh mục</label>
+                                                            <input type="text" id="modalAddCategoryName3" th:name="name"  required class="form-control">
+                                                        </div>
                                                     </div>
-                                                    </span>
-
-                                            </a>
-                                            <a href="javascript:void(0);" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                                Bear claw cake biscuit
-                                                <span class="badge">
-                                                        <div class="btn-group" role="group" aria-label="First group">
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-edit"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-trash"></i>
-                                                        </button>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="name" class="form-label">Từ khoá</label>
+                                                            <input type="text" id="modalAddCategoryKeywords3" th:name="keywords"  class="form-control">
+                                                        </div>
                                                     </div>
-                                                    </span>
-
-                                            </a>
-                                            <a href="javascript:void(0);" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                                Bear claw cake biscuit
-                                                <span class="badge">
-                                                        <div class="btn-group" role="group" aria-label="First group">
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-edit"></i>
-                                                        </button>
-                                                        <button type="button" class="btn btn-outline-secondary">
-                                                            <i class="tf-icons bx bx-trash"></i>
-                                                        </button>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="available" class="form-label">Tình trạng</label>
+                                                            <input type="checkbox" id="modalAddCategoryavailable3" th:name="available"  class="form-check-input">
+                                                        </div>
                                                     </div>
-                                                    </span>
-
-                                            </a>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                        Huỷ
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                </div>
+                                            </form>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="vertical-example3">
+                                    <div class="demo-inline-spacing">
+                                        <div class="list-group">
+                                            <div class="row mb-3" th:each="category, status : ${categories}">
+                                                <div class="col">
+                                                    <a class="btn btn-outline-gray" >
+                                                        <!-- Display the category name -->
+                                                        <span th:text="${category.name}"></span>
+                                                    </a>
+
+                                                </div>
+                                                <div class="col col-auto float-right">
+                                                    <a data-bs-toggle="modal" th:data-bs-target="'#modalCenter'+ ${category.id}" class="btn btn-outline-secondary">
+                                                        <i class="tf-icons bx bx-edit"></i>
+                                                    </a>
+                                                    <a th:href="@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-outline-secondary">
+                                                        <i class="tf-icons bx bx-trash"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -314,6 +414,8 @@
         <script src="/static/admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
         <script src="/static/admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
         <script src="/static/admin/assets/js/extended-ui-perfect-scrollbar.js"></script>
-        <script src="/static/admin/js/script_products.js"></script>
+        <script src="/static/admin/assets/js/ui-modals.js"></script>
+        <script src="/static/admin/js/script_category.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 </html>

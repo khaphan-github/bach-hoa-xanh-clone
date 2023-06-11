@@ -16,4 +16,6 @@ public interface CategoryRepositoryService {
 	public Optional<Category> getCategoryById(String id);
 
 	public Boolean doesCategoryNameExists(String name);
+
+	public Collection<Category> getAllByParentId(String parentId);
 }
