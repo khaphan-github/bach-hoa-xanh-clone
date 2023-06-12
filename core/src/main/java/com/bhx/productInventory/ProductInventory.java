@@ -1,4 +1,4 @@
-package com.bhx.storage;
+package com.bhx.productInventory;
 
 import com.bhx.shared.SelfValidating;
 import lombok.AllArgsConstructor;
@@ -12,10 +12,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Storage  extends SelfValidating<Storage> implements Serializable {
-    @NotEmpty
-    private String id;
-    private String address;
-    private String name;
+public class ProductInventory  extends SelfValidating<ProductInventory> implements Serializable {
+    private String storageId;
+    private String productId;
+    private int inventory;
 
 }

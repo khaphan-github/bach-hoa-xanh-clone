@@ -1,4 +1,4 @@
-package com.bhx.storage.persistence.entities;
+package com.bhx.productInventory.persistence.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,16 +7,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "storage")
-public class StorageEntity implements Serializable {
-    @Id
-    private String id;
-    private String address;
-    private String name;
+@Document(collection = "productInventory")
+public class ProductInventoryEntity implements Serializable {
+    private String productId;
+    private String storageId;
+    private int inventory;
 }

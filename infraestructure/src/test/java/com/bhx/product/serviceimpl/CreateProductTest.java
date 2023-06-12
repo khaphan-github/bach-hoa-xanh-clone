@@ -44,15 +44,17 @@ class CreateProductTest {
         MockitoAnnotations.initMocks(this);
         productIdTest = new ObjectId().toString();
     }
+/*
     @AfterEach
     public void restore() {
         productRepository.deleteById(productIdTest);
     }
+*/
 
     private Product getTestData() {
         Product product = new Product();
         product.setId(productIdTest);
-        product.setName("Example Product");
+        product.setName("Example Product 2");
 
         product.setUpdatedDate(new Date());
 
