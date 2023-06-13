@@ -38,7 +38,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     private boolean isAllowedURI(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
         // TODO: Get all policy with group.name == everyone -> then get allow uri
-        String[] allowedURIs = {"/admin/login", "/admin/authenticate", "/static"};
+        String[] allowedURIs = {"/accounts/","/admin","/admin/login", "/admin/authenticate", "/static"};
 
         boolean isAllowed = false;
         for (String allowedURI : allowedURIs) {
@@ -101,11 +101,11 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         log.info("---> AuthenticationFilter Works");
 
-        if (isAllowedURI(request)) {
-            filterChain.doFilter(request, response);
-        }
-
-        processAuthorization(request, response);
+//        if (isAllowedURI(request)) {
+//            filterChain.doFilter(request, response);
+//        }
+//
+//        processAuthorization(request, response);
 
         filterChain.doFilter(request, response);
     }

@@ -10,7 +10,7 @@ import com.bhx.securityconfig.permission.Permission;
 public class PermissionRepositoryConverter implements RepositoryConverter<PermissionEntity, Permission> {
     @Override
     public PermissionEntity mapToTable(final Permission persistenceObject) {
-        return new PermissionEntity(persistenceObject.getId(), persistenceObject.getAction(), persistenceObject.getDesc(), persistenceObject.getCreatedAt(), persistenceObject.getUpdatedAt(), persistenceObject.isActive());
+        return new PermissionEntity();
     }
 
     @Override

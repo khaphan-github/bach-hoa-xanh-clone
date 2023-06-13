@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -26,38 +27,10 @@ public class Account extends SelfValidating<Account> implements Serializable {
     private String displayName;
     private String email;
     private String phone;
-    private Group group;
+    private Collection<Group> group;
+    private String[] groupIds;
     private String address;
-    private String permissionId;
-    private Permission permission;
     private Date createdAt;
     private Date lastLogin;
     private boolean isActive;
-
-    public Account(String id, String username, String password, String displayName, String email, String phone, String address, String permissionId, Date createdAt, Date lastLogin, boolean isActive) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.displayName = displayName;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.permissionId = permissionId;
-        this.createdAt = createdAt;
-        this.lastLogin = lastLogin;
-        this.isActive = isActive;
-    }
-
-    public Account(String id, String username, String email, String phone, String address, String permissionName, Date createdAt, Date lastLogin, boolean active) {
-        this.id = id;
-        this.username = username;
-        this.displayName = displayName;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.permissionId = permissionId;
-        this.createdAt = createdAt;
-        this.lastLogin = lastLogin;
-        this.isActive = isActive;
-    }
 }

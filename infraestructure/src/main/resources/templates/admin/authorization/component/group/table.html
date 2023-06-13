@@ -2,25 +2,47 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="authorization-group">
-    <div class="d-flex justify-content-between" style="margin-button: 5px">
-        <h5 class="">Danh sách nhóm quyền</h5>
-        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                data-bs-target="#exLargeGroupModal"
-                onclick="">Thêm nhóm quyền
-        </button>
-    </div>
-    <br>
     <div class="table-responsive text-nowrap">
         <table id="authorization-group-data-table" class="table table-bordered">
             <thead>
             <tr>
+                <th>Thứ tự</th>
                 <th>Nhóm quyền</th>
                 <th>Mô tả</th>
                 <th>Trạng thái</th>
-                <th>Actions</th>
+                <th style="width: 5%"></th>
             </tr>
             </thead>
             <tbody>
+            <tr th:each="group, stat : ${groups}">
+                <td th:text="${stat.count}"></td>
+                <td>
+                    <strong th:text="${group.name}"></strong>
+                </td>
+                <td th:text="${group.description}"></td>
+                <td>
+                     <span th:class="${group.active} ? 'badge bg-label-primary me-1' : 'badge bg-label-warning me-1'">
+                            <span th:text="${group.active} ? 'Đang Kích hoạt' : 'Ngừng hoạt động'"></span>
+                    </span>
+                </td>
+                <td>
+                    <button type="button"
+                            class="btn btn-sm btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" style="">
+                        <li><a class="dropdown-item" href="javascript:void(0);" th:text="${group.active} ? 'Hũy kích hoạt' : 'Kích hoạt'"></a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Xóa nhóm quyền</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Chỉnh sửa</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Xem danh sách tài khoản</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Xem danh sách quyền</a></li>
+                    </ul>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

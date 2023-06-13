@@ -14,7 +14,7 @@ public class GroupRestConverter implements RestConverter<CreateGroupDto, Group> 
         return new Group(
                 new ObjectId().toString(),
                 viewModel.getName(),
-                viewModel.getDesc(),
+                viewModel.getDescription(),
                 viewModel.isActive()
         );
     }

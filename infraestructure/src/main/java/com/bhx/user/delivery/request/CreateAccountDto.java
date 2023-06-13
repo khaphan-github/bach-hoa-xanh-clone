@@ -13,12 +13,11 @@ import java.util.List;
  */
 @Data
 public class CreateAccountDto implements Serializable {
+    private String fullname;
     private String username;
     private String password;
-    private String displayName;
-    private String email;
     private String phone;
-    private String address;
-    private Boolean active;
-    private List<String> groupIds;
+    private String email;
+    private boolean active;
+    private String[] selectedGroups;
 }

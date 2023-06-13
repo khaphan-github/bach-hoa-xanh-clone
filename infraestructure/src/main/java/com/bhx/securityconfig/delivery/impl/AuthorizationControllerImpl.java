@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping("/authorization")
 public class AuthorizationControllerImpl implements AuthorizationController {
     private final String viewPrefix = "admin/authorization/";
 
-    @GetMapping("/authorization")
+    @GetMapping
     public String getAuthorizationPage(Model model) {
-        // TODO: Get all permission in system
-        // TODO: Get all group exist in system + status active or none;
         return viewPrefix + "authorization";
     }
 }

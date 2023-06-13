@@ -21,13 +21,14 @@ public class CreateAccountConverter implements RestConverter<CreateAccountDto, A
         accountConvertFromCreateAccountDto.setUsername(createAccountDto.getUsername());
         accountConvertFromCreateAccountDto.setPassword(createAccountDto.getPassword());
 
-        accountConvertFromCreateAccountDto.setDisplayName(createAccountDto.getDisplayName());
+        accountConvertFromCreateAccountDto.setDisplayName(createAccountDto.getFullname());
         accountConvertFromCreateAccountDto.setEmail(createAccountDto.getEmail());
         accountConvertFromCreateAccountDto.setPhone(createAccountDto.getPhone());
 
-        accountConvertFromCreateAccountDto.setAddress(createAccountDto.getAddress());
+        accountConvertFromCreateAccountDto.setAddress("");
 
         accountConvertFromCreateAccountDto.setCreatedAt(new Date());
+        accountConvertFromCreateAccountDto.setGroupIds(createAccountDto.getSelectedGroups());
 
         return accountConvertFromCreateAccountDto;
     }

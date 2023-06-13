@@ -10,6 +10,6 @@ import java.io.Serializable;
 @Data
 public class CreateGroupDto implements Serializable {
     private String name;
-    private String desc;
+    private String description;
     private boolean active;
 }

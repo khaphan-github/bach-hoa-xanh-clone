@@ -17,6 +17,8 @@ import java.util.List;
 public interface GroupRepositoryService {
     Collection<Group> getGroups();
 
+    void createGroup(Group group);
+    Collection<Group> getActiveGroup();
     Group getGroupById(String id);
 
     Collection<Menu> getMenusInGroup(String groupId);

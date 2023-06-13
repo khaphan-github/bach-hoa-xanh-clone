@@ -4,6 +4,7 @@ import com.bhx.securityconfig.permission.persistence.impl.PermissionServiceImpl;
 import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
 import com.bhx.securityconfig.user.usecase.*;
 import com.bhx.user.delivery.converters.AccountRestConverter;
+import com.bhx.user.delivery.converters.CreateAccountConverter;
 import com.bhx.user.persistence.converters.AccountRepositoryConverter;
 import com.bhx.user.persistence.impl.AccountServiceImpl;
 import com.bhx.user.persistence.impl.CryptoServiceImpl;
@@ -40,10 +41,14 @@ public class AccountConfiguration {
     }
 
     @Bean
-    public AccountServiceImpl accountService() {
-        return new AccountServiceImpl(accountRepository, permissionRepository, accountRepositoryConverter());
+    public CreateAccountConverter createAccountConverter() {
+        return new CreateAccountConverter();
     }
 
+    @Bean
+    public AccountServiceImpl accountService() {
+        return new AccountServiceImpl(accountRepository, accountRepositoryConverter());
+    }
 
     @Bean
     public CreateAccountUseCaseImpl createAccountUseCase() {

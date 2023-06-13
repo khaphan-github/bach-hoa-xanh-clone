@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +23,7 @@ public class AccountView implements Serializable {
     private String email;
     private String phone;
     private String address;
-    private List<String> groupName;
-    private String permissionName;
+    private Collection<String> groupName;
     private Date createdAt;
     private Date lastLogin;
     private boolean isActive;

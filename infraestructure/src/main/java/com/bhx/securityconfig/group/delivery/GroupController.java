@@ -8,5 +8,4 @@ import org.springframework.http.ResponseEntity;
  * @author "KhaPhan" on 08-Jun-23
  */
 public interface GroupController {
-    ResponseEntity<Group> createGroup(CreateGroupDto createGroupDto);
 }

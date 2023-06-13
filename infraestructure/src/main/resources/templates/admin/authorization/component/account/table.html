@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="d-flex justify-content-between" style="margin-button: 5px">
-    <h5 class="">Danh sách tài khoản</h5>
-    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeAccountModal"
-            onclick="">
-        Thêm Tài Khoản
-    </button>
-</div>
-<br>
+
 
 <div th:fragment="authorization-account">
     <div class="table-responsive text-nowrap">
@@ -16,50 +9,78 @@
             <thead>
             <tr>
                 <th>Họ và tên</th>
-                <th>username</th>
+                <th>Username</th>
                 <th>Số điện thoại</th>
-                <th>Địa chỉ email</th>
                 <th>Nhóm quyền</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
             </tr>
             </thead>
             <tbody>
-            <!--                Binding d-->
+            <tr th:each="account : ${accounts}">
+                <td>
+                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                    <strong th:text="${account.displayName}"></strong>
+                </td>
+                <td th:text="${account.username}"></td>
+                <td th:text="${account.phone}"></td>
+                <td>
+                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                        <li th:each="groupName : ${account.groupName}" data-bs-toggle="tooltip"
+                            data-popup="tooltip-custom" data-bs-placement="top"
+                            class="avatar avatar-xs pull-up" title="" th:data-bs-original-title="${groupName}">
+                            <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle">
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                <span th:classappend="${account.isActive} ? 'badge bg-label-primary me-1' : 'badge bg-label-secondary me-1'">
+                    <span th:if="${account.isActive}">Active</span>
+                    <span th:unless="${account.isActive}">Inactive</span>
+                </span>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="javascript:void(0);">
+                                <i class="bx bx-edit-alt me-1"></i>Edit
+                            </a>
+                            <a class="dropdown-item" href="javascript:void(0);">
+                                <i class="bx bx-trash me-1"></i>Delete
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
-    <!--Paging Products-->
-    <div class="demo-inline-spacing">
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item prev">
-                    <a class="page-link" href="javascript:void(0);"
-                    ><i class="tf-icon bx bx-chevrons-left"></i
-                    ></a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">2</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="javascript:void(0);">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">4</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="javascript:void(0);">5</a>
-                </li>
-                <li class="page-item next">
-                    <a class="page-link" href="javascript:void(0);"
-                    ><i class="tf-icon bx bx-chevrons-right"></i
-                    ></a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+<!--    &lt;!&ndash;Paging Products&ndash;&gt;-->
+<!--    <div class="demo-inline-spacing">-->
+<!--        <nav aria-label="Page navigation">-->
+<!--            <ul class="pagination justify-content-center">-->
+<!--                <li class="page-item prev">-->
+<!--                    <a class="page-link" href="#" th:href="@{/accounts(page=${currentPage - 1})}">-->
+<!--                        <i class="tf-icon bx bx-chevrons-left"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:classappend="${currentPage == 1} ? 'active' : ''">-->
+<!--                    <a class="page-link" href="#" th:href="@{/accounts(page=1)}">1</a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:each="page : ${accountPage.numberList}" th:classappend="${currentPage == page} ? 'active' : ''">-->
+<!--                    <a class="page-link" href="#" th:href="@{/accounts(page=${page})}" th:text="${page}"></a>-->
+<!--                </li>-->
+<!--                <li class="page-item next">-->
+<!--                    <a class="page-link" href="#" th:href="@{/accounts(page=${currentPage + 1})}">-->
+<!--                        <i class="tf-icon bx bx-chevrons-right"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </div>-->
+
 </div>
 </body>

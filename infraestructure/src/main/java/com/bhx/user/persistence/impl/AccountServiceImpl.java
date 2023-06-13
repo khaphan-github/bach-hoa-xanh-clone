@@ -1,5 +1,6 @@
 package com.bhx.user.persistence.impl;
 
+import com.bhx.securityconfig.group.persistence.repository.GroupRepository;
 import com.bhx.securityconfig.permission.exception.PermissionNotFoundException;
 import com.bhx.securityconfig.permission.persistence.entities.PermissionEntity;
 import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
@@ -25,8 +26,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AccountServiceImpl implements AccountRepositoryService {
     private final AccountRepository accountRepository;
-    private final PermissionRepository permissionRepository;
+    private final GroupRepository groupRepository;
     private final AccountRepositoryConverter accountRepositoryConverter;
+
 
     @Override
     public Collection<Account> getAllAccounts(int page, int size) {
@@ -68,25 +70,6 @@ public class AccountServiceImpl implements AccountRepositoryService {
     @Override
     public Boolean isExistingAccountUsername(String name) {
         return null;
-    }
-
-    @Override
-    public void addPermissionToAccount(String accountId, String permissionId) throws PermissionNotFoundException, AccountNotFoundException {
-        Optional<PermissionEntity> permissionStored = permissionRepository.findById(permissionId);
-
-        if (!permissionStored.isPresent()) {
-            throw new PermissionNotFoundException(permissionId);
-        }
-
-        Optional<AccountEntity> accountStored = accountRepository.findById(accountId);
-
-        if (!accountStored.isPresent()) {
-            throw new AccountNotFoundException();
-        }
-
-        accountStored.get().setPermissionId(permissionStored.get().getId());
-
-        accountRepository.save(accountStored.get());
     }
 
     @Override

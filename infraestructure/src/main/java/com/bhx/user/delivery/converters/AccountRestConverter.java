@@ -1,9 +1,12 @@
 package com.bhx.user.delivery.converters;
 
 import com.bhx.global.shared.RestConverter;
+import com.bhx.securityconfig.group.Group;
 import com.bhx.securityconfig.user.Account;
 import com.bhx.user.delivery.response.AccountView;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -13,31 +16,28 @@ import java.util.Collections;
 public class AccountRestConverter implements RestConverter<AccountView, Account> {
     @Override
     public Account mapToEntity(final AccountView viewModel) {
-        return new Account(
-                viewModel.getId(),
-                viewModel.getUsername(),
-                viewModel.getEmail(),
-                viewModel.getPhone(),
-                viewModel.getAddress(),
-                viewModel.getPermissionName(),
-                viewModel.getCreatedAt(),
-                viewModel.getLastLogin(),
-                viewModel.isActive()
-        );
+        return new Account();
     }
 
     @Override
     public AccountView mapToRest(final Account entity) {
-        return new AccountView(
-                entity.getId(),
-                entity.getUsername(),
-                entity.getEmail(),
-                entity.getPhone(),
-                entity.getAddress(),
-                Collections.singletonList(entity.getGroup().getName()),
-                entity.getPermissionId(),
-                entity.getCreatedAt(),
-                entity.getLastLogin(),
-                entity.isActive());
+        AccountView accountView = new AccountView();
+        accountView.setId(entity.getId());
+        accountView.setUsername(entity.getUsername());
+        accountView.setEmail(entity.getEmail());
+        accountView.setPhone(entity.getPhone());
+        accountView.setAddress(entity.getAddress());
+
+        Collection<String> groupNames = new ArrayList<>();
+        for (Group group : entity.getGroup()) {
+            groupNames.add(group.getName());
+        }
+        accountView.setGroupName(groupNames);
+
+        accountView.setCreatedAt(entity.getCreatedAt());
+        accountView.setLastLogin(entity.getLastLogin());
+        accountView.setActive(entity.isActive());
+
+        return accountView;
     }
 }
