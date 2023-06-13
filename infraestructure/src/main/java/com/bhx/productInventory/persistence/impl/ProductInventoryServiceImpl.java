@@ -14,6 +14,8 @@ import com.bhx.productInventory.ports.ProductInventoryRepositoryService;
 import com.bhx.storage.Storage;
 import com.bhx.storage.persistence.entities.StorageEntity;
 import com.bhx.storage.ports.StorageRepositoryService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -39,6 +41,9 @@ public class ProductInventoryServiceImpl implements ProductInventoryRepositorySe
         List<String> productIds = productInventoryRepository.findProductIdsByStorageId(storageId);
         List<Product> product = new ArrayList<>();
         for (String productId : productIds) {
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(productId, JsonObject.class);
+            productId = jsonObject.get("productId").getAsString();
             product.add(productRepositoryService.getProductById(productId));
         }
         return product;

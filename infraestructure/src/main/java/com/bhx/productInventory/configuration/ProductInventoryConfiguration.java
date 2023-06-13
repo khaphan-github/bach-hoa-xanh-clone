@@ -27,16 +27,10 @@ public class ProductInventoryConfiguration {
     private ProductRepository productRepository;
 
     @Bean
-    public ProductInventoryRepository productInventoryRepository() {
-        return new ProductInventoryServiceImpl();
-    }
-
-    @Bean
     public ProductInventoryRepositoryConverter productInventoryRepositoryConverter() {
         return new ProductInventoryRepositoryConverter();
     }
 
-    @Bean
     public ProductRepositoryConverter productRepositoryConverter() {
         return new ProductRepositoryConverter();
     }
@@ -47,14 +41,9 @@ public class ProductInventoryConfiguration {
     }
 
     @Bean
-    public ProductServiceImpl productService() {
-        return new ProductServiceImpl(productRepository, productRepositoryConverter());
-    }
-
-    @Bean
     public ProductInventoryServiceImpl productInventoryService() {
         return new ProductInventoryServiceImpl(
-                productInventoryRepository(),
+                productInventoryRepository,
                 productInventoryRepositoryConverter(),
                 productRepositoryService()
         );

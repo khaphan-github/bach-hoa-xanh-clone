@@ -1,5 +1,6 @@
 package com.bhx.ProductInventory;
 
+import com.bhx.product.Product;
 import com.bhx.product.exception.ProductNotFoundException;
 import com.bhx.product.usecase.GetOneProductUseCase;
 import com.bhx.productInventory.ProductInventory;
@@ -13,6 +14,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import java.util.List;
 
 import static com.mongodb.internal.connection.tlschannel.util.Util.assertTrue;
 
@@ -34,8 +37,8 @@ public class GetProductIdsByStorageIdTest {
 
     @Test
     void testCreateStorage() throws ProductNotFoundException {
-        System.out.println(productInventoryRepository.findProductIdsByStorageId("6486f1695228aa3d8db2bdaf"));
-        System.out.println(productInventoryService.getProductIdsByStorageId("6486f1695228aa3d8db2bdaf"));
+        List<String> id =productInventoryRepository.findProductIdsByStorageId("6486f1695228aa3d8db2bdaf");
+        List<Product> product = productInventoryService.getProductIdsByStorageId("6486f1695228aa3d8db2bdaf");
         assertTrue(true);
     }
 }
