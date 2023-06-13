@@ -52,6 +52,29 @@ public class MapServiceImpl implements MapRepositoryService {
     }
 
     @Override
+    public String getNearestAddressByUserLocate(double latSource, double lonSource, List<String> addresses) throws IOException, InterruptedException {
+
+        String nearestAddress = null;
+        double minDistance = Double.MAX_VALUE;
+
+        for (String address : addresses) {
+            List<Double> coordinates = geocodeAddress(address);
+            if (coordinates != null) {
+                Point point = createPoint(coordinates.get(1), coordinates.get(0));
+                if (point != null) {
+                    double distance = calculateDistance(lonSource,latSource , point.getY(), point.getX());
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        nearestAddress = address;
+                    }
+                }
+            }
+        }
+
+        return nearestAddress;
+    }
+
+    @Override
     public List<Double> geocodeAddress(String address) throws IOException, InterruptedException {
         String encodedAddress = URLEncoder.encode(address, StandardCharsets.UTF_8.toString());
         String apiUrl = "https://nominatim.openstreetmap.org/search?format=geojson&q=" + encodedAddress;

@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,7 +42,6 @@ public class CreateStorageTest {
     private Storage getTestData() {
        Storage storage = new Storage();
        storage.setId(storageIdTest);
-       storage.setProductId("2");
        storage.setAddress("Tây Ninh");
         return storage;
     }
@@ -51,4 +52,5 @@ public class CreateStorageTest {
         storageServiceImpl.saveStorage(storage);
         assertTrue(storageRepository.findById(storage.getId()).isPresent());
     }
+
 }

@@ -11,7 +11,6 @@ public class StorageRepositoryConverter implements RepositoryConverter<StorageEn
     public StorageEntity mapToTable(final Storage persistenceObject) {
         return new StorageEntity(
                 persistenceObject.getId(),
-                persistenceObject.getProductId(),
                 persistenceObject.getAddress(),
                 persistenceObject.getName()
         );
@@ -21,7 +20,6 @@ public class StorageRepositoryConverter implements RepositoryConverter<StorageEn
     public Storage mapToEntity(final StorageEntity entityObject) {
         return new Storage(
                 entityObject.getId(),
-                entityObject.getProductId(),
                 entityObject.getAddress(),
                 entityObject.getName()
         );
