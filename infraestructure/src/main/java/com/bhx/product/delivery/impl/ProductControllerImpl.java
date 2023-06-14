@@ -2,6 +2,7 @@ package com.bhx.product.delivery.impl;
 
 import com.bhx.category.Category;
 import com.bhx.category.usecase.CreateCategoryUseCase;
+import com.bhx.map.Locate;
 import com.bhx.product.delivery.ProductController;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.usecase.GetAllProductsUseCase;
@@ -10,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Slf4j
@@ -22,7 +26,16 @@ public class ProductControllerImpl implements ProductController {
     @GetMapping({"/", "/index"})
     public String index(Model model) throws Exception {
         model.addAttribute("active","home");
+        return "public/home/index";
+    }
 
+    @Override
+    @PostMapping({"/", "/index"})
+    public String indexGetLocate(Locate myData) {
+        String latitude = myData.getLatitude();
+        String longitude = myData.getLongitude();
+        System.out.println("Received latitude: " + latitude);
+        System.out.println("Received longitude: " + longitude);
         return "public/home/index";
     }
 
@@ -32,6 +45,8 @@ public class ProductControllerImpl implements ProductController {
         model.addAttribute("active","contact");
         return "public/contact/index";
     }
+
+
 
     @Override
     @GetMapping("/shop")

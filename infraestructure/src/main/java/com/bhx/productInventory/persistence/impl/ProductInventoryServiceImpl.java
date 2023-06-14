@@ -37,7 +37,7 @@ public class ProductInventoryServiceImpl implements ProductInventoryRepositorySe
     }
 
     @Override
-    public List<Product> getProductIdsByStorageId(String storageId) throws ProductNotFoundException {
+    public List<Product> getProductByStorageId(String storageId) throws ProductNotFoundException {
         List<String> productIds = productInventoryRepository.findProductIdsByStorageId(storageId);
         List<Product> product = new ArrayList<>();
         for (String productId : productIds) {
@@ -47,5 +47,10 @@ public class ProductInventoryServiceImpl implements ProductInventoryRepositorySe
             product.add(productRepositoryService.getProductById(productId));
         }
         return product;
+    }
+
+    @Override
+    public Product  getAProductByStorageId(String storageId, String productId) throws ProductNotFoundException {
+        return null;
     }
 }

@@ -22,6 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import static com.mongodb.internal.connection.tlschannel.util.Util.assertTrue;
@@ -57,7 +58,9 @@ public class CategoryTest {
     @Test
     public void testCreateACategory() {
         Collection<Category> categoriesBefore = categoryRepositoryService.getAllCategories();
-        Category category = new Category(null, "2", "Kim Khánh",true);
+        List<String> keywords = new ArrayList<>();
+        keywords.add("TestCategory");
+        Category category = new Category(null, "2", keywords,true);
         categoryRepositoryService.saveCategory(category);
         Collection<Category> categoriesAfter = categoryRepositoryService.getAllCategories();
         // Verify the result
@@ -66,7 +69,9 @@ public class CategoryTest {
 
     @Test
     public  void testUpdateACategory(){
-        Category category = new Category("21", "2", "Update Kim Khánh",true);
+        List<String> keywords = new ArrayList<>();
+        keywords.add("TestCategory");
+        Category category = new Category("21", "2", keywords,true);
         categoryRepositoryService.saveCategory(category);
         // Verify the result
         assert(category.getName() == "Update Kim Khánh");

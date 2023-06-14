@@ -38,7 +38,7 @@ public class GetProductIdsByStorageIdTest {
     @Test
     void testCreateStorage() throws ProductNotFoundException {
         List<String> id =productInventoryRepository.findProductIdsByStorageId("6486f1695228aa3d8db2bdaf");
-        List<Product> product = productInventoryService.getProductIdsByStorageId("6486f1695228aa3d8db2bdaf");
+        List<Product> product = productInventoryService.getProductByStorageId("6486f1695228aa3d8db2bdaf");
         assertTrue(true);
     }
 }

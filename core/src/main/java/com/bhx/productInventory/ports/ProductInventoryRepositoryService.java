@@ -10,5 +10,6 @@ import java.util.List;
 
 public interface ProductInventoryRepositoryService {
     public boolean saveProductInventory(ProductInventory productInventory);
-    public List<Product> getProductIdsByStorageId(String id) throws ProductNotFoundException;
+    public List<Product> getProductByStorageId(String id) throws ProductNotFoundException;
+    public Product getAProductByStorageId(String storageId, String productId) throws ProductNotFoundException;
 }

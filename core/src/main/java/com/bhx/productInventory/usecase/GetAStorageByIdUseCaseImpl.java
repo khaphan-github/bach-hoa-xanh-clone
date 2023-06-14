@@ -1,4 +1,4 @@
 package com.bhx.productInventory.usecase;
 
-public class GetAStorageByIdUseCaseImpl {
+public class GetAStorageByIdUseCaseImpl implements  GetAStorageByIdUseCase{
 }

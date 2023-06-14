@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -57,7 +59,9 @@ public class GetProductByCategoryIdTest {
     public void setUp() {
         productRepository.deleteAll();
 
-        Category category = new Category(categoryId, categoryId, "TestCategory", true);
+        List<String> keywords = new ArrayList<>();
+        keywords.add("TestCategory");
+        Category category = new Category(categoryId, categoryId, keywords, true);
         categoryService.saveCategory(category);
 
         for (int i = 0; i < maxSize; i++) {
