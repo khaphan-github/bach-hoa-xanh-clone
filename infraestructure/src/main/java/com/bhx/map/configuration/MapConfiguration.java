@@ -28,9 +28,10 @@ public class MapConfiguration {
         return new StorageServiceImpl(storageRepository, storageRepositoryConverter());
     }
 
+
     @Bean
     public MapRepositoryService mapService() {
-        return new MapServiceImpl(storageService());
+        return new MapServiceImpl(storageService(), storageRepository);
     }
 
 }

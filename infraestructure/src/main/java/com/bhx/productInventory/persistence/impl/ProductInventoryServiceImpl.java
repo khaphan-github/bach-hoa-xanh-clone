@@ -51,6 +51,26 @@ public class ProductInventoryServiceImpl implements ProductInventoryRepositorySe
 
     @Override
     public Product  getAProductByStorageId(String storageId, String productId) throws ProductNotFoundException {
-        return null;
+        Product productGet = new Product();
+        List<String> productIds = productInventoryRepository.findProductIdsByStorageId(storageId);
+        for (String productIdGet : productIds) {
+                Gson gson = new Gson();
+                JsonObject jsonObject = gson.fromJson(productIdGet, JsonObject.class);
+                productIdGet = jsonObject.get("productId").getAsString();
+                if (productIdGet.equalsIgnoreCase(productId))
+                {
+                    productGet = productRepositoryService.getProductById(productId);
+                    int inventory = productInventoryRepository.findByStorageIdAndProductId(storageId, productId).getInventory();
+                    productGet.setInventory(inventory);
+                }
+        }
+
+        return productGet;
     }
+
+    @Override
+    public ProductInventory getProductInventoryByStorageIdAndProductId(String storageId, String productId) {
+        return productInventoryRepository.findByStorageIdAndProductId(storageId, productId);
+    }
+
 }

@@ -43,4 +43,6 @@ public class Product extends SelfValidating<Product> implements Serializable {
     private Date updatedDate;
 
     private boolean isAvailable;
+
+    private int inventory;
 }

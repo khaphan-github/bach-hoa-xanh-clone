@@ -3,6 +3,7 @@ package com.bhx.map.persistence.impl;
 import com.bhx.map.ports.MapRepositoryService;
 import com.bhx.storage.Storage;
 import com.bhx.storage.persistence.impl.StorageServiceImpl;
+import com.bhx.storage.persistence.repositories.StorageRepository;
 import com.bhx.storage.ports.StorageRepositoryService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,6 +28,9 @@ import java.util.Map;
 @AllArgsConstructor
 public class MapServiceImpl implements MapRepositoryService {
     private final StorageRepositoryService storageRepositoryService;
+
+    @Autowired
+    private StorageRepository storageRepository;
     @Override
     public String getNearestAddress(String sourceAddress, List<String> addresses) throws IOException, InterruptedException {
         List<Double> sourceCoordinates = geocodeAddress(sourceAddress);
@@ -81,8 +85,8 @@ public class MapServiceImpl implements MapRepositoryService {
                 }
             }
         }
-
-        return nearestAddress;
+        Storage storageStored =  storageRepository.findByAddess(nearestAddress);
+        return storageStored.getId();
     }
 
     @Override

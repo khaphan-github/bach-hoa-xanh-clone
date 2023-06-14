@@ -13,8 +13,8 @@ import java.util.List;
 @Repository
 public interface ProductInventoryRepository extends MongoRepository<ProductInventoryEntity, String> {
 
-    @Query("{'storageId': ?0}")
-    public ProductInventory findByStorageId(String id);
+    @Query("{'storageId': ?0, 'productId': ?1}")
+    public ProductInventory findByStorageIdAndProductId(String storageId, String productId);
 
     @Query(value = "{'storageId': ?0}", fields = "{'productId': 1}")
     List<String> findProductIdsByStorageId(String storageId);

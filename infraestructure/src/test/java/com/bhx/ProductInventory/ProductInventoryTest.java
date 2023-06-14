@@ -43,4 +43,6 @@ public class ProductInventoryTest {
         productInventoryService.saveProductInventory(productInventory);
         assertTrue(productInventoryRepository.findById(productInventory.getProductId()).isPresent());
     }
+
+
 }

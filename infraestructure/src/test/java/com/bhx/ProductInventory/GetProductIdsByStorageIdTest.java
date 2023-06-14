@@ -36,9 +36,21 @@ public class GetProductIdsByStorageIdTest {
     }
 
     @Test
-    void testCreateStorage() throws ProductNotFoundException {
+    void testGetProductByStorageId() throws ProductNotFoundException {
         List<String> id =productInventoryRepository.findProductIdsByStorageId("6486f1695228aa3d8db2bdaf");
         List<Product> product = productInventoryService.getProductByStorageId("6486f1695228aa3d8db2bdaf");
+        assertTrue(true);
+    }
+
+    @Test
+    void testGetProductInventory() throws ProductNotFoundException {
+        ProductInventory productInventoryStored =productInventoryRepository.findByStorageIdAndProductId("6486f1695228aa3d8db2bdaf","6486efec6d937f114996682f");
+        assertTrue(true);
+    }
+
+    @Test
+    void testGetAProductInventory() throws ProductNotFoundException {
+        Product productStored =productInventoryService.getAProductByStorageId("6486f1695228aa3d8db2bdaf","6486efec6d937f114996682f");
         assertTrue(true);
     }
 }

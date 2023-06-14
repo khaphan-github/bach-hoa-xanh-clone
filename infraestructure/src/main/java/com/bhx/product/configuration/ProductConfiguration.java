@@ -1,10 +1,18 @@
 package com.bhx.product.configuration;
 
+import com.bhx.map.persistence.impl.MapServiceImpl;
+import com.bhx.map.ports.MapRepositoryService;
+import com.bhx.map.usecase.GetNearestAddressByUserLocateUseCase;
+import com.bhx.map.usecase.GetNearestAddressByUserLocateUseCaseImpl;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.persistence.converter.ProductRepositoryConverter;
 import com.bhx.product.persistence.impl.ProductServiceImpl;
 import com.bhx.product.persistence.repositories.ProductRepository;
 import com.bhx.product.usecase.*;
+import com.bhx.storage.persistence.converter.StorageRepositoryConverter;
+import com.bhx.storage.persistence.impl.StorageServiceImpl;
+import com.bhx.storage.persistence.repositories.StorageRepository;
+import com.bhx.storage.ports.StorageRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,4 +64,26 @@ public class ProductConfiguration {
     public GetAllProductPagingUseCaseImpl getAllProductPagingUseCase() {
         return new GetAllProductPagingUseCaseImpl(productService());
     }
+
+    @Autowired
+    private StorageRepository storageRepository;
+
+    public StorageRepositoryConverter storageRepositoryConverter() {
+        return new StorageRepositoryConverter();
+    }
+
+    public StorageRepositoryService storageService() {
+        return new StorageServiceImpl(storageRepository, storageRepositoryConverter());
+    }
+
+    public MapRepositoryService mapService() {
+        return new MapServiceImpl(storageService(), storageRepository);
+    }
+    @Bean
+    public GetNearestAddressByUserLocateUseCase getNearestAddressByUserLocateUseCase() {
+        return new GetNearestAddressByUserLocateUseCaseImpl(mapService());
+    }
+
+
+
 }

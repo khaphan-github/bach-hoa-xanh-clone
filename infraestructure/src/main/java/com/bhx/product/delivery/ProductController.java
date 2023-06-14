@@ -6,13 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
+
 public interface ProductController {
 
     String index(Model model) throws Exception;
 
     String contact(Model model);
 
-    String indexGetLocate(@RequestBody Locate myData);
+    String indexGetLocate(@RequestBody Locate myData) throws IOException, InterruptedException;
     String shop(Model model);
 
     String directDetails(Model model);
