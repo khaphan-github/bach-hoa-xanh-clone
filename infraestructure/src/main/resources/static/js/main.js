@@ -18,17 +18,30 @@ if (navigator.geolocation) {
       var latitude = position.coords.latitude;
       var longitude = position.coords.longitude;
 
-      console.log("latitude: "+ latitude + "  longitude: " + longitude);
-      // Gửi latitude và longitude lên server để lấy địa chỉ tương ứng
-      // Các bước tiếp theo của bạn ở đây...
+var data = {
+            latitude: latitude,
+            longitude: longitude
+        };
 
+        // Gửi yêu cầu AJAX đến controller
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function(response) {
+                console.log('Dữ liệu đã được gửi thành công');
+                // Xử lý phản hồi từ server (nếu cần)
+            },
+            error: function(error) {
+                console.log('Lỗi khi gửi dữ liệu');
+                // Xử lý lỗi (nếu cần)
+            }
+        });
     }, function(error) {
-      // Xử lý khi có lỗi định vị
       console.log("Lỗi định vị: " + error.message);
     });
   } else {
-    // Trình duyệt không hỗ trợ định vị
-    // Xử lý theo logic của bạn
     console.log("Trình duyệt không hỗ trợ định vị");
   }
 

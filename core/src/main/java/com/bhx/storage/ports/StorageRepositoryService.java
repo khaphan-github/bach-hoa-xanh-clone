@@ -4,6 +4,7 @@ import com.bhx.product.Product;
 import com.bhx.storage.Storage;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public interface StorageRepositoryService {
@@ -15,4 +16,5 @@ public interface StorageRepositoryService {
 
     public boolean doesStorageIdExist(String id);
     public Collection<Product> getAllProductByStorageId(String id);
+    public List<Storage> getAllStorage();
 }

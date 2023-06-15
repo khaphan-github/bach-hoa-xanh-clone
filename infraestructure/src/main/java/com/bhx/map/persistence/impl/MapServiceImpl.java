@@ -1,11 +1,17 @@
 package com.bhx.map.persistence.impl;
 
 import com.bhx.map.ports.MapRepositoryService;
+import com.bhx.storage.Storage;
+import com.bhx.storage.persistence.impl.StorageServiceImpl;
+import com.bhx.storage.persistence.repositories.StorageRepository;
+import com.bhx.storage.ports.StorageRepositoryService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,10 +21,16 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@AllArgsConstructor
 public class MapServiceImpl implements MapRepositoryService {
+    private final StorageRepositoryService storageRepositoryService;
+
+    @Autowired
+    private StorageRepository storageRepository;
     @Override
     public String getNearestAddress(String sourceAddress, List<String> addresses) throws IOException, InterruptedException {
         List<Double> sourceCoordinates = geocodeAddress(sourceAddress);
@@ -49,6 +61,32 @@ public class MapServiceImpl implements MapRepositoryService {
         }
 
         return nearestAddress;
+    }
+
+    @Override
+    public String getNearestAddressByUserLocate(double latSource, double lonSource) throws IOException, InterruptedException {
+        String nearestAddress = null;
+        double minDistance = Double.MAX_VALUE;
+        List<String> addresses = new ArrayList<>();
+        List<Storage> allStorage = storageRepositoryService.getAllStorage();
+        for (Storage storage : allStorage){
+            addresses.add(storage.getAddress());
+        }
+        for (String address : addresses) {
+            List<Double> coordinates = geocodeAddress(address);
+            if (coordinates != null) {
+                Point point = createPoint(coordinates.get(1), coordinates.get(0));
+                if (point != null) {
+                    double distance = calculateDistance(latSource,lonSource , point.getY(), point.getX());
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        nearestAddress = address;
+                    }
+                }
+            }
+        }
+        Storage storageStored =  storageRepository.findByAddess(nearestAddress);
+        return storageStored.getId();
     }
 
     @Override
@@ -98,6 +136,7 @@ public class MapServiceImpl implements MapRepositoryService {
 
         return distance;
     }
+
 
 
     private Point createPoint(double latitude, double longitude) {

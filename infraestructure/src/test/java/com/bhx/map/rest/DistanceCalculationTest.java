@@ -20,21 +20,21 @@ import java.util.List;
 @Slf4j
 @SpringJUnitConfig
 @SpringBootTest
+@AllArgsConstructor
 public class DistanceCalculationTest {
 
     @Autowired
-    private MapRepositoryService mapRepositoryService;
+    private MapServiceImpl mapService;
 
     @Test
     public void testCalculateDistance() throws ParseException, IOException, InterruptedException {
-        mapRepositoryService = new MapServiceImpl();
         String address = "xã Trí Bình ,huyện Châu Thành,tỉnh Tây Ninh, Viet Nam";
-        List<Double> point = mapRepositoryService.geocodeAddress(address);
+        List<Double> point = mapService.geocodeAddress(address);
 
         String address2 = "Quận 10, Thành phố hồ chí minh, Việt Nam";
-        List<Double> point2 = mapRepositoryService.geocodeAddress(address2);
+        List<Double> point2 = mapService.geocodeAddress(address2);
 
-        double result = mapRepositoryService.calculateDistance(point.get(1), point.get(0), point2.get(1), point2.get(0));
+        double result = mapService.calculateDistance(point.get(1), point.get(0), point2.get(1), point2.get(0));
         Assert.assertNotNull(result);
 
     }

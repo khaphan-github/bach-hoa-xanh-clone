@@ -7,8 +7,9 @@ import com.bhx.storage.persistence.entities.StorageEntity;
 import com.bhx.storage.persistence.repositories.StorageRepository;
 import com.bhx.storage.ports.StorageRepositoryService;
 import lombok.AllArgsConstructor;
-
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -49,5 +50,20 @@ public class StorageServiceImpl implements StorageRepositoryService {
     @Override
     public Collection<Product> getAllProductByStorageId(String id) {
         return null;
+    }
+
+    @Override
+    public List<Storage> getAllStorage() {
+        List<StorageEntity> storageEntities = storageRepository.findAll();
+        List<Storage> storages = new ArrayList<>();
+
+        for (StorageEntity entity : storageEntities) {
+            Storage storage = new Storage();
+            storage.setId(entity.getId());
+            storage.setName(entity.getName());
+            storage.setAddress(entity.getAddress());
+            storages.add(storage);
+        }
+        return storages;
     }
 }

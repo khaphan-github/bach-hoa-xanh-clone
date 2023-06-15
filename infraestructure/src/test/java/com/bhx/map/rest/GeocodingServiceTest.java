@@ -17,16 +17,15 @@ import java.util.List;
 @Slf4j
 @SpringJUnitConfig
 @SpringBootTest
+@AllArgsConstructor
 public class GeocodingServiceTest {
 
     @Autowired
-    private  MapRepositoryService mapRepositoryService;
-
+    private MapServiceImpl mapService;
     @Test
     public void testGeocodeAddress() throws IOException, InterruptedException {
-        mapRepositoryService = new MapServiceImpl();
         String address = "xã Trí Bình ,huyện Châu Thành,tỉnh Tây Ninh, Viet Nam";
-        List<Double> point = mapRepositoryService.geocodeAddress(address);
+        List<Double> point = mapService.geocodeAddress(address);
 
         // Kiểm tra xem điểm tọa độ đã được trả về chưa
         Assert.assertNotNull(point);

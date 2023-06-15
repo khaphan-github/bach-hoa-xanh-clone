@@ -22,4 +22,6 @@ public class ProductView implements Serializable {
     private String categoryName;
     private String addToCartUrl;
     private String detailUrl;
+
+    private int inventory;
 }
