@@ -8,7 +8,14 @@ import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.persistence.converter.ProductRepositoryConverter;
 import com.bhx.product.persistence.impl.ProductServiceImpl;
 import com.bhx.product.persistence.repositories.ProductRepository;
+import com.bhx.product.ports.ProductRepositoryService;
 import com.bhx.product.usecase.*;
+import com.bhx.productInventory.persistence.converter.ProductInventoryRepositoryConverter;
+import com.bhx.productInventory.persistence.impl.ProductInventoryServiceImpl;
+import com.bhx.productInventory.persistence.repositories.ProductInventoryRepository;
+import com.bhx.productInventory.ports.ProductInventoryRepositoryService;
+import com.bhx.productInventory.usecase.GetAllProductByUserLocateUseCase;
+import com.bhx.productInventory.usecase.GetAllProductByUserLocateUseCaseImpl;
 import com.bhx.storage.persistence.converter.StorageRepositoryConverter;
 import com.bhx.storage.persistence.impl.StorageServiceImpl;
 import com.bhx.storage.persistence.repositories.StorageRepository;
@@ -85,5 +92,26 @@ public class ProductConfiguration {
     }
 
 
+    @Autowired
+    private ProductInventoryRepository productInventoryRepository;
+
+    public ProductInventoryRepositoryConverter productInventoryRepositoryConverter() {
+        return new ProductInventoryRepositoryConverter();
+    }
+
+    public ProductRepositoryService productRepositoryService() {
+        return new ProductServiceImpl(productRepository, productRepositoryConverter());
+    }
+    public ProductInventoryRepositoryService InventoryService() {
+        return new ProductInventoryServiceImpl(
+                productInventoryRepository,
+                productInventoryRepositoryConverter(),
+                productRepositoryService()
+        );
+    }
+    @Bean
+    public GetAllProductByUserLocateUseCase getAllProductByUserLocateUseCase() {
+        return new GetAllProductByUserLocateUseCaseImpl(InventoryService(),getNearestAddressByUserLocateUseCase());
+    }
 
 }

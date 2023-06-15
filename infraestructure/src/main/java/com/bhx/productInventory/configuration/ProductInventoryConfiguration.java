@@ -11,6 +11,7 @@ import com.bhx.product.usecase.GetOneProductUseCaseImpl;
 import com.bhx.productInventory.persistence.converter.ProductInventoryRepositoryConverter;
 import com.bhx.productInventory.persistence.impl.ProductInventoryServiceImpl;
 import com.bhx.productInventory.persistence.repositories.ProductInventoryRepository;
+import com.bhx.productInventory.ports.ProductInventoryRepositoryService;
 import com.bhx.storage.persistence.converter.StorageRepositoryConverter;
 import com.bhx.storage.persistence.impl.StorageServiceImpl;
 import com.bhx.storage.persistence.repositories.StorageRepository;
@@ -41,7 +42,7 @@ public class ProductInventoryConfiguration {
     }
 
     @Bean
-    public ProductInventoryServiceImpl productInventoryService() {
+    public ProductInventoryRepositoryService InventoryService() {
         return new ProductInventoryServiceImpl(
                 productInventoryRepository,
                 productInventoryRepositoryConverter(),

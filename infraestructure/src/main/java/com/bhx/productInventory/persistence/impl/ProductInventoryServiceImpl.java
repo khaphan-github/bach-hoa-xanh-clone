@@ -1,7 +1,9 @@
 package com.bhx.productInventory.persistence.impl;
 
 import com.bhx.product.Product;
+import com.bhx.product.exception.PagingWrongFormat;
 import com.bhx.product.exception.ProductNotFoundException;
+import com.bhx.product.persistence.entities.ProductEntity;
 import com.bhx.product.persistence.repositories.ProductRepository;
 import com.bhx.product.ports.ProductRepositoryService;
 import com.bhx.productInventory.ProductInventory;
@@ -18,11 +20,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class ProductInventoryServiceImpl implements ProductInventoryRepositoryService {
@@ -72,5 +78,28 @@ public class ProductInventoryServiceImpl implements ProductInventoryRepositorySe
     public ProductInventory getProductInventoryByStorageIdAndProductId(String storageId, String productId) {
         return productInventoryRepository.findByStorageIdAndProductId(storageId, productId);
     }
+
+    @Override
+    public Collection<Product> getAllProductWithPaging(int page, int size, String storageId) throws PagingWrongFormat, ProductNotFoundException {
+        List<Product> productList = new ArrayList<>();
+        List<String> productIds = productInventoryRepository.findProductIdsByStorageId(storageId);
+        Pageable pageable = PageRequest.of(page, size);
+        int startIdx = (int) pageable.getOffset();
+        int endIdx = Math.min(startIdx + pageable.getPageSize(), productIds.size());
+        List<String> productIdsPage = productIds.subList(startIdx, endIdx);
+
+        for (String productIdGet : productIdsPage) {
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(productIdGet, JsonObject.class);
+            productIdGet = jsonObject.get("productId").getAsString();
+                Product productGet = productRepositoryService.getProductById(productIdGet);
+                int inventory = productInventoryRepository.findByStorageIdAndProductId(storageId, productIdGet).getInventory();
+                productGet.setInventory(inventory);
+                productList.add(productGet);
+        }
+
+        return productList;
+    }
+
 
 }
