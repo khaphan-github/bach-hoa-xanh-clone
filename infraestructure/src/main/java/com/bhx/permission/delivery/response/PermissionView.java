@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author "KhaPhan" on 22-May-23
@@ -16,8 +17,9 @@ import java.util.Date;
 public class PermissionView implements Serializable {
     private String id;
     private String name;
-    private String desc;
-    private Date createdAt;
-    private Date updatedAt;
-    private boolean isActive;
+    private String uri;
+    private String method;
+    private List<String> groupNames;
+    private boolean active;
+    private String description;
 }

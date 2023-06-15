@@ -1,5 +1,7 @@
 package com.bhx.permission.configuration;
 
+import com.bhx.group.persistence.impl.GroupServiceImpl;
+import com.bhx.permission.delivery.converters.CreatePermissionConverter;
 import com.bhx.permission.persistence.converters.PermissionRepositoryConverter;
 import com.bhx.permission.persistence.repository.PermissionRepository;
 import com.bhx.permission.persistence.impl.PermissionServiceImpl;
@@ -17,6 +19,8 @@ public class PermissionConfiguration {
     @Autowired
     private PermissionRepository permissionRepository;
 
+    @Autowired
+    private GroupServiceImpl groupService;
     @Bean
     public PermissionRepositoryConverter permissionRepositoryConverter() {
         return new PermissionRepositoryConverter();
@@ -33,8 +37,13 @@ public class PermissionConfiguration {
     }
 
     @Bean
+    public CreatePermissionConverter createPermissionConverter() {
+        return new CreatePermissionConverter();
+    }
+    
+    @Bean
     public GetAllPermissionUseCaseImpl getAllPermissionUseCase() {
-        return new GetAllPermissionUseCaseImpl(permissionService());
+        return new GetAllPermissionUseCaseImpl(permissionService(), groupService);
     }
 
     @Bean

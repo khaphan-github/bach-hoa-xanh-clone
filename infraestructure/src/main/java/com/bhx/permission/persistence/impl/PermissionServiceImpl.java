@@ -31,7 +31,8 @@ public class PermissionServiceImpl implements PermissionRepositoryService {
 
     @Override
     public void savePermission(Permission permission) {
-        permissionRepository.save(permissionRepositoryConverter.mapToTable(permission));
+        PermissionEntity permissionEntity = permissionRepositoryConverter.mapToTable(permission);
+        permissionRepository.save(permissionEntity);
     }
 
     @Override

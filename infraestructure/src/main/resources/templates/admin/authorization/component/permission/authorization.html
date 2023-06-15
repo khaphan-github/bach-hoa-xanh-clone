@@ -24,7 +24,7 @@
             <div class="content-wrapper">
                 <div class="container-xxl flex-grow-1 container-p-y">
 
-                    <div th:replace="/admin/authorization/component/permission/form"></div>
+                    <div th:replace="admin/authorization/component/permission/form"></div>
                     <div class="card">
 
                         <div class="tab-pane">
@@ -32,14 +32,14 @@
                                 <div class="d-flex justify-content-between" style="margin-button: 5px">
                                     <h6 class="text-muted">Quản lý phân quyền</h6>
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exLargeAccountModal"
+                                            data-bs-target="#exLargePermissionModal"
                                             onclick="">
                                         Thêm Chức năng
                                     </button>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div th:replace="/admin/authorization/component/permission/table"></div>
+                                <div th:replace="admin/authorization/component/permission/table"></div>
                             </div>
                         </div>
                     </div>

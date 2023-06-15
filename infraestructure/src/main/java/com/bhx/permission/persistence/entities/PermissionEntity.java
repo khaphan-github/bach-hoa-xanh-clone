@@ -25,11 +25,12 @@ public class PermissionEntity implements Serializable {
     private String id;
     private String name;
     private String uri;
+    private String httpMethod;
+    private String effect;
     private String resource;
-    private String desc;
+    private String description;
     private Date createdAt;
     private Date updatedAt;
     private boolean active;
-    @DBRef
-    private List<GroupEntity> groupEntityList;
+    private List<String> accessGroupIds;
 }

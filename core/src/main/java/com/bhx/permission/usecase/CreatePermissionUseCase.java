@@ -6,6 +6,6 @@ import com.bhx.permission.Permission;
 /**
  * @author "KhaPhan" on 20-May-23
  */
-interface CreatePermissionUseCase {
+public interface CreatePermissionUseCase {
     void execute(Permission permission) throws PermissionAlreadyExist;
 }

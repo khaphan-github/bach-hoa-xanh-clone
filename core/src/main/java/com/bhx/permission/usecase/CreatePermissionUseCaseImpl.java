@@ -14,7 +14,7 @@ public class CreatePermissionUseCaseImpl implements CreatePermissionUseCase {
      private final PermissionRepositoryService permissionRepositoryService;
     @Override
     public void execute(Permission permission) throws PermissionAlreadyExist {
-        Boolean isExistPermission = permissionRepositoryService.isExistPermissionName(permission.getAction());
+        Boolean isExistPermission = permissionRepositoryService.isExistPermissionName(permission.getName());
         if (Boolean.TRUE.equals(isExistPermission)) {
             throw new PermissionAlreadyExist();
         }
