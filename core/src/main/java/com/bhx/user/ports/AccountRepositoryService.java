@@ -1,8 +1,7 @@
 package com.bhx.user.ports;
 
-import com.bhx.permission.exception.PermissionNotFoundException;
-import com.bhx.user.Account;
 import com.bhx.user.exception.WrongUsernameOrPasswordException;
+import com.bhx.user.Account;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.Collection;
@@ -19,8 +18,6 @@ public interface AccountRepositoryService {
     Account getAccountById(String id);
     void invalidAccount(String id);
     Boolean isExistingAccountUsername(String name);
-    void addPermissionToAccount(String accountId, String permissionId) throws PermissionNotFoundException, AccountNotFoundException;
     Account login(String username, String password) throws WrongUsernameOrPasswordException;
-
-    Account findAccountByUsername(String username);
+    Account findAccountByUsername(String username) throws AccountNotFoundException;
 }

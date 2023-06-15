@@ -1,7 +1,7 @@
 package com.bhx.permission.usecase;
 
-import com.bhx.permission.Permission;
 import com.bhx.permission.ports.PermissionRepositoryService;
+import com.bhx.permission.Permission;
 import lombok.AllArgsConstructor;
 
 import java.util.Collection;

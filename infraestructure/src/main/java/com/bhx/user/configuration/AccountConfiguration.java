@@ -1,8 +1,10 @@
 package com.bhx.user.configuration;
 
+import com.bhx.group.persistence.impl.GroupServiceImpl;
 import com.bhx.permission.persistence.impl.PermissionServiceImpl;
 import com.bhx.permission.persistence.repository.PermissionRepository;
 import com.bhx.user.delivery.converters.AccountRestConverter;
+import com.bhx.user.delivery.converters.CreateAccountConverter;
 import com.bhx.user.persistence.converters.AccountRepositoryConverter;
 import com.bhx.user.persistence.impl.AccountServiceImpl;
 import com.bhx.user.persistence.impl.CryptoServiceImpl;
@@ -29,6 +31,9 @@ public class AccountConfiguration {
     @Autowired
     private CryptoServiceImpl cryptoService;
 
+    @Autowired
+    private GroupServiceImpl groupService;
+
     @Bean
     public AccountRepositoryConverter accountRepositoryConverter() {
         return new AccountRepositoryConverter();
@@ -40,10 +45,14 @@ public class AccountConfiguration {
     }
 
     @Bean
-    public AccountServiceImpl accountService() {
-        return new AccountServiceImpl(accountRepository, permissionRepository, accountRepositoryConverter());
+    public CreateAccountConverter createAccountConverter() {
+        return new CreateAccountConverter();
     }
 
+    @Bean
+    public AccountServiceImpl accountService() {
+        return new AccountServiceImpl(accountRepository, accountRepositoryConverter());
+    }
 
     @Bean
     public CreateAccountUseCaseImpl createAccountUseCase() {
@@ -53,6 +62,11 @@ public class AccountConfiguration {
     @Bean
     public GetAccountByPermissionUseCaseImpl getAccountByPermissionUseCase() {
         return new GetAccountByPermissionUseCaseImpl(accountService());
+    }
+
+    @Bean
+    public GetAccountsPagingUseCaseImpl getAccountsPagingUseCase() {
+        return new GetAccountsPagingUseCaseImpl(accountService(), groupService);
     }
 
     @Bean
@@ -76,7 +90,12 @@ public class AccountConfiguration {
     }
 
     @Bean
-    public UpdatePermissionToUserUseCaseImpl updatePermissionToUserUseCase() {
-        return new UpdatePermissionToUserUseCaseImpl(accountService(), permissionService);
+    public GetAccountByUserNameUseCaseImpl getAccountByUserNameUseCase() {
+        return new GetAccountByUserNameUseCaseImpl(accountService());
+    }
+
+    @Bean
+    public CreateAccountWithGroupUseCaseImpl createAccountWithGroupUseCase(){
+        return new CreateAccountWithGroupUseCaseImpl(accountService(), groupService);
     }
 }

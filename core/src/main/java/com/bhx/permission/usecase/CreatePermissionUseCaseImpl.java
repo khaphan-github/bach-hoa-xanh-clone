@@ -1,8 +1,8 @@
 package com.bhx.permission.usecase;
 
-import com.bhx.permission.Permission;
 import com.bhx.permission.exception.PermissionAlreadyExist;
 import com.bhx.permission.ports.PermissionRepositoryService;
+import com.bhx.permission.Permission;
 import lombok.AllArgsConstructor;
 
 /**
@@ -14,7 +14,7 @@ public class CreatePermissionUseCaseImpl implements CreatePermissionUseCase {
      private final PermissionRepositoryService permissionRepositoryService;
     @Override
     public void execute(Permission permission) throws PermissionAlreadyExist {
-        Boolean isExistPermission = permissionRepositoryService.isExistPermissionName(permission.getName());
+        Boolean isExistPermission = permissionRepositoryService.isExistPermissionName(permission.getAction());
         if (Boolean.TRUE.equals(isExistPermission)) {
             throw new PermissionAlreadyExist();
         }

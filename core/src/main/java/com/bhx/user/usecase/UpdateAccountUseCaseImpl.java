@@ -15,6 +15,7 @@ public class UpdateAccountUseCaseImpl implements UpdateAccountUseCase{
     private final AccountRepositoryService accountRepositoryService;
     @Override
     public void execute(Account account) throws AccountNotFoundException {
+
         Account accountStored = accountRepositoryService.getAccountById(account.getId());
 
         if (accountStored == null) {

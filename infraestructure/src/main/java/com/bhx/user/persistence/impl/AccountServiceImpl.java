@@ -1,8 +1,5 @@
 package com.bhx.user.persistence.impl;
 
-import com.bhx.permission.exception.PermissionNotFoundException;
-import com.bhx.permission.persistence.entities.PermissionEntity;
-import com.bhx.permission.persistence.repository.PermissionRepository;
 import com.bhx.user.Account;
 import com.bhx.user.exception.WrongUsernameOrPasswordException;
 import com.bhx.user.persistence.converters.AccountRepositoryConverter;
@@ -10,7 +7,6 @@ import com.bhx.user.persistence.entities.AccountEntity;
 import com.bhx.user.persistence.repository.AccountRepository;
 import com.bhx.user.ports.AccountRepositoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -25,14 +21,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AccountServiceImpl implements AccountRepositoryService {
     private final AccountRepository accountRepository;
-    private final PermissionRepository permissionRepository;
     private final AccountRepositoryConverter accountRepositoryConverter;
+
 
     @Override
     public Collection<Account> getAllAccounts(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<AccountEntity> accountEntityPage = accountRepository.findAll(pageable);
-        return accountEntityPage.stream().map(accountRepositoryConverter::mapToEntity).collect(Collectors.toList());
+        return accountRepository.findAll(pageable).stream().map(accountRepositoryConverter::mapToEntity).collect(Collectors.toList());
     }
 
     @Override
@@ -71,25 +66,6 @@ public class AccountServiceImpl implements AccountRepositoryService {
     }
 
     @Override
-    public void addPermissionToAccount(String accountId, String permissionId) throws PermissionNotFoundException, AccountNotFoundException {
-        Optional<PermissionEntity> permissionStored = permissionRepository.findById(permissionId);
-
-        if (!permissionStored.isPresent()) {
-            throw new PermissionNotFoundException(permissionId);
-        }
-
-        Optional<AccountEntity> accountStored = accountRepository.findById(accountId);
-
-        if (!accountStored.isPresent()) {
-            throw new AccountNotFoundException();
-        }
-
-        accountStored.get().setPermissionId(permissionStored.get().getId());
-
-        accountRepository.save(accountStored.get());
-    }
-
-    @Override
     public Account login(String username, String password) throws WrongUsernameOrPasswordException {
         Optional<AccountEntity> accountEntity = accountRepository.findByUsername(username);
 
@@ -103,7 +79,11 @@ public class AccountServiceImpl implements AccountRepositoryService {
     }
 
     @Override
-    public Account findAccountByUsername(String username) {
-        return null;
+    public Account findAccountByUsername(String username) throws AccountNotFoundException {
+        Optional<AccountEntity> accountEntity = accountRepository.findByUsername(username);
+        if (accountEntity.isPresent()) {
+            return accountRepositoryConverter.mapToEntity(accountEntity.get());
+        }
+        throw new AccountNotFoundException("Account not found");
     }
 }

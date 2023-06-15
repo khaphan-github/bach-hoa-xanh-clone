@@ -38,16 +38,17 @@ public class CreateAccountTest {
 
     @AfterEach
     void restore() {
-        accountRepository.deleteAll();
+
     }
 
     @Test
     void createAccountTest() {
         String accountId = new ObjectId().toString();
-        String username = "TestUsername";
+        String username = "admin";
         Account newAccount = new Account();
         newAccount.setId(accountId);
         newAccount.setUsername(username);
+        newAccount.setPassword("admin");
 
         accountRepositoryService.saveAccount(newAccount);
         Optional<AccountEntity> accountEntity = accountRepository.findById(accountId);

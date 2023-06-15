@@ -5,6 +5,7 @@ import com.bhx.user.Account;
 import com.bhx.user.delivery.request.CreateAccountDto;
 import org.bson.types.ObjectId;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -21,16 +22,15 @@ public class CreateAccountConverter implements RestConverter<CreateAccountDto, A
         accountConvertFromCreateAccountDto.setUsername(createAccountDto.getUsername());
         accountConvertFromCreateAccountDto.setPassword(createAccountDto.getPassword());
 
-        accountConvertFromCreateAccountDto.setDisplayName(createAccountDto.getDisplayName());
+        accountConvertFromCreateAccountDto.setDisplayName(createAccountDto.getFullname());
         accountConvertFromCreateAccountDto.setEmail(createAccountDto.getEmail());
         accountConvertFromCreateAccountDto.setPhone(createAccountDto.getPhone());
 
-        accountConvertFromCreateAccountDto.setAddress(createAccountDto.getAddress());
+        accountConvertFromCreateAccountDto.setAddress("");
 
         accountConvertFromCreateAccountDto.setCreatedAt(new Date());
-
-        accountConvertFromCreateAccountDto.setPermissionId(createAccountDto.getPermissionId());
-
+        accountConvertFromCreateAccountDto.setGroupIds(Arrays.asList(createAccountDto.getSelectedGroups()));
+        accountConvertFromCreateAccountDto.setActive(createAccountDto.isActive());
         return accountConvertFromCreateAccountDto;
     }
 }

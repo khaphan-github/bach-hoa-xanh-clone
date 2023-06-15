@@ -18,27 +18,27 @@ public class AccountRepositoryConverter implements RepositoryConverter<AccountEn
                 persistenceObject.getEmail(),
                 persistenceObject.getPhone(),
                 persistenceObject.getAddress(),
-                persistenceObject.getPermissionId(),
                 persistenceObject.getCreatedAt(),
                 persistenceObject.getLastLogin(),
-                persistenceObject.isActive()
+                persistenceObject.isActive(),
+                persistenceObject.getGroupIds()
         );
     }
 
     @Override
     public Account mapToEntity(final AccountEntity entityObject) {
-        return new Account(
-                entityObject.getId(),
-                entityObject.getUsername(),
-                entityObject.getPassword(),
-                entityObject.getDisplayName(),
-                entityObject.getEmail(),
-                entityObject.getPhone(),
-                entityObject.getAddress(),
-                entityObject.getPermissionId(),
-                entityObject.getCreatedAt(),
-                entityObject.getLastLogin(),
-                entityObject.isActive()
-        );
+        Account account = new Account();
+
+        account.setId(entityObject.getId());
+        account.setUsername(entityObject.getUsername());
+        account.setDisplayName(entityObject.getDisplayName());
+        account.setEmail(entityObject.getEmail());
+        account.setPhone(entityObject.getPhone());
+        account.setGroupIds(entityObject.getGroupIds());
+        account.setAddress(entityObject.getAddress());
+        account.setCreatedAt(entityObject.getCreatedAt());
+        account.setLastLogin(entityObject.getLastLogin());
+        account.setActive(entityObject.isActive());
+        return account;
     }
 }

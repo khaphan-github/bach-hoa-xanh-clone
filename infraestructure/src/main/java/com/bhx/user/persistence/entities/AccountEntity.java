@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author "KhaPhan" on 28-May-23
@@ -26,8 +27,8 @@ public class AccountEntity implements Serializable {
     private String email;
     private String phone;
     private String address;
-    private String permissionId;
     private Date createdAt;
     private Date lastLogin;
-    private boolean isActive;
+    private boolean active;
+    private List<String> groupIds;
 }

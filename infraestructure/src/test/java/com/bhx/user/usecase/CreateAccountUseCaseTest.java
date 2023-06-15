@@ -1,6 +1,10 @@
 package com.bhx.user.usecase;
 
+import com.bhx.user.Account;
+import com.bhx.user.exception.AccountAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
@@ -10,5 +14,14 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 @Slf4j
 @SpringJUnitConfig
 @SpringBootTest
-public class CreateAccountUseCaseTest {
+class CreateAccountUseCaseTest {
+    @Autowired
+    CreateAccountUseCase createAccountUseCase;
+    @Test
+    void createAccountUseCaseTest() throws AccountAlreadyExistException {
+        Account account = new Account();
+        account.setUsername("admin1");
+        account.setPassword("admin1");
+        createAccountUseCase.execute(account);
+    }
 }

@@ -1,10 +1,8 @@
 package com.bhx.user.serviceimpl;
 
-import com.bhx.permission.Permission;
 import com.bhx.permission.exception.PermissionNotFoundException;
 import com.bhx.permission.persistence.entities.PermissionEntity;
 import com.bhx.permission.persistence.repository.PermissionRepository;
-import com.bhx.user.Account;
 import com.bhx.user.persistence.entities.AccountEntity;
 import com.bhx.user.persistence.repository.AccountRepository;
 import com.bhx.user.ports.AccountRepositoryService;

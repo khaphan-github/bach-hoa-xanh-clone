@@ -1,9 +1,7 @@
 package com.bhx.user.usecase;
 
-import com.bhx.product.Product;
-import com.bhx.product.exception.ProductAlreadyExistException;
-import com.bhx.user.Account;
 import com.bhx.user.exception.AccountAlreadyExistException;
+import com.bhx.user.Account;
 
 /**
  * @author "KhaPhan" on 20-May-23

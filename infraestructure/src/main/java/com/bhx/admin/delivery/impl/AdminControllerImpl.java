@@ -8,6 +8,7 @@ import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.exception.ProductNotFoundException;
 import com.bhx.product.usecase.GetAllProductsUseCase;
 
+import com.bhx.user.usecase.LoginUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,14 +33,15 @@ public class AdminControllerImpl implements AdminController {
     private final ProductMvcConverter productMvcConverter;
 
     private final GetAllCategoriesUseCase getAllCategoriesUseCase;
+    private final LoginUseCase loginUseCase;
 
 
     @GetMapping
-    @Override
     public String adminIndex(Model model) {
-    model.addAttribute("selected","dashboard");
-    return "admin/main/index";
-}
+        model.addAttribute("selected", "dashboard");
+        return "admin/main/index";
+    }
+
     @GetMapping("/login")
     @Override
     public String adminLoginFormView() {
@@ -54,22 +56,33 @@ public class AdminControllerImpl implements AdminController {
         return "redirect:/admin";
     }
 
+    public String adminLoginForm(Model model) {
+        model.addAttribute("loginDto", new LoginDto());
+        return "admin/auth/login";
+    }
 
-//Product
-    @Override
+    @GetMapping("/dashboard")
+    public String dashBoardPage() {
+        return "admin/main/index";
+    }
+
+    //Product
     @GetMapping("/products")
     public String adminProductsView(Model model) throws ProductNotFoundException {
-        model.addAttribute("selected","products");
-        model.addAttribute("subSelected","listProducts");
+        model.addAttribute("selected", "products");
+        model.addAttribute("subSelected", "listProducts");
 
         return "admin/products/index";
     }
 
-    @Override
+    @GetMapping("/products/category")
     public String adminProductCategoryView(Model model) {
 
-
+        model.addAttribute("selected", "products");
+        model.addAttribute("subSelected", "productCategory");
 
         return "admin/products/category";
     }
+
+
 }

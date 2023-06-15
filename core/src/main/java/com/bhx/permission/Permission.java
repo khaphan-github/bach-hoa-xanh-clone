@@ -18,7 +18,13 @@ import java.util.Date;
 @NoArgsConstructor
 public class Permission extends SelfValidating<Permission> implements Serializable {
     private String id;
-    private String name;
+    /*
+    * @Param action
+    * Follow this format: object:method
+    * Example: product:search, account:login, cart:checkout
+    * */
+    private String action;
+    private Effect effect;
     private String desc;
     private Date createdAt;
     private Date updatedAt;
