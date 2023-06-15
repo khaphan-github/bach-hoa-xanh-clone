@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/inventory")
+@RequestMapping("/storage")
 public class StorageControllerImpl implements StorageController {
     private final GetAllStorageUsecase getAllStorageUsecase;
     @Override
