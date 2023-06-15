@@ -41,7 +41,6 @@ public class ProductInventoryConfiguration {
         return new ProductServiceImpl(productRepository, productRepositoryConverter());
     }
 
-    @Bean
     public ProductInventoryRepositoryService InventoryService() {
         return new ProductInventoryServiceImpl(
                 productInventoryRepository,
