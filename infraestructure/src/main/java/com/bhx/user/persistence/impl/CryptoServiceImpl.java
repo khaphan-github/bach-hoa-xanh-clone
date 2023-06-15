@@ -1,6 +1,6 @@
 package com.bhx.user.persistence.impl;
 
-import com.bhx.securityconfig.user.ports.CryptoService;
+import com.bhx.user.ports.CryptoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

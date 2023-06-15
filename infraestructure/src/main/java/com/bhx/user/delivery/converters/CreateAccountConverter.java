@@ -1,10 +1,11 @@
 package com.bhx.user.delivery.converters;
 
 import com.bhx.global.shared.RestConverter;
-import com.bhx.securityconfig.user.Account;
+import com.bhx.user.Account;
 import com.bhx.user.delivery.request.CreateAccountDto;
 import org.bson.types.ObjectId;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -28,8 +29,8 @@ public class CreateAccountConverter implements RestConverter<CreateAccountDto, A
         accountConvertFromCreateAccountDto.setAddress("");
 
         accountConvertFromCreateAccountDto.setCreatedAt(new Date());
-        accountConvertFromCreateAccountDto.setGroupIds(createAccountDto.getSelectedGroups());
-
+        accountConvertFromCreateAccountDto.setGroupIds(Arrays.asList(createAccountDto.getSelectedGroups()));
+        accountConvertFromCreateAccountDto.setActive(createAccountDto.isActive());
         return accountConvertFromCreateAccountDto;
     }
 }

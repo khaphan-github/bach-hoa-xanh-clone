@@ -1,8 +1,7 @@
 package com.bhx.user.usecase;
 
-import com.bhx.securityconfig.user.Account;
-import com.bhx.securityconfig.user.exception.AccountAlreadyExistException;
-import com.bhx.securityconfig.user.usecase.CreateAccountUseCase;
+import com.bhx.user.Account;
+import com.bhx.user.exception.AccountAlreadyExistException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

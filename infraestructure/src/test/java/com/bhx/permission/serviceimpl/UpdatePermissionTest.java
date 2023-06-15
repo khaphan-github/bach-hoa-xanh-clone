@@ -1,10 +1,10 @@
 package com.bhx.permission.serviceimpl;
 
-import com.bhx.securityconfig.permission.persistence.converters.PermissionRepositoryConverter;
-import com.bhx.securityconfig.permission.persistence.entities.PermissionEntity;
-import com.bhx.securityconfig.permission.persistence.impl.PermissionServiceImpl;
-import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
-import com.bhx.securityconfig.permission.Permission;
+import com.bhx.permission.persistence.converters.PermissionRepositoryConverter;
+import com.bhx.permission.persistence.entities.PermissionEntity;
+import com.bhx.permission.persistence.impl.PermissionServiceImpl;
+import com.bhx.permission.persistence.repository.PermissionRepository;
+import com.bhx.permission.Permission;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

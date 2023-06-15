@@ -1,8 +1,8 @@
 package com.bhx.admin.delivery;
 
 import com.bhx.product.exception.ProductNotFoundException;
-import com.bhx.securityconfig.user.exception.UserNotFoundException;
-import com.bhx.securityconfig.user.exception.WrongUsernameOrPasswordException;
+import com.bhx.user.exception.UserNotFoundException;
+import com.bhx.user.exception.WrongUsernameOrPasswordException;
 import org.springframework.ui.Model;
 
 public interface AdminController {

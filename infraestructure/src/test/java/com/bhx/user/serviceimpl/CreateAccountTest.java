@@ -1,9 +1,9 @@
 package com.bhx.user.serviceimpl;
 
-import com.bhx.securityconfig.user.Account;
+import com.bhx.user.Account;
 import com.bhx.user.persistence.entities.AccountEntity;
 import com.bhx.user.persistence.repository.AccountRepository;
-import com.bhx.securityconfig.user.ports.AccountRepositoryService;
+import com.bhx.user.ports.AccountRepositoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;

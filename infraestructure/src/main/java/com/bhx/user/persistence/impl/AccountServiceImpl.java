@@ -1,17 +1,12 @@
 package com.bhx.user.persistence.impl;
 
-import com.bhx.securityconfig.group.persistence.repository.GroupRepository;
-import com.bhx.securityconfig.permission.exception.PermissionNotFoundException;
-import com.bhx.securityconfig.permission.persistence.entities.PermissionEntity;
-import com.bhx.securityconfig.permission.persistence.repository.PermissionRepository;
-import com.bhx.securityconfig.user.Account;
-import com.bhx.securityconfig.user.exception.WrongUsernameOrPasswordException;
+import com.bhx.user.Account;
+import com.bhx.user.exception.WrongUsernameOrPasswordException;
 import com.bhx.user.persistence.converters.AccountRepositoryConverter;
 import com.bhx.user.persistence.entities.AccountEntity;
 import com.bhx.user.persistence.repository.AccountRepository;
-import com.bhx.securityconfig.user.ports.AccountRepositoryService;
+import com.bhx.user.ports.AccountRepositoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -26,15 +21,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AccountServiceImpl implements AccountRepositoryService {
     private final AccountRepository accountRepository;
-    private final GroupRepository groupRepository;
     private final AccountRepositoryConverter accountRepositoryConverter;
 
 
     @Override
     public Collection<Account> getAllAccounts(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<AccountEntity> accountEntityPage = accountRepository.findAll(pageable);
-        return accountEntityPage.stream().map(accountRepositoryConverter::mapToEntity).collect(Collectors.toList());
+        return accountRepository.findAll(pageable).stream().map(accountRepositoryConverter::mapToEntity).collect(Collectors.toList());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.bhx.menu;
 
 import com.bhx.shared.SelfValidating;
-import com.bhx.securityconfig.user.Account;
+import com.bhx.user.Account;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

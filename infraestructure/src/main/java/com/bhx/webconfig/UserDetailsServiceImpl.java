@@ -1,7 +1,7 @@
 package com.bhx.webconfig;
 
-import com.bhx.securityconfig.user.Account;
-import com.bhx.securityconfig.user.usecase.GetAccountByUserNameUseCase;
+import com.bhx.user.Account;
+import com.bhx.user.usecase.GetAccountByUserNameUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

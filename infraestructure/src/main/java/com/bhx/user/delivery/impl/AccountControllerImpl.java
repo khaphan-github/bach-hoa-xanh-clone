@@ -1,9 +1,10 @@
 package com.bhx.user.delivery.impl;
 
-import com.bhx.securityconfig.group.Group;
-import com.bhx.securityconfig.group.usecase.GetActiveGroupsUseCase;
-import com.bhx.securityconfig.user.usecase.CreateAccountUseCase;
-import com.bhx.securityconfig.user.usecase.GetAccountsPagingUseCase;
+import com.bhx.group.Group;
+import com.bhx.group.usecase.GetActiveGroupsUseCase;
+import com.bhx.user.usecase.CreateAccountUseCase;
+import com.bhx.user.usecase.CreateAccountWithGroupUseCase;
+import com.bhx.user.usecase.GetAccountsPagingUseCase;
 import com.bhx.user.delivery.AccountController;
 import com.bhx.user.delivery.converters.AccountRestConverter;
 import com.bhx.user.delivery.converters.CreateAccountConverter;
@@ -12,14 +13,12 @@ import com.bhx.user.delivery.request.CreateAccountDto;
 import com.bhx.user.delivery.response.AccountView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -36,12 +35,17 @@ public class AccountControllerImpl implements AccountController {
     private final GetAccountsPagingUseCase accountsPagingUseCase;
     private final GetActiveGroupsUseCase getActiveGroupsUseCase;
     private final CreateAccountUseCase createAccountUseCase;
+    private final CreateAccountWithGroupUseCase accountWithGroupUseCase;
     private final String accountPagePrefix = "/admin/authorization/component/account/";
 
     @GetMapping
-    public String showAccounts(@RequestParam(defaultValue = "1") int page, Model model) {
+    public String showAccounts(@RequestParam(defaultValue = "0") int page, Model model) {
         int pageSize = 5;
-        Collection<AccountView> accountPage = accountsPagingUseCase.execute(page, pageSize).stream().map(accountRestConverter::mapToRest).collect(Collectors.toList());
+
+        Collection<AccountView> accountPage = accountsPagingUseCase.execute(page, pageSize)
+                .stream().map(accountRestConverter::mapToRest)
+                .collect(Collectors.toList());
+
         Collection<Group> groups = this.getActiveGroupsUseCase.execute();
 
         model.addAttribute("createAccountDto", new CreateAccountDto());
