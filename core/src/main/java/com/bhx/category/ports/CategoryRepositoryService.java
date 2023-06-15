@@ -10,7 +10,7 @@ public interface CategoryRepositoryService {
 	public Collection<Category> getAllCategories();
 	
 	public void saveCategory(Category category) ;
-	public void updateCategory(Category category) ;
+	public Category updateCategory(Category category) ;
 	public void deleteCategory(String id) ;
 
 	public Optional<Category> getCategoryById(String id);

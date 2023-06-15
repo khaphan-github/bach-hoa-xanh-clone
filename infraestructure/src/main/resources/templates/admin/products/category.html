@@ -133,6 +133,7 @@
                                 <div class="col-auto card-body">
                                     <div class="btn-group" >
                                         <a data-bs-toggle="modal" data-bs-target="#modalAddCategory" class="btn btn-primary text-white">Thêm danh mục</a>
+                                        <a data-bs-toggle="modal" data-bs-target="#modalAddCategoryCsv" class="btn btn-outline-gray">Thêm từ csv</a>
                                     </div>
                                 </div>
                                 <div class="modal fade" id="modalAddCategory" tabindex="-1" style="display: none;" aria-hidden="true">
@@ -148,6 +149,12 @@
                                                         <div class="col mb-3">
                                                             <label for="name" class="form-label">Tên danh mục</label>
                                                             <input type="text" id="modalAddCategoryName" th:name="name"  required class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label for="href" class="form-label">Duong dan</label>
+                                                            <input type="text" id="modalAddCategoryHref" th:name="href" class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -173,12 +180,33 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="modal fade" id="modalAddCategoryCsv" tabindex="-1" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Thêm Danh mục</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="formFileCsv" class="form-label">Tải lên file csv</label>
+                                                    <input class="form-control" type="file" id="formFileCsv" accept=".xlsx, .xls">
+                                                </div>
+                                                <div class="mb-3" id="table-csv-display">
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="card-body" id="vertical-example">
                                         <div class="demo-inline-spacing">
                                             <div class="list-group">
-                                                <div class="row mb-3" th:each="category, status : ${categories}">
+                                                <div class="row mb-3" th:each="category, status : ${categories}" th:if="${category.parentId == null}">
                                                     <div class="col">
-                                                        <button th:id="'btn-'+${category.id}" th:attr="onclick='replaceParentCategory(\'' + ${category.id} + '\', \'' + ${category.name} + '\')'" class="btn btn-outline-gray text-black" >
+                                                        <button th:id="'btn-'+${category.id}" onclick="toggleActiveClass1(this)" th:attr="onclick='replaceParentCategory(\'' + ${category.id} + '\', \'' + ${category.name} + '\')'" class="btn btn-outline-gray text-black btn-root-category" >
                                                             <!-- Display the category name -->
                                                             <span th:text="${category.name}"></span>
                                                         </button>
@@ -234,7 +262,6 @@
                                                 </div>
 
                                             </div>
-
                                         </div>
                                 </div>
                             </div>
@@ -296,24 +323,7 @@
                                 </div>
                                 <div class="card-body" id="vertical-example2">
                                     <div class="demo-inline-spacing">
-                                        <div class="list-group">
-                                            <div class="row mb-3" th:each="category, status : ${categories}">
-                                                <div class="col">
-                                                    <a class="btn btn-outline-gray" >
-                                                        <!-- Display the category name -->
-                                                        <span th:text="${category.name}"></span>
-                                                    </a>
-
-                                                </div>
-                                                <div class="col col-auto float-right">
-                                                    <a data-bs-toggle="modal" th:data-bs-target="'#modalCenter'+ ${category.id}" class="btn btn-outline-secondary">
-                                                        <i class="tf-icons bx bx-edit"></i>
-                                                    </a>
-                                                    <a th:href="@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-outline-secondary">
-                                                        <i class="tf-icons bx bx-trash"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
+                                        <div class="list-group" id="list-group-parent">
 
                                         </div>
 
@@ -335,27 +345,34 @@
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalAddCategoryTitle3">Thêm Danh mục</h5>
+                                                <h5 class="modal-title" id="modalAddCategoryTitle3">Thêm loại</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <form method="post" th:object="${newCategory}" th:action="@{/admin/category/new}">
                                                 <div class="modal-body">
                                                     <div class="row">
+                                                        <input type="text" hidden="hidden" id="modalAddCategoryParentId3" th:name="parentId" required class="form-control">
                                                         <div class="col mb-3">
-                                                            <label for="name" class="form-label">Tên danh mục</label>
+                                                            <label class="form-label">Tên Nhóm loại</label>
+                                                            <input type="text" disabled id="modalAddCategoryParentName3" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Tên loại</label>
                                                             <input type="text" id="modalAddCategoryName3" th:name="name"  required class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="name" class="form-label">Từ khoá</label>
+                                                            <label class="form-label">Từ khoá</label>
                                                             <input type="text" id="modalAddCategoryKeywords3" th:name="keywords"  class="form-control">
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">
-                                                            <label for="available" class="form-label">Tình trạng</label>
-                                                            <input type="checkbox" id="modalAddCategoryavailable3" th:name="available"  class="form-check-input">
+                                                            <label class="form-label">Tình trạng</label>
+                                                            <input type="checkbox" id="modalAddCategoryavailable3" th:name="available" checked class="form-check-input">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -371,24 +388,8 @@
                                 </div>
                                 <div class="card-body" id="vertical-example3">
                                     <div class="demo-inline-spacing">
-                                        <div class="list-group">
-                                            <div class="row mb-3" th:each="category, status : ${categories}">
-                                                <div class="col">
-                                                    <a class="btn btn-outline-gray" >
-                                                        <!-- Display the category name -->
-                                                        <span th:text="${category.name}"></span>
-                                                    </a>
+                                        <div class="list-group" id="list-group-category-product">
 
-                                                </div>
-                                                <div class="col col-auto float-right">
-                                                    <a data-bs-toggle="modal" th:data-bs-target="'#modalCenter'+ ${category.id}" class="btn btn-outline-secondary">
-                                                        <i class="tf-icons bx bx-edit"></i>
-                                                    </a>
-                                                    <a th:href="@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-outline-secondary">
-                                                        <i class="tf-icons bx bx-trash"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
 
                                         </div>
 
@@ -416,6 +417,6 @@
         <script src="/static/admin/assets/js/extended-ui-perfect-scrollbar.js"></script>
         <script src="/static/admin/assets/js/ui-modals.js"></script>
         <script src="/static/admin/js/script_category.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 </body>
 </html>

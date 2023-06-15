@@ -11,12 +11,7 @@ public class UpdateCategoryUseCaseImpl implements UpdateCategoryUseCase{
     private CategoryRepositoryService categoryRepositoryService;
 
     @Override
-    public void execute(Category category) throws CategoryAlreadyExistException {
-
-        if(Boolean.TRUE.equals(categoryRepositoryService.doesCategoryNameExists(category.getName()))) {
+    public void execute(Category category){
             categoryRepositoryService.updateCategory(category);
-        }
-
-
     }
 }

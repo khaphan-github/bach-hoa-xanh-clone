@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.bhx.category.Category;
-import com.bhx.category.delivery.converters.CategoryRestConverter;
-import com.bhx.category.delivery.rest.CategoryRest;
 import com.bhx.category.persistence.converters.CategoryRepositoryConverter;
 import com.bhx.category.persistence.entities.CategoryEntity;
 import com.bhx.category.persistence.repositories.CategoryRepository;
@@ -35,16 +33,21 @@ public class CategoryServiceImpl implements CategoryRepositoryService {
 	}
 
 	@Override
-	public void updateCategory(Category category) {
+	public Category updateCategory(Category category) {
 		Optional<CategoryEntity> categoryFind = categoryRepository.findById(category.getId());
 		categoryFind.ifPresent(categoryEntity -> {
 			// Update the category entity with the new data
 			categoryEntity.setName(category.getName());
 			categoryEntity.setAvailable(category.getAvailable());
-			categoryEntity.setParentId(category.getParentId());
+			if(category.getParentId() != null && !category.getParentId().isEmpty())
+				categoryEntity.setParentId(category.getParentId());
+			categoryEntity.setHref(category.getHref());
+			if(category.getKeywords() != null && !category.getKeywords().isEmpty())
+				categoryEntity.setKeywords(category.getKeywords());
 			// Save the updated category entity
 			categoryRepository.save(categoryEntity);
 		});
+		return category;
 	}
 
 	@Override

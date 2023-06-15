@@ -16,10 +16,12 @@ import jakarta.annotation.Generated;
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Category extends SelfValidating<Category> implements Serializable{
 	@Id
 	private String id;
@@ -46,7 +48,20 @@ public class Category extends SelfValidating<Category> implements Serializable{
 		this.href = convertToSlug(name);
 	}
 
+	public Category(@Nullable String parentId, String name, @Nullable String href, @Nullable List<String> keywords, @Nullable Boolean available) {
+		this.parentId = parentId;
+		this.name = name;
+		if(href != null && !href.isEmpty())
+		{
+			this.href = href;
+		}
+		else {
+			this.href = convertToSlug(name);
+		}
+		this.keywords = keywords;
 
+		this.available = (available != null) ? available : true;
+	}
 
 	public static String convertToSlug(String input) {
 		String normalized = Normalizer.normalize(input, Normalizer.Form.NFD); // Normalize the string

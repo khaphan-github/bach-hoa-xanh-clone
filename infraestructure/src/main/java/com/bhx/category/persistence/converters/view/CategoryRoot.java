@@ -15,6 +15,7 @@ public class CategoryRoot {
 
     private String parentId;
     private String name;
+    private String href;
     private String keywords;
     private Boolean available;
 }

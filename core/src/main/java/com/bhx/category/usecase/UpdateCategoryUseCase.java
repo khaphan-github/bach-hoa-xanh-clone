@@ -4,5 +4,5 @@ import com.bhx.category.Category;
 import com.bhx.category.exception.CategoryAlreadyExistException;
 
 public interface UpdateCategoryUseCase {
-    public void execute(Category category) throws CategoryAlreadyExistException;
+    public void execute(Category category);
 }

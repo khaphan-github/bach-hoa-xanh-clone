@@ -60,17 +60,10 @@ public class CategoryControllerImpl implements CategoryController {
     @PostMapping("/new")
     public String createCategory(@ModelAttribute("newCategory") CategoryRoot category) throws CategoryAlreadyExistException {
 
-        if(category.getKeywords() != null)
-        {
-            List<String> keywords = Arrays.asList(category.getKeywords().split(","));
-            Category newCategory = new Category(category.getParentId(), category.getName(),keywords,category.getAvailable());
-            createCategoryUseCase.execute(newCategory);
-        }
-        else
-        {
-            Category newCategory = new Category(category.getParentId(), category.getName(),null,category.getAvailable());
-            createCategoryUseCase.execute(newCategory);
-        }
+        List<String> keywords = (category.getKeywords() == null) ? null : Arrays.asList(category.getKeywords().split(","));
+
+        Category newCategory = new Category(category.getParentId(),category.getName(),category.getHref(),keywords,category.getAvailable());
+        createCategoryUseCase.execute(newCategory);
         return "redirect:/admin/category";
     }
 }

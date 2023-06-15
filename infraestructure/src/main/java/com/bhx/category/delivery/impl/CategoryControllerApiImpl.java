@@ -2,7 +2,9 @@ package com.bhx.category.delivery.impl;
 
 import com.bhx.category.Category;
 import com.bhx.category.delivery.CategoryControllerApi;
+import com.bhx.category.exception.CategoryAlreadyExistException;
 import com.bhx.category.usecase.GetCategoryByParentIdUseCase;
+import com.bhx.category.usecase.UpdateCategoryUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 @CrossOrigin("*")
 public class CategoryControllerApiImpl implements CategoryControllerApi {
     private final GetCategoryByParentIdUseCase getCategoryByParentIdUseCase;
+    private final UpdateCategoryUseCase updateCategoryUseCase;
 
     @Override
     @GetMapping("/getAllByParentId/{parentId}")
@@ -26,4 +29,12 @@ public class CategoryControllerApiImpl implements CategoryControllerApi {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(categories);
     }
+
+    @Override
+    @PostMapping("/updateCategory")
+    public String updateCategory(@RequestBody Category category) {
+        updateCategoryUseCase.execute(category);
+        return "/admin/category";
+    }
+
 }
