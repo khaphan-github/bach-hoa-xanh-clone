@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @CrossOrigin("*")
 @RequestMapping("/admin")
-public class AdminControllerImpl implements AdminController {
+public class AdminControllerImpl {
 
     private final GetAllProductsUseCase getAllProductsUseCase;
 
@@ -43,13 +43,11 @@ public class AdminControllerImpl implements AdminController {
     }
 
     @GetMapping("/login")
-    @Override
     public String adminLoginFormView() {
         return "admin/auth/login";
     }
 
     @PostMapping("/login/auth")
-    @Override
     public String adminLoginForm(@RequestParam("username") String username, @RequestParam("password") String password) {
 
         System.out.println(username+' '+password);
