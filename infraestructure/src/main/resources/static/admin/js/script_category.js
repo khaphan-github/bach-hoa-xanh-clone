@@ -1,9 +1,12 @@
-
 const rootCategorySelected = localStorage.getItem('rootCategorySelected');
 const parentCategorySelected = localStorage.getItem('parentCategorySelected');
 
+let data_submit;
+let rootCategoryId;
+let parentCategoryId;
 
-// Get the file input element
+
+// Get the file csv1 input element
 const fileInput = document.getElementById('formFileCsv');
 
 // Add an event listener to the file input element
@@ -12,11 +15,33 @@ if (fileInput) {
 } else {
     console.error("File input element not found!");
 }
+
+
+// Get the file csv2 input element
+const fileInput2 = document.getElementById('formFileCsv2');
+
+// Add an event listener to the file input element
+if (fileInput2) {
+    fileInput2.addEventListener('change', handleFileUpload2);
+} else {
+    console.error("File input element not found!");
+}
+
+
+const fileInput3 = document.getElementById('formFileCsv3');
+
+// Add an event listener to the file input element
+if (fileInput3) {
+    fileInput3.addEventListener('change', handleFileUpload3);
+} else {
+    console.error("File input element not found!");
+}
+
 // Function to handle the file upload
 async function handleFileUpload(event) {
     if (event.target && event.target.files.length > 0) {
         const file = event.target.files[0]; // Get the selected file
-        appendTableDisplayCsv();
+        let mainSheetData;
         if (file) {
             // Read the file contents
             const reader = new FileReader();
@@ -33,24 +58,159 @@ async function handleFileUpload(event) {
 
                 // Convert worksheet to JSON
                 const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                var header = jsonData[0];
+                // Remove the header row from the JSON data
+                jsonData.shift();
 
-                console.log('Sheet:', sheetName);
-                console.log('Data:', jsonData);
+                // Convert JSON data to an array of objects with field names
+                var jsonArray = [];
+                jsonData.forEach(function (row) {
+                    var obj = {};
+                    row.forEach(function (cell, index) {
+                        var headerField = header[index];
+                        if (headerField === "name" || headerField === "href" || headerField === "keywords") {
+                            obj[headerField] = cell;
+                        }
+                    });
+                    jsonArray.push(obj);
+                });
+
+
 
 
                 // Save the data in a variable or use it as needed
-                const mainSheetData = jsonData;
+                mainSheetData = jsonArray;
+                console.log(mainSheetData)
+                appendTableDisplayCsv(mainSheetData);
 
             };
 
             await reader.readAsArrayBuffer(file);
-
-
         }
+
+
     }
 
 }
-async function appendTableDisplayCsv(){
+
+async function handleFileUpload2(event) {
+    if (event.target && event.target.files.length > 0) {
+        const file = event.target.files[0]; // Get the selected file
+        let mainSheetData;
+        if (file) {
+            // Read the file contents
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+
+                // Get the first sheet name
+                const sheetName = workbook.SheetNames[0];
+
+                // Get the worksheet by name
+                const worksheet = workbook.Sheets[sheetName];
+
+                // Convert worksheet to JSON
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                var header = jsonData[0];
+                // Remove the header row from the JSON data
+                jsonData.shift();
+
+                // Convert JSON data to an array of objects with field names
+                var jsonArray = [];
+                jsonData.forEach(function (row) {
+                    var obj = {};
+                    row.forEach(function (cell, index) {
+                        var headerField = header[index];
+                        if (headerField === "name" || headerField === "href" || headerField === "keywords") {
+                            obj[headerField] = cell;
+                        }
+                    });
+                    obj['parentId'] = rootCategoryId;
+                    jsonArray.push(obj);
+                });
+
+
+
+
+                // Save the data in a variable or use it as needed
+                mainSheetData = jsonArray;
+                console.log(mainSheetData)
+                appendTableDisplayCsv2(mainSheetData);
+
+            };
+
+            await reader.readAsArrayBuffer(file);
+        }
+
+
+    }
+
+}
+
+
+async function handleFileUpload3(event) {
+    if (event.target && event.target.files.length > 0) {
+        const file = event.target.files[0]; // Get the selected file
+        let mainSheetData;
+        if (file) {
+            // Read the file contents
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+
+                // Get the first sheet name
+                const sheetName = workbook.SheetNames[0];
+
+                // Get the worksheet by name
+                const worksheet = workbook.Sheets[sheetName];
+
+                // Convert worksheet to JSON
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+                var header = jsonData[0];
+                // Remove the header row from the JSON data
+                jsonData.shift();
+
+                // Convert JSON data to an array of objects with field names
+                var jsonArray = [];
+                jsonData.forEach(function (row) {
+                    var obj = {};
+                    row.forEach(function (cell, index) {
+                        var headerField = header[index];
+                        if (headerField === "name" || headerField === "href" || headerField === "keywords") {
+                            obj[headerField] = cell;
+                        }
+                    });
+                    obj['parentId'] = parentCategoryId;
+                    jsonArray.push(obj);
+                });
+
+
+
+
+                // Save the data in a variable or use it as needed
+                mainSheetData = jsonArray;
+                console.log(mainSheetData)
+                appendTableDisplayCsv3(mainSheetData);
+
+            };
+
+            await reader.readAsArrayBuffer(file);
+        }
+
+
+    }
+
+}
+
+async function appendTableDisplayCsv(mainSheetData){
+
+    const data = mainSheetData;
+    data_submit = JSON.stringify(data);
+    console.log(data_submit)
         // Append the HTML code to the table-csv-display div
         var tableDisplayDiv = document.getElementById('table-csv-display');
         var html = `
@@ -63,22 +223,214 @@ async function appendTableDisplayCsv(){
                                     <th>Keywords</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong>
-                                    </td>
-                                    <td>Albert Cook</td>
-                                    <td><span class="badge bg-label-primary me-1">Active</span></td>
-                                </tr>
+                            <tbody>         
+                                ${data.slice(0,10).map(item => `
+                                    <tr>
+                                        <td>
+                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${item.name}</strong>
+                                        </td>
+                                        <td>${item.href}</td>
+                                        <td><span class="badge bg-label-primary me-1">${item.keywords}</span></td>
+                                    </tr>
+                                `).join('')}
                             </tbody>
                         </table>
                     </div>
                 `;
-        console.log(html);
         tableDisplayDiv.innerHTML = html;
+
+        const modalFooter = document.getElementById('modal-footer-csv');
+        var html2= `
+                        <button type="button" id="btn-cancel-csv" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Huỷ
+                        </button>
+                        <button type="submit" id="btn-submit-csv" onclick="uploadingCsv()"  class="btn btn-primary">Lưu</button>
+                        
+                        <div id="spinner-submit-csv" class="visually-hidden spinner-border spinner-border-sm text-secondary" role="status">
+                        
+                        </div>
+        `;
+    console.log(typeof data_submit);
+    modalFooter.innerHTML = html2;
+
+
 }
-////////////////////////////////////////////////////////
+
+async function appendTableDisplayCsv2(mainSheetData){
+
+    const data = mainSheetData;
+    data_submit = JSON.stringify(data);
+    console.log(data_submit)
+    // Append the HTML code to the table-csv-display div
+    var tableDisplayDiv = document.getElementById('table-csv-display2');
+    var html = `
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Parent Id</th>
+                                    <th>Name</th>
+                                    <th>Href</th>
+                                    <th>Keywords</th>
+                                </tr>
+                            </thead>
+                            <tbody>         
+                                ${data.slice(0,10).map(item => `
+                                    <tr>
+                                        <td>
+                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${item.parentId}</strong>
+                                        </td>
+                                        <td>
+                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${item.name}</strong>
+                                        </td>
+                                        <td>${item.href}</td>
+                                        <td><span class="badge bg-label-primary me-1">${item.keywords}</span></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+    tableDisplayDiv.innerHTML = html;
+
+    const modalFooter = document.getElementById('modal-footer-csv2');
+    var html2= `
+                        <button type="button" id="btn-cancel-csv" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Huỷ
+                        </button>
+                        <button type="submit" id="btn-submit-csv" onclick="uploadingCsv()"  class="btn btn-primary">Lưu</button>
+                        
+                        <div id="spinner-submit-csv" class="visually-hidden spinner-border spinner-border-sm text-secondary" role="status">
+                        
+                        </div>
+        `;
+    console.log(typeof data_submit);
+    modalFooter.innerHTML = html2;
+
+
+}
+
+async function appendTableDisplayCsv3(mainSheetData){
+
+    const data = mainSheetData;
+    data_submit = JSON.stringify(data);
+    console.log(data_submit)
+    // Append the HTML code to the table-csv-display div
+    var tableDisplayDiv = document.getElementById('table-csv-display3');
+    var html = `
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Parent Id</th>
+                                    <th>Name</th>
+                                    <th>Href</th>
+                                    <th>Keywords</th>
+                                </tr>
+                            </thead>
+                            <tbody>         
+                                ${data.slice(0,10).map(item => `
+                                    <tr>
+                                        <td>
+                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${item.parentId}</strong>
+                                        </td>
+                                        <td>
+                                            <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${item.name}</strong>
+                                        </td>
+                                        <td>${item.href}</td>
+                                        <td><span class="badge bg-label-primary me-1">${item.keywords}</span></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+    tableDisplayDiv.innerHTML = html;
+
+    const modalFooter = document.getElementById('modal-footer-csv3');
+    var html2= `
+                        <button type="button" id="btn-cancel-csv" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Huỷ
+                        </button>
+                        <button type="submit" id="btn-submit-csv" onclick="uploadingCsv()"  class="btn btn-primary">Lưu</button>
+                        
+                        <div id="spinner-submit-csv" class="visually-hidden spinner-border spinner-border-sm text-secondary" role="status">
+                        
+                        </div>
+        `;
+    console.log(typeof data_submit);
+    modalFooter.innerHTML = html2;
+
+
+}
+
+async function uploadingCsv() {
+
+    const parsedData = JSON.parse(data_submit);
+
+    const url = '/admin/category/api/uploadCategory';
+    const requestBody = data_submit;
+    showLoadingIndicator();
+   await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: requestBody,
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data
+            console.log('Response:', data);
+            if(data.length !== 0)
+            {
+
+                Swal.fire({
+                    title: 'Thành công',
+                    text: 'Tải lên thành công, có ' +data.length.toString()+' sản phẩm tải lên thất bại',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    didClose: () => {
+                        window.location.reload();
+                    }
+                })
+            }
+            else if(data.length === 0)
+                Swal.fire({
+                    title: 'Thành công',
+                    text: 'Tải lên thành công toàn bộ',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    didClose: () => {
+                        window.location.reload();
+                    }
+                })
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error:', error);
+            alert("Loi roi");
+        });
+    hideLoadingIndicator();
+
+}
+function showLoadingIndicator() {
+    // Show loading indicator logic
+    // You can display a spinner or any other visual indication of loading
+    // For example, adding a CSS class to show the loading spinner
+    document.getElementById('spinner-submit-csv').classList.remove('visually-hidden');
+    document.getElementById('btn-submit-csv').classList.add('visually-hidden');
+}
+async function hideLoadingIndicator() {
+    // Hide loading indicator logic
+    // You can hide the spinner or remove the visual indication of loading
+    // For example, removing the CSS class that shows the loading spinner
+    document.getElementById('spinner-submit-csv').classList.add('visually-hidden');
+    document.getElementById('btn-submit-csv').classList.remove('visually-hidden');
+    document.getElementById('btn-cancel-csv').click();
+}
+
+///////////////////////////////////////////////////////
 // Get a reference to the form element
 function addFormListen(){
     const form = document.getElementById('form-update-parent-category');
@@ -124,10 +476,8 @@ function submitForm(event) {
 }
 
 
-
-
 async function replaceParentCategory(objId, name) {
-
+    rootCategoryId = objId;
     var parentDiv = document.getElementById("list-group-category-product");
     parentDiv.innerHTML = ""; // Clear previous HTML content
 
@@ -222,7 +572,7 @@ async function replaceParentCategory(objId, name) {
 }
 
 async function replaceProductCategory(objId, name) {
-
+    parentCategoryId = objId;
     console.log('Parent Category: '+objId);
     localStorage.setItem('parentCategorySelected',objId.toString());
 

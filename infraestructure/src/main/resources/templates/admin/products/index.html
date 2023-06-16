@@ -130,13 +130,57 @@
                                     <div class="btn-group" id="hover-dropdown-demo">
                                         <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-trigger="hover">Nhập sản phẩm</button>
                                         <ul class="dropdown-menu">
-                                            <li> <a class="dropdown-item" href="javascript:void(0);">Nhập 1 sản phẩm</a> </li>
+                                            <li> <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAddProduct">Nhập 1 sản phẩm</a> </li>
                                             <li> <a class="dropdown-item" id="file-link-csv" >Nhập từ tập tin csv</a> </li>
                                             <input type="file" id="file-input-csv" style="display: none;">
                                         </ul>
                                     </div>
                                 </div>
-
+                                <div class="modal fade" id="modalAddProduct" tabindex="-1" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalAddCategoryTitle3">Thêm sản phẩm</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="post" th:object="${newCategory}" th:action="@{/admin/category/new}">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <input type="text" hidden="hidden" id="modalAddCategoryParentId3" th:name="parentId" required class="form-control">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Tên Nhóm loại</label>
+                                                            <input type="text" disabled id="modalAddCategoryParentName3" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Tên loại</label>
+                                                            <input type="text" id="modalAddCategoryName3" th:name="name"  required class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Từ khoá</label>
+                                                            <input type="text" id="modalAddCategoryKeywords3" th:name="keywords"  class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Tình trạng</label>
+                                                            <input type="checkbox" id="modalAddCategoryavailable3" th:name="available" checked class="form-check-input">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                        Huỷ
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-auto">
                                     <div class="btn-group" >
                                         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-trigger="hover">Xuất sản phẩm</button>

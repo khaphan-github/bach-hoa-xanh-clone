@@ -9,6 +9,7 @@ import com.bhx.product.delivery.ProductController;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.exception.PagingWrongFormat;
 import com.bhx.product.exception.ProductNotFoundException;
+import com.bhx.product.usecase.CreateProductUseCase;
 import com.bhx.product.usecase.GetAllProductsUseCase;
 import com.bhx.productInventory.usecase.GetAllProductByUserLocateUseCase;
 import lombok.RequiredArgsConstructor;
@@ -27,11 +28,9 @@ import java.util.Collection;
 @Slf4j
 @RequiredArgsConstructor
 public class ProductControllerImpl implements ProductController {
-    private final GetAllProductsUseCase getAllProductsUseCase;
-    private final ProductMvcConverter productMvcConverter;
-    private final CreateCategoryUseCase createCategoryUseCase;
     private final GetNearestAddressByUserLocateUseCase getNearestAddressByUserLocateUseCase;
     private final GetAllProductByUserLocateUseCase getAllProductByUserLocateUseCase;
+    private final CreateProductUseCase createProductUseCase;
     @Override
     @GetMapping({"/", "/index"})
     public String index(Model model) throws Exception {
@@ -85,4 +84,6 @@ public class ProductControllerImpl implements ProductController {
         model.addAttribute("active","direct");
         return "public/direct/checkout";
     }
+
+
 }

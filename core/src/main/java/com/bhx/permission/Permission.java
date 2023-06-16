@@ -2,6 +2,7 @@ package com.bhx.permission;
 
 import com.bhx.group.Group;
 import com.bhx.shared.SelfValidating;
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,4 +36,6 @@ public class Permission extends SelfValidating<Permission> implements Serializab
     private Date createdAt;
     private Date updatedAt;
     private boolean active;
+
+
 }

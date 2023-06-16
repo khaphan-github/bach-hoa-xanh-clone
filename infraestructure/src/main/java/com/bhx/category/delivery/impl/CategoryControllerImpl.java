@@ -36,10 +36,11 @@ public class CategoryControllerImpl implements CategoryController {
         model.addAttribute("selected","products");
         model.addAttribute("subSelected","productCategory");
 
-        List<Category> categories = getAllCategoriesUseCase.execute()
-                .stream()
+        List<Category> filteredCategories = getAllCategoriesUseCase.execute().stream()
+                .filter(category -> category.getParentId() == null)
                 .collect(Collectors.toList());
-        model.addAttribute("categories", categories);
+        model.addAttribute("categories", filteredCategories);
+
         return "admin/products/category";
     }
     @Override
