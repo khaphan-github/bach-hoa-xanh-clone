@@ -43,7 +43,7 @@ public class ProductConfiguration {
     }
 
     @Bean
-    public ProductServiceImpl productService() {
+    public ProductRepositoryService productService() {
         return new ProductServiceImpl(this.productRepository, productRepositoryConverter());
     }
 

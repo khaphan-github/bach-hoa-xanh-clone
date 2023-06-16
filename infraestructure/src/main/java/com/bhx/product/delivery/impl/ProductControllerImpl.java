@@ -9,6 +9,7 @@ import com.bhx.product.delivery.ProductController;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.exception.PagingWrongFormat;
 import com.bhx.product.exception.ProductNotFoundException;
+import com.bhx.product.ports.ProductRepositoryService;
 import com.bhx.product.usecase.GetAllProductsUseCase;
 import com.bhx.productInventory.usecase.GetAllProductByUserLocateUseCase;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,11 @@ public class ProductControllerImpl implements ProductController {
     private final CreateCategoryUseCase createCategoryUseCase;
     private final GetNearestAddressByUserLocateUseCase getNearestAddressByUserLocateUseCase;
     private final GetAllProductByUserLocateUseCase getAllProductByUserLocateUseCase;
+    private final ProductRepositoryService productRepositoryService;
 
     private Collection<Product> products;
+    private String longitude;
+    private String latitude;
 
     @Override
     @GetMapping({"/", "/index"})
@@ -46,8 +50,8 @@ public class ProductControllerImpl implements ProductController {
     @Override
     @PostMapping({"/", "/index"})
     public String indexGetLocate(Locate myData) throws IOException, InterruptedException, PagingWrongFormat, ProductNotFoundException {
-        String latitude = myData.getLatitude();
-        String longitude = myData.getLongitude();
+        latitude = myData.getLatitude();
+        longitude = myData.getLongitude();
         String nearest =getNearestAddressByUserLocateUseCase.excute(Double.parseDouble(longitude), Double.parseDouble(latitude));
         products= getAllProductByUserLocateUseCase.excute(0, 10,Double.parseDouble(longitude), Double.parseDouble(latitude));
         return "public/home/index";
@@ -65,19 +69,22 @@ public class ProductControllerImpl implements ProductController {
 
     @Override
     @GetMapping("/shop")
-    public String shop(Model model) {
+    public String shop(Model model, @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "6") int size) throws PagingWrongFormat, IOException, ProductNotFoundException, InterruptedException {
         model.addAttribute("active","shop");
+        products= getAllProductByUserLocateUseCase.excute(page, size,Double.parseDouble(longitude), Double.parseDouble(latitude));
         model.addAttribute("productsList", products);
         return "public/shop/index";
     }
 
-    @Override
     @GetMapping("/direct/details")
-    public String directDetails(Model model) {
-        model.addAttribute("active","direct");
+    public String directDetails(Model model, @RequestParam("id") String id) throws ProductNotFoundException {
+        model.addAttribute("active", "direct");
+
+        Product productDetail = productRepositoryService.getProductById(id);
+        model.addAttribute("product", productDetail);
         return "public/direct/details";
     }
-
     @Override
     @GetMapping("/direct/shopping_cart")
     public String directShoppingCart(Model model) {
