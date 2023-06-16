@@ -6,6 +6,8 @@ import com.bhx.product.persistence.impl.ProductServiceImpl;
 import com.bhx.product.persistence.repositories.ProductRepository;
 import com.bhx.storage.persistence.impl.StorageServiceImpl;
 import com.bhx.storage.persistence.repositories.StorageRepository;
+import com.bhx.storage.usecase.CreateAStorageUseCase;
+import com.bhx.storage.usecase.CreateAStorageUseCaseImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.AfterEach;
@@ -28,10 +30,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CreateStorageTest {
 
     @Autowired
-    private StorageServiceImpl storageServiceImpl;
-
-    @Autowired
     private StorageRepository storageRepository;
+
+    private CreateAStorageUseCaseImpl createAStorageUseCase;
     private String storageIdTest;
 
     @BeforeEach
@@ -49,7 +50,7 @@ public class CreateStorageTest {
     @Test
     void testCreateStorage() {
         Storage storage = getTestData();
-        storageServiceImpl.saveStorage(storage);
+        createAStorageUseCase.excute(storage);
         assertTrue(storageRepository.findById(storage.getId()).isPresent());
     }
 

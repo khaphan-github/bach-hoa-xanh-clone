@@ -121,48 +121,34 @@
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products /</span> All Products</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Kho /</span>Tất cả kho</h4>
+                    <div th:replace="admin/storage/formAdd"></div>
+                    <div th:replace="admin/storage/formEdit"></div>
                     <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between" style="margin-button: 5px">
+                                <h6 class="text-muted">Quản lý Nhóm quyền</h6>
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#createStorageModal"
+                                        onclick="">
+                                    Thêm kho
+                                </button>
+                            </div>
+                        </div>
 
                         <div class="card-body">
-                            <div class="row mb-4">
-                                <div class="col-auto">
-                                    <div class="btn-group" id="hover-dropdown-demo">
-                                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-trigger="hover">Nhập sản phẩm</button>
-                                        <ul class="dropdown-menu">
-                                            <li> <a class="dropdown-item" href="javascript:void(0);">Nhập 1 sản phẩm</a> </li>
-                                            <li> <a class="dropdown-item" id="file-link-csv" >Nhập từ tập tin csv</a> </li>
-                                            <input type="file" id="file-input-csv" style="display: none;">
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-auto">
-                                    <div class="btn-group" >
-                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-trigger="hover">Xuất sản phẩm</button>
-                                        <ul class="dropdown-menu">
-                                            <li> <a class="dropdown-item" href="javascript:void(0);">Xuất tập tin xml</a> </li>
-                                            <li> <a class="dropdown-item" href="javascript:void(0);">Xuất tập tin csv</a> </li>
-                                            <li> <a class="dropdown-item" href="javascript:void(0);">Xuất tập tin json</a> </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
 
                             <div class="table-responsive text-nowrap">
                                 <table class="table table-bordered">
                                     <thead>
                                     <tr>
-                                        <th>Tên kho</th>
                                         <th>Địa chỉ</th>
-                                        <th>Tên</th>
+                                        <th>Tên chi nhánh</th>
                                         <th>Thao tác</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="storage : ${list_storages}">
-                                        <td th:text="${storage.id}"></td>
                                         <td th:text="${storage.address}"></td>
                                         <td th:text="${storage.name}"></td>
                                         <td>
@@ -171,16 +157,17 @@
                                                     <i class="bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="javascript:void(0);"
-                                                    ><i class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a
-                                                    >
-                                                    <a class="dropdown-item" href="javascript:void(0);"
-                                                    ><i class="bx bx-trash me-1"></i> Xoá</a
-                                                    >
+                                                    <a class="dropdown-item" href="javascript:void(0);" onclick="openEditPopup(this)" data-storage-id="${storage.id}">
+                                                        <i class="bx bx-edit-alt me-1"></i> Chỉnh sửa
+                                                    </a>
+                                                    <a class="dropdown-item" href="javascript:void(0);">
+                                                        <i class="bx bx-trash me-1"></i> Xoá
+                                                    </a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+
 
                                     </tbody>
                                 </table>
@@ -235,5 +222,9 @@
         <!-- Page JS -->
         <script src="/static/admin/assets/js/dashboards-analytics.js"></script>
         <script src="/static/admin/js/script_products.js"></script>
+        <script src="/static/admin/js/script_storage.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.0/js/bootstrap.min.js"></script>
+
 </body>
 </html>

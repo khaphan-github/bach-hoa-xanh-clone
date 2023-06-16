@@ -11,7 +11,7 @@ import java.util.Optional;
 public class GetAStorageByIdUseCaseImpl implements  GetAStorageByIdUseCase{
     private final StorageRepositoryService storageRepositoryService;
     @Override
-    public Optional<Storage> excute(String Id) {
+    public Storage excute(String Id) {
         return storageRepositoryService.getAStorageById(Id);
     }
 }

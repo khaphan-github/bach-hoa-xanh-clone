@@ -5,5 +5,5 @@ import com.bhx.storage.Storage;
 import java.util.Optional;
 
 public interface GetAStorageByIdUseCase {
-    public Optional<Storage> excute(String Id);
+    public Storage excute(String Id);
 }
