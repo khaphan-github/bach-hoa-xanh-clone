@@ -17,4 +17,5 @@ public interface GroupRepository extends MongoRepository<GroupEntity, String> {
     @Query("{ active : true }")
     Collection<GroupEntity> getActiveGroup();
     Collection<GroupEntity> findByIdIn(List<String> groupIds);
+    GroupEntity findByNameAndActive(String name, boolean active);
 }

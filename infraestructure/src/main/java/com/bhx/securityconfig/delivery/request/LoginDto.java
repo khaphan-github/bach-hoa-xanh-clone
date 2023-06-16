@@ -1,4 +1,4 @@
-package com.bhx.admin.delivery.impl;
+package com.bhx.securityconfig.delivery.request;
 
 import lombok.Data;
 import lombok.Getter;

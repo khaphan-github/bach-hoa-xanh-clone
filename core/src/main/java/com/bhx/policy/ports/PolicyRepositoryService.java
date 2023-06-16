@@ -1,6 +1,7 @@
-package com.bhx.securityconfig.policy.ports;
+package com.bhx.policy.ports;
 
-import com.bhx.securityconfig.policy.Policy;
+import com.bhx.policy.Credential;
+import com.bhx.policy.Policy;
 
 import java.util.Collection;
 
@@ -12,4 +13,6 @@ public interface PolicyRepositoryService {
     Collection<Policy> getSystemPolicies();
 
     Boolean getPolicyByAccountId(String accountId);
+
+    Collection<Policy> getPolicyByCredential(Credential credential);
 }

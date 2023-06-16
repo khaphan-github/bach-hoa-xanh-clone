@@ -11,13 +11,22 @@ import java.util.Collection;
  */
 public interface AccountRepositoryService {
     Collection<Account> getAllAccounts(int page, int size);
+
     Collection<Account> getAccountsByPermissionId(String permissionId, int page, int size);
+
     void saveAccount(Account account);
+
     void updateAccount(Account account);
+
     void deleteAccount(String id);
-    Account getAccountById(String id);
+
+    Account getAccountById(String id) throws AccountNotFoundException;
+
     void invalidAccount(String id);
+
     Boolean isExistingAccountUsername(String name);
+
     Account login(String username, String password) throws WrongUsernameOrPasswordException;
+
     Account findAccountByUsername(String username) throws AccountNotFoundException;
 }

@@ -1,6 +1,8 @@
 package com.bhx.permission.ports;
 
 import com.bhx.permission.Permission;
+import com.bhx.permission.exception.PermissionNotFoundException;
+import com.bhx.policy.Credential;
 
 import java.util.Collection;
 
@@ -10,6 +12,8 @@ import java.util.Collection;
 public interface PermissionRepositoryService {
     Collection<Permission> getAllPermission();
 
+    Collection<Permission> findPermissionByGroupId(String groupId) throws PermissionNotFoundException;
+    Permission getPermissionByCredential(Credential credential) throws PermissionNotFoundException;
     void savePermission(Permission permission);
 
     void updatePermission(Permission permission);
@@ -21,4 +25,6 @@ public interface PermissionRepositoryService {
     void invalidPermission(String id);
 
     Boolean isExistPermissionName(String name);
+
+
 }

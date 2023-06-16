@@ -30,7 +30,7 @@ public class PermissionRestConverter implements RestConverter<PermissionView, Pe
             groupNames.add(group.getName());
         }
         permissionView.setGroupNames(groupNames);
-
+        permissionView.setMethod(entity.getHttpMethod());
         permissionView.setActive(entity.isActive());
         permissionView.setDescription(entity.getDescription());
 

@@ -1,4 +1,4 @@
-package com.bhx.securityconfig.policy.usecase;
+package com.bhx.policy.usecase;
 
 /**
  * @author "KhaPhan" on 06-Jun-23

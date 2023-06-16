@@ -31,6 +31,7 @@ public class AccountRepositoryConverter implements RepositoryConverter<AccountEn
 
         account.setId(entityObject.getId());
         account.setUsername(entityObject.getUsername());
+        account.setPassword(entityObject.getPassword());
         account.setDisplayName(entityObject.getDisplayName());
         account.setEmail(entityObject.getEmail());
         account.setPhone(entityObject.getPhone());

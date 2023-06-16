@@ -1,10 +1,12 @@
 package com.bhx.permission.persistence.impl;
 
+import com.bhx.permission.exception.PermissionNotFoundException;
 import com.bhx.permission.persistence.converters.PermissionRepositoryConverter;
 import com.bhx.permission.persistence.entities.PermissionEntity;
 import com.bhx.permission.persistence.repository.PermissionRepository;
 import com.bhx.permission.Permission;
 import com.bhx.permission.ports.PermissionRepositoryService;
+import com.bhx.policy.Credential;
 import lombok.AllArgsConstructor;
 
 import java.util.Collection;
@@ -22,11 +24,19 @@ public class PermissionServiceImpl implements PermissionRepositoryService {
 
     @Override
     public Collection<Permission> getAllPermission() {
-        return permissionRepository
-                .findAll()
-                .stream()
-                .map(permissionRepositoryConverter::mapToEntity)
-                .collect(Collectors.toList());
+        return permissionRepository.findAll().stream().map(permissionRepositoryConverter::mapToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<Permission> findPermissionByGroupId(String groupId) throws PermissionNotFoundException {
+        return permissionRepository.findByAccessGroupIds(groupId).stream().map(permissionRepositoryConverter::mapToEntity).collect(Collectors.toList());
+    }
+
+    @Override
+    public Permission getPermissionByCredential(Credential credential) throws PermissionNotFoundException {
+        PermissionEntity permissionEntity = permissionRepository.findByUriAndHttpMethodAndActive(credential.getUri(), credential.getHttpMethod(), true);
+
+        return permissionRepositoryConverter.mapToEntity(permissionEntity);
     }
 
     @Override

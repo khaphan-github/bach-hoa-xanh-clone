@@ -20,7 +20,7 @@ public interface GroupRepositoryService {
     void createGroup(Group group);
     Collection<Group> getActiveGroup();
     Group getGroupById(String id);
-
+    Group findByNameAndActive(String name);
     Collection<Menu> getMenusInGroup(String groupId);
 
     Collection<Permission> getPermissionsInGroup(String groupId);

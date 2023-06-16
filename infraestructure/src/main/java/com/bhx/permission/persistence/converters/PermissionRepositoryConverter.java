@@ -14,7 +14,7 @@ public class PermissionRepositoryConverter implements RepositoryConverter<Permis
     public PermissionEntity mapToTable(final Permission persistenceObject) {
         PermissionEntity permissionEntity = new PermissionEntity();
 
-        permissionEntity.setId(new ObjectId().toString());
+        permissionEntity.setId(persistenceObject.getId());
 
         permissionEntity.setName(persistenceObject.getName());
         permissionEntity.setUri(persistenceObject.getUri());
@@ -43,6 +43,7 @@ public class PermissionRepositoryConverter implements RepositoryConverter<Permis
         permission.setEffect(entityObject.getEffect());
         permission.setDescription(entityObject.getDescription());
         permission.setHttpMethod(entityObject.getHttpMethod());
+        permission.setActive(entityObject.isActive());
 
         return permission;
     }

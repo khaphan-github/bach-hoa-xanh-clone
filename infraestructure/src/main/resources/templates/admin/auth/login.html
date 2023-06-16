@@ -183,7 +183,7 @@
     document.getElementById('formAuthentication')
 .addEventListener('submit', function (event) {
   event.preventDefault();
-  var email = document.getElementById('email').value;
+  var email = document.getElementById('username').value;
   var password = document.getElementById('password').value;
   var rememberMe = document.getElementById('remember-me').checked;
 
@@ -193,7 +193,7 @@
     rememberMe: rememberMe
   };
 
-  fetch('/admin/authenticate', {
+  fetch('/auth', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -208,11 +208,11 @@
       }
     })
     .then(function (token) {
-       document.cookie = "token=" + token + "; path=/";
+       document.cookie = "access-token=" + token + "; path=/";
         window.location.href = '/admin/dashboard';
     })
     .catch(function (error) {
-      window.location.href = '/admin/login';
+      window.location.href = '/auth';
     });
 });
 

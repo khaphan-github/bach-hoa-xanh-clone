@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Permission extends SelfValidating<Permission> implements Serializab
     private String httpMethod;
     private String effect;
     private String description;
-    private List<Group> accessGroups;
+    private Collection<Group> accessGroups;
     private List<String> accessGroupIds;
     private Date createdAt;
     private Date updatedAt;
