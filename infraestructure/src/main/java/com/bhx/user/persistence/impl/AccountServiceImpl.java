@@ -42,7 +42,7 @@ public class AccountServiceImpl implements AccountRepositoryService {
 
     @Override
     public void updateAccount(Account account) {
-
+        accountRepository.save(accountRepositoryConverter.mapToTable(account));
     }
 
     @Override
@@ -51,8 +51,12 @@ public class AccountServiceImpl implements AccountRepositoryService {
     }
 
     @Override
-    public Account getAccountById(String id) {
-        return null;
+    public Account getAccountById(String id) throws AccountNotFoundException {
+        Optional<AccountEntity> account = accountRepository.findById(id);
+        if (account.isEmpty()) {
+            throw new AccountNotFoundException("Account not found");
+        }
+        return accountRepositoryConverter.mapToEntity(account.get());
     }
 
     @Override

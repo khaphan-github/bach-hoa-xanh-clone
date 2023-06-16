@@ -1,5 +1,7 @@
-package com.bhx.webconfig;
+package com.bhx.securityconfig.configuration;
 
+import com.bhx.securityconfig.fillter.AuthenticationFilter;
+import com.bhx.securityconfig.fillter.AuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +23,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final AuthenticationConfiguration authenticationConfiguration;
     @Autowired
     private AuthenticationFilter authenticationFilter;
     @Autowired
@@ -31,24 +31,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder;
     @Autowired
     private AuthorizationFilter authorizationFilter;
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
+
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-    @Override
-    public void configure(WebSecurity webConfig) {
-        webConfig.ignoring().antMatchers("/resources/**");
-    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/static/**").permitAll();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

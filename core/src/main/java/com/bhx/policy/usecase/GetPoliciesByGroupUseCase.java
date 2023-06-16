@@ -1,6 +1,6 @@
-package com.bhx.securityconfig.policy.usecase;
+package com.bhx.policy.usecase;
 
-import com.bhx.securityconfig.policy.Policy;
+import com.bhx.policy.Policy;
 
 import java.util.Collection;
 

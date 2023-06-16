@@ -1,4 +1,4 @@
-package com.bhx.securityconfig.policy;
+package com.bhx.policy;
 
 /**
  * @author "KhaPhan" on 04-Jun-23

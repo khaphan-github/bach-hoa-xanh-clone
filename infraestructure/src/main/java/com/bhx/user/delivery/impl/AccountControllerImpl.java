@@ -2,9 +2,10 @@ package com.bhx.user.delivery.impl;
 
 import com.bhx.group.Group;
 import com.bhx.group.usecase.GetActiveGroupsUseCase;
-import com.bhx.user.usecase.CreateAccountUseCase;
-import com.bhx.user.usecase.CreateAccountWithGroupUseCase;
-import com.bhx.user.usecase.GetAccountsPagingUseCase;
+import com.bhx.user.Account;
+import com.bhx.user.delivery.converters.UpdateAccountConverter;
+import com.bhx.user.delivery.request.UpdateAccountDto;
+import com.bhx.user.usecase.*;
 import com.bhx.user.delivery.AccountController;
 import com.bhx.user.delivery.converters.AccountRestConverter;
 import com.bhx.user.delivery.converters.CreateAccountConverter;
@@ -32,15 +33,19 @@ import java.util.stream.Collectors;
 public class AccountControllerImpl implements AccountController {
     private final AccountRestConverter accountRestConverter;
     private final CreateAccountConverter createAccountConverter;
+    private final UpdateAccountConverter updateAccountConverter;
     private final GetAccountsPagingUseCase accountsPagingUseCase;
+    private final GetOneAccountUseCase getOneAccountUseCase;
     private final GetActiveGroupsUseCase getActiveGroupsUseCase;
     private final CreateAccountUseCase createAccountUseCase;
+    private final UpdateAccountUseCase updateAccountUseCase;
     private final CreateAccountWithGroupUseCase accountWithGroupUseCase;
     private final String accountPagePrefix = "/admin/authorization/component/account/";
+    private final String redirectAccountsPage = "redirect:/accounts";
 
     @GetMapping
     public String showAccounts(@RequestParam(defaultValue = "0") int page, Model model) {
-        int pageSize = 5;
+        int pageSize = 100;
 
         Collection<AccountView> accountPage = accountsPagingUseCase.execute(page, pageSize)
                 .stream().map(accountRestConverter::mapToRest)
@@ -63,30 +68,27 @@ public class AccountControllerImpl implements AccountController {
         } catch (Exception ex) {
 
         }
-        return "redirect:/accounts";
+        return redirectAccountsPage;
     }
-    @PutMapping("/group/add")
-    public ResponseEntity<AccountView> addAccountToGroup(@RequestBody AddAccountToGroupDto addAccountToGroupDto) {
+
+    @GetMapping("/update-page")
+    public String showUpdateAccountPage(@RequestParam("id") String accountId, Model model) {
         try {
-
-        } catch (Exception e) {
-
+            Account account = getOneAccountUseCase.execute(accountId);
+            model.addAttribute("updateAccountDto", updateAccountConverter.mapToRest(account));
+        } catch (Exception ex) {
+            return redirectAccountsPage;
         }
-        return null;
+        return accountPagePrefix + "update-account-form";
     }
 
-    @PutMapping("/group/remove")
-    public ResponseEntity<AccountView> removeAccountFromGroup(@RequestBody AddAccountToGroupDto addAccountToGroupDto) {
+    @PostMapping("/update")
+    public String updateAccount(@ModelAttribute("updateAccountDto") UpdateAccountDto updateAccountDto) {
         try {
-
-        } catch (Exception e) {
-
+            updateAccountUseCase.execute(updateAccountConverter.mapToEntity(updateAccountDto));
+        } catch (Exception ex) {
+            return String.format("redirect:/update-page?id=%s", updateAccountDto.getId());
         }
-        return null;
-    }
-
-    @PostMapping("/login")
-    private ResponseEntity<AccountView> login() {
-        return null;
+        return redirectAccountsPage;
     }
 }
