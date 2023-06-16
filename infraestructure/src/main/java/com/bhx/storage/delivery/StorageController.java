@@ -13,7 +13,8 @@ public interface StorageController {
 
     String saveStorage(@ModelAttribute Storage storage);
 
-    String updateStorage(String storageId, Model model, Storage storage);
+    String updateStorage(Storage storage);
     String updateInventoryProduct(Model model)throws Exception;
+    String deleteStorage(String id);
 
 }

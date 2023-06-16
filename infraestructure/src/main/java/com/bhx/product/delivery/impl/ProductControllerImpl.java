@@ -32,10 +32,14 @@ public class ProductControllerImpl implements ProductController {
     private final CreateCategoryUseCase createCategoryUseCase;
     private final GetNearestAddressByUserLocateUseCase getNearestAddressByUserLocateUseCase;
     private final GetAllProductByUserLocateUseCase getAllProductByUserLocateUseCase;
+
+    private Collection<Product> products;
+
     @Override
     @GetMapping({"/", "/index"})
     public String index(Model model) throws Exception {
         model.addAttribute("active","home");
+        model.addAttribute("products", products);
         return "public/home/index";
     }
 
@@ -45,7 +49,7 @@ public class ProductControllerImpl implements ProductController {
         String latitude = myData.getLatitude();
         String longitude = myData.getLongitude();
         String nearest =getNearestAddressByUserLocateUseCase.excute(Double.parseDouble(longitude), Double.parseDouble(latitude));
-        Collection<Product> products= getAllProductByUserLocateUseCase.excute(0, 2,Double.parseDouble(longitude), Double.parseDouble(latitude));
+        products= getAllProductByUserLocateUseCase.excute(0, 10,Double.parseDouble(longitude), Double.parseDouble(latitude));
         return "public/home/index";
     }
 
@@ -53,6 +57,7 @@ public class ProductControllerImpl implements ProductController {
     @GetMapping("/contact")
     public String contact(Model model) {
         model.addAttribute("active","contact");
+
         return "public/contact/index";
     }
 
@@ -62,6 +67,7 @@ public class ProductControllerImpl implements ProductController {
     @GetMapping("/shop")
     public String shop(Model model) {
         model.addAttribute("active","shop");
+        model.addAttribute("productsList", products);
         return "public/shop/index";
     }
 
