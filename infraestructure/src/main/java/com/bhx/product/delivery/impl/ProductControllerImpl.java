@@ -9,9 +9,9 @@ import com.bhx.product.delivery.ProductController;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.exception.PagingWrongFormat;
 import com.bhx.product.exception.ProductNotFoundException;
-import com.bhx.product.persistence.impl.ProductServiceImpl;
-import com.bhx.product.usecase.CreateProductUseCase;
+import com.bhx.product.ports.ProductRepositoryService;
 import com.bhx.product.usecase.GetAllProductsUseCase;
+import com.bhx.productInventory.ports.ProductInventoryRepositoryService;
 import com.bhx.productInventory.usecase.GetAllProductByUserLocateUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,23 +29,34 @@ import java.util.Collection;
 @Slf4j
 @RequiredArgsConstructor
 public class ProductControllerImpl implements ProductController {
+    private final GetAllProductsUseCase getAllProductsUseCase;
+    private final ProductMvcConverter productMvcConverter;
+    private final CreateCategoryUseCase createCategoryUseCase;
     private final GetNearestAddressByUserLocateUseCase getNearestAddressByUserLocateUseCase;
     private final GetAllProductByUserLocateUseCase getAllProductByUserLocateUseCase;
-    private final CreateProductUseCase createProductUseCase;
+    private final ProductRepositoryService productRepositoryService;
+    private final ProductInventoryRepositoryService productInventoryRepositoryService;
+
+    private Collection<Product> products;
+    private String longitude;
+    private String latitude;
+    private String nearest;
+
     @Override
     @GetMapping({"/", "/index"})
     public String index(Model model) throws Exception {
         model.addAttribute("active","home");
+        model.addAttribute("products", products);
         return "public/home/index";
     }
 
     @Override
     @PostMapping({"/", "/index"})
     public String indexGetLocate(Locate myData) throws IOException, InterruptedException, PagingWrongFormat, ProductNotFoundException {
-        String latitude = myData.getLatitude();
-        String longitude = myData.getLongitude();
-        String nearest =getNearestAddressByUserLocateUseCase.excute(Double.parseDouble(longitude), Double.parseDouble(latitude));
-        Collection<Product> products= getAllProductByUserLocateUseCase.excute(0, 2,Double.parseDouble(longitude), Double.parseDouble(latitude));
+        latitude = myData.getLatitude();
+        longitude = myData.getLongitude();
+        nearest =getNearestAddressByUserLocateUseCase.excute(Double.parseDouble(longitude), Double.parseDouble(latitude));
+        products= getAllProductByUserLocateUseCase.excute(0, 10,Double.parseDouble(longitude), Double.parseDouble(latitude));
         return "public/home/index";
     }
 
@@ -53,6 +64,7 @@ public class ProductControllerImpl implements ProductController {
     @GetMapping("/contact")
     public String contact(Model model) {
         model.addAttribute("active","contact");
+
         return "public/contact/index";
     }
 
@@ -60,18 +72,22 @@ public class ProductControllerImpl implements ProductController {
 
     @Override
     @GetMapping("/shop")
-    public String shop(Model model) {
+    public String shop(Model model, @RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "6") int size) throws PagingWrongFormat, IOException, ProductNotFoundException, InterruptedException {
         model.addAttribute("active","shop");
+        products= getAllProductByUserLocateUseCase.excute(page, size,Double.parseDouble(longitude), Double.parseDouble(latitude));
+        model.addAttribute("productsList", products);
         return "public/shop/index";
     }
 
-    @Override
     @GetMapping("/direct/details")
-    public String directDetails(Model model) {
-        model.addAttribute("active","direct");
+    public String directDetails(Model model, @RequestParam("id") String id) throws ProductNotFoundException {
+        model.addAttribute("active", "direct");
+
+        Product productDetail = productInventoryRepositoryService.getAProductDetail(nearest, id);
+        model.addAttribute("product", productDetail);
         return "public/direct/details";
     }
-
     @Override
     @GetMapping("/direct/shopping_cart")
     public String directShoppingCart(Model model) {
@@ -85,6 +101,4 @@ public class ProductControllerImpl implements ProductController {
         model.addAttribute("active","direct");
         return "public/direct/checkout";
     }
-
-
 }
