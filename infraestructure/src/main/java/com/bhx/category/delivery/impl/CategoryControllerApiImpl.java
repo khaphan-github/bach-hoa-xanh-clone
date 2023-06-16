@@ -9,6 +9,7 @@ import com.bhx.category.usecase.GetCategoryByParentIdUseCase;
 import com.bhx.category.usecase.UpdateCategoryUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nullable;
@@ -17,23 +18,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/admin/category/api")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CategoryControllerApiImpl implements CategoryControllerApi {
     private final GetCategoryByParentIdUseCase getCategoryByParentIdUseCase;
     private final UpdateCategoryUseCase updateCategoryUseCase;
     private final CreateCategoryUseCase createCategoryUseCase;
 
     @Override
-    @GetMapping("/getAllByParentId/{parentId}")
-    public ResponseEntity<List<Category>> getCategoriesByParentId(@PathVariable("parentId") String parentId) {
+    @GetMapping("/getAllByParentId")
+    public ResponseEntity<List<Category>> getCategoriesByParentId(@RequestParam("parentId") String parentId) {
         List<Category> categories = getCategoryByParentIdUseCase.execute(parentId)
                 .stream()
                 .collect(Collectors.toList());
         return ResponseEntity.ok(categories);
     }
+
 
     @Override
     @PostMapping("/updateCategory")

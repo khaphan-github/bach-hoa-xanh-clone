@@ -53,6 +53,8 @@ public class ProductConfiguration {
     }
 
     @Bean
+    public DeleteProductUseCaseImpl deleteProductUseCase(){return new DeleteProductUseCaseImpl(productService());}
+    @Bean
     public CreateProductUseCaseImpl createProductUseCase() {
         return new CreateProductUseCaseImpl(productService());
     }

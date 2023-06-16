@@ -6,6 +6,7 @@ let rootCategoryId;
 let parentCategoryId;
 
 
+
 // Get the file csv1 input element
 const fileInput = document.getElementById('formFileCsv');
 
@@ -554,9 +555,10 @@ async function replaceParentCategory(objId, name) {
                             </div>
                         </div>
                     </div>
-                    <a href="/admin/category/delete/${category.id}" class="btn btn-outline-secondary">
+                    <a href="/admin/category/delete?id=${category.id}" class="btn btn-outline-secondary">
                         <i class="tf-icons bx bx-trash"></i>
                     </a>
+
                 </div>
                 
                 </div>
@@ -651,9 +653,10 @@ async function replaceProductCategory(objId, name) {
                             </div>
                         </div>
                     </div>
-                    <a href="/admin/category/delete/${category.id}" class="btn btn-outline-secondary">
+                    <a href="/admin/category/delete?id=${category.id}" class="btn btn-outline-secondary">
                         <i class="tf-icons bx bx-trash"></i>
                     </a>
+
                 </div>
                 
                 </div>
@@ -667,17 +670,18 @@ async function replaceProductCategory(objId, name) {
     setParentnameToProductCategory(name);
 }
 
- async function getAllByParentId(pId) {
-     try {
-         const response = await fetch('/admin/category/api/getAllByParentId/' + pId);
-         const data = await response.json();
-         return data;
-     } catch (error) {
-         // Handle any errors that occur during the fetch request
-         console.error('Error:', error);
-         return []; // Return an empty array or any default value as needed
-     }
- }
+async function getAllByParentId(pId) {
+    try {
+        const response = await fetch(`/admin/category/api/getAllByParentId?parentId=${pId}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        // Handle any errors that occur during the fetch request
+        console.error('Error:', error);
+        return []; // Return an empty array or any default value as needed
+    }
+}
+
 
 function setParentIdToPCategory(parentId){
     const ParentId2 = document.getElementById("modalAddCategoryParentId2");

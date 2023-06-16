@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin("*")
 @RequestMapping("/admin/category")
 public class CategoryControllerImpl implements CategoryController {
     private final GetAllCategoriesUseCase getAllCategoriesUseCase;
@@ -44,18 +43,20 @@ public class CategoryControllerImpl implements CategoryController {
         return "admin/products/category";
     }
     @Override
-    @GetMapping("/delete/{id}")
-    public String deleteCategory(@PathVariable("id") String categoryId) throws CategoryAlreadyExistException {
+    @GetMapping("/delete")
+    public String deleteCategory(@RequestParam("id") String categoryId) throws CategoryAlreadyExistException {
         deleteACategoryUseCase.execute(categoryId);
         return "redirect:/admin/category";
     }
+
     @Override
-    @PostMapping("/category/{id}")
-    public String updateCategory(@PathVariable("id") String categoryId, @ModelAttribute Category category) throws CategoryAlreadyExistException {
+    @PostMapping("/category")
+    public String updateCategory(@RequestParam("id") String categoryId, @ModelAttribute Category category) throws CategoryAlreadyExistException {
         category.setId(categoryId);
         updateCategoryUseCase.execute(category);
         return "redirect:/category";
     }
+
 
     @Override
     @PostMapping("/new")
@@ -66,5 +67,10 @@ public class CategoryControllerImpl implements CategoryController {
         Category newCategory = new Category(category.getParentId(),category.getName(),category.getHref(),keywords,category.getAvailable());
         createCategoryUseCase.execute(newCategory);
         return "redirect:/admin/category";
+    }
+
+    @Override
+    public String createProduct() {
+        return null;
     }
 }

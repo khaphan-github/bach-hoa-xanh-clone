@@ -9,6 +9,7 @@ import com.bhx.product.delivery.ProductController;
 import com.bhx.product.delivery.converters.ProductMvcConverter;
 import com.bhx.product.exception.PagingWrongFormat;
 import com.bhx.product.exception.ProductNotFoundException;
+import com.bhx.product.persistence.impl.ProductServiceImpl;
 import com.bhx.product.usecase.CreateProductUseCase;
 import com.bhx.product.usecase.GetAllProductsUseCase;
 import com.bhx.productInventory.usecase.GetAllProductByUserLocateUseCase;

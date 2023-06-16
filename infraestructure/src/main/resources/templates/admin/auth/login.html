@@ -121,7 +121,7 @@
                     <h4 class="mb-2">Chào bạn đến với trang quản lý của organi 👋</h4>
                     <p class="mb-4">Vui lòng đăng nhập vào tài khoản quản lý để truy cập</p>
 
-                    <form id="formAuthentication" class="mb-3" th:action="@{/admin/login/auth}" th:method="post">
+                    <form id="formAuthentication" class="mb-3" th:action="@{/auth}" th:method="post">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input
@@ -209,7 +209,7 @@
     })
     .then(function (token) {
        document.cookie = "access-token=" + token + "; path=/";
-        window.location.href = '/admin/dashboard';
+        window.location.href = '/admin';
     })
     .catch(function (error) {
       window.location.href = '/auth';
