@@ -9,6 +9,7 @@
             <tr>
                 <th>Chức năng</th>
                 <th>URI</th>
+                <th>Method</th>
                 <th>Nhóm quyền</th>
                 <th>Trạng thái</th>
                 <th>Mô tả</th>
@@ -17,12 +18,21 @@
             </thead>
             <tbody>
             <tr th:each="permission, stat : ${permissions}">
-<!--                <td th:text="${stat.count}"></td>-->
+                <!--                <td th:text="${stat.count}"></td>-->
                 <td>
                     <strong th:text="${permission.name}"></strong>
                 </td>
                 <td>
                     <strong th:text="${permission.uri}"></strong>
+                </td>
+                <td>
+                     <span th:text="${permission.method}"
+                           th:classappend="${permission.method == 'GET' ? 'badge bg-label-info' :
+                     permission.method == 'POST' ? 'badge bg-label-success' :
+                     permission.method == 'PUT' ? 'badge bg-label-warning' :
+                     permission.method == 'DELETE' ? 'badge bg-label-danger' : ''}">
+                    </span>
+
                 </td>
                 <td>
                      <span th:each="groupName : ${permission.groupNames}" class="badge bg-label-primary me-1">
@@ -45,7 +55,8 @@
                         <li><a class="dropdown-item" href="javascript:void(0);"
                                th:text="${permission.active} ? 'Hũy kích hoạt' : 'Kích hoạt'"></a></li>
                         <li><a class="dropdown-item" href="javascript:void(0);">Xóa nhóm quyền</a></li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Chỉnh sửa</a></li>
+                        <li><a class="dropdown-item" th:href="@{/permissions/update-page(id=${permission.id})}">Chỉnh
+                            sửa</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

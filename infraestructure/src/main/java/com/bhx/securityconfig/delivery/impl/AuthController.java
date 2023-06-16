@@ -1,8 +1,7 @@
 package com.bhx.securityconfig.delivery.impl;
 
-import com.bhx.admin.delivery.impl.LoginDto;
-import com.bhx.securityconfig.policy.Policy;
-import com.bhx.webconfig.JwtUtil;
+import com.bhx.securityconfig.delivery.request.LoginDto;
+import com.bhx.securityconfig.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/admin")
+@RequestMapping("/auth")
 public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -35,7 +35,13 @@ public class AuthController {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @PostMapping("/authenticate")
+    @GetMapping
+    public String adminLoginFormView() {
+        final String authenticatePage = "admin/auth/login";
+        return authenticatePage;
+    }
+
+    @PostMapping
     public ResponseEntity<String> handleLogin(@RequestBody LoginDto loginDto, HttpServletResponse response) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));

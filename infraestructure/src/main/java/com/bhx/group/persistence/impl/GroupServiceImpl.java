@@ -1,6 +1,7 @@
 package com.bhx.group.persistence.impl;
 
 import com.bhx.group.persistence.converters.GroupRepositoryConverter;
+import com.bhx.group.persistence.entities.GroupEntity;
 import com.bhx.group.persistence.repository.GroupRepository;
 import com.bhx.menu.Menu;
 import com.bhx.group.Group;
@@ -47,6 +48,12 @@ public class GroupServiceImpl implements GroupRepositoryService {
     @Override
     public Group getGroupById(String id) {
         return null;
+    }
+
+    @Override
+    public Group findByNameAndActive(String name) {
+        GroupEntity groupEntity = groupRepository.findByNameAndActive(name, true);
+        return groupRepositoryConverter.mapToEntity(groupEntity);
     }
 
     @Override

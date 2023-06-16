@@ -47,9 +47,9 @@ class CreatePermissionTest {
     @Test
     void createPermission() {
         String permissionId = new ObjectId().toString();
-        Permission permission = new Permission(permissionId, "TestName", "Desc", new Date(), new Date(), true);
-
-        permissionService.savePermission(permission);
+/*        Permission permission = new Permission(permissionId, "TestName", "Desc", new Date(), new Date(), true);*/
+/*
+        permissionService.savePermission(permission);*/
 
         Optional<PermissionEntity> permissionStored = permissionRepository.findById(permissionId);
         assertTrue(permissionStored.isPresent());

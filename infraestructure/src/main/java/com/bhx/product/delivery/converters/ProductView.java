@@ -24,4 +24,5 @@ public class ProductView implements Serializable {
     private String detailUrl;
 
     private int inventory;
+    private String imageLink;
 }

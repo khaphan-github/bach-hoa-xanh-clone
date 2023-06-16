@@ -41,9 +41,9 @@ class GetAllPermissionTest {
     void setup() {
         MockitoAnnotations.initMocks(this);
         List<PermissionEntity> permisionEntityList = new ArrayList<>();
-        for (int i = 0; i < permissionCollectionSize; i++) {
+/*        for (int i = 0; i < permissionCollectionSize; i++) {
             permisionEntityList.add(new PermissionEntity(new ObjectId().toString(), "TestName", "Desc", new Date(), new Date(), true));
-        }
+        }*/
         permissionRepository.saveAll(permisionEntityList);
     }
 

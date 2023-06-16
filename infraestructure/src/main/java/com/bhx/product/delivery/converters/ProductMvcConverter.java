@@ -18,6 +18,6 @@ public class ProductMvcConverter implements RestConverter<ProductView, Product> 
         String addToCartUrl = "/cart/product/" + entity.getId();
         String detailUrl = "/product/" + entity.getId();
 
-        return new ProductView(entity.getId(), entity.getName(), entity.getDescription(), entity.getPrice(), entity.getThumbImage(), entity.getCategoryId(), addToCartUrl, detailUrl, entity.getInventory());
+        return new ProductView(entity.getId(), entity.getName(), entity.getDescription(), entity.getPrice(), entity.getThumbImage(), entity.getCategoryId(), addToCartUrl, detailUrl, entity.getInventory(), entity.getImageLink());
     }
 }

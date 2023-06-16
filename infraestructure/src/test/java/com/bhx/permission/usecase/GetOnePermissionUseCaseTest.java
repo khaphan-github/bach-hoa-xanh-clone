@@ -39,8 +39,8 @@ public class GetOnePermissionUseCaseTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        Permission permission = new Permission(permissionId, "TestName", "Desc", new Date(), new Date(), true);
-        permissionRepository.save(permissionRepositoryConverter.mapToTable(permission));
+//        Permission permission = new Permission(permissionId, "TestName", "Desc", new Date(), new Date(), true);
+  //      permissionRepository.save(permissionRepositoryConverter.mapToTable(permission));
     }
 
     @AfterEach

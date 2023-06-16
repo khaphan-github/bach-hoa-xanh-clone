@@ -45,4 +45,5 @@ public class Product extends SelfValidating<Product> implements Serializable {
     private boolean isAvailable;
 
     private int inventory;
+    private String imageLink;
 }

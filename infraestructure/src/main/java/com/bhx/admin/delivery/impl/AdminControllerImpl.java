@@ -42,22 +42,6 @@ public class AdminControllerImpl {
         return "admin/main/index";
     }
 
-    @GetMapping("/login")
-    public String adminLoginFormView() {
-        return "admin/auth/login";
-    }
-
-    @PostMapping("/login/auth")
-    public String adminLoginForm(@RequestParam("username") String username, @RequestParam("password") String password) {
-
-        System.out.println(username+' '+password);
-        return "redirect:/admin";
-    }
-
-    public String adminLoginForm(Model model) {
-        model.addAttribute("loginDto", new LoginDto());
-        return "admin/auth/login";
-    }
 
     @GetMapping("/dashboard")
     public String dashBoardPage() {
