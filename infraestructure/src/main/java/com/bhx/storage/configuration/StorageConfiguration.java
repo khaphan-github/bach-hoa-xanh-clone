@@ -43,4 +43,9 @@ public class StorageConfiguration {
     public EditAStorageUseCase editAStorageUseCase() {
         return new EditAStorageUseCaseImpl(storageService());
     }
+
+    @Bean
+    public DeleteAStorageUseCase deleteAStorageUseCase() {
+        return new DeleteAStorageUseCaseImpl(storageService());
+    }
 }

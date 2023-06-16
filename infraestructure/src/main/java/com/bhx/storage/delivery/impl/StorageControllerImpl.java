@@ -1,9 +1,11 @@
 package com.bhx.storage.delivery.impl;
 
+import com.bhx.category.Category;
 import com.bhx.storage.Storage;
 import com.bhx.storage.delivery.StorageController;
 import com.bhx.storage.ports.StorageRepositoryService;
 import com.bhx.storage.usecase.CreateAStorageUseCase;
+import com.bhx.storage.usecase.DeleteAStorageUseCase;
 import com.bhx.storage.usecase.EditAStorageUseCase;
 import com.bhx.storage.usecase.GetAllStorageUsecase;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ public class StorageControllerImpl implements StorageController {
     private final CreateAStorageUseCase createAStorageUseCase;
     private final StorageRepositoryService storageRepositoryService;
     private final EditAStorageUseCase editAStorageUseCase;
+    private final DeleteAStorageUseCase deleteAStorageUseCase;
 
     @Override
     @GetMapping("")
@@ -60,9 +63,10 @@ public class StorageControllerImpl implements StorageController {
     }
 
     @Override
-    @PostMapping("/update/{id}")
-    public String updateStorage(@RequestParam("id") String storageId, Model model, @ModelAttribute("storage") Storage storage) {
-        return null;
+    @PostMapping("/updateStorage")
+    public String updateStorage(@ModelAttribute Storage storage) {
+        editAStorageUseCase.excute(storage);
+        return "redirect:/storage";
     }
 
 
@@ -70,4 +74,12 @@ public class StorageControllerImpl implements StorageController {
     public String updateInventoryProduct(Model model) throws Exception {
         return null;
     }
+
+    @Override
+    @PostMapping("/deleteStorage/{id}")
+    public String deleteStorage(@PathVariable("id") String id) {
+        deleteAStorageUseCase.excute(id);
+        return "redirect:/storage";
+    }
+
 }

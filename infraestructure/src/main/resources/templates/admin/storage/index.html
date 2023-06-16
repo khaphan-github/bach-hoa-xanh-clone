@@ -123,11 +123,10 @@
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Kho /</span>Tất cả kho</h4>
                     <div th:replace="admin/storage/formAdd"></div>
-                    <div th:replace="admin/storage/formEdit"></div>
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between" style="margin-button: 5px">
-                                <h6 class="text-muted">Quản lý Nhóm quyền</h6>
+                                <h6 class="text-muted">Quản lý kho</h6>
                                 <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#createStorageModal"
                                         onclick="">
@@ -137,41 +136,69 @@
                         </div>
 
                         <div class="card-body">
-
-                            <div class="table-responsive text-nowrap">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th>Địa chỉ</th>
-                                        <th>Tên chi nhánh</th>
-                                        <th>Thao tác</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="storage : ${list_storages}">
-                                        <td th:text="${storage.address}"></td>
-                                        <td th:text="${storage.name}"></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="javascript:void(0);" onclick="openEditPopup(this)" data-storage-id="${storage.id}">
-                                                        <i class="bx bx-edit-alt me-1"></i> Chỉnh sửa
+                            <div class="card-body" id="vertical-example">
+                                <div class="demo-inline-spacing">
+                                    <div class="list-group">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Tên chi nhánh</th>
+                                                <th>Địa chỉ</th>
+                                                <th class="text-end">Thao tác</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="storage : ${list_storages}">
+                                                <td>
+                                                    <span th:text="${storage.name}"></span>
+                                                </td>
+                                                <td>
+                                                    <span th:text="${storage.address}"></span>
+                                                </td>
+                                                <td class="text-end">
+                                                    <a data-bs-toggle="modal" th:data-bs-target="'#modalCenter'+ ${storage.id}" class="btn btn-outline-secondary">
+                                                        <i class="tf-icons bx bx-edit"></i>
                                                     </a>
-                                                    <a class="dropdown-item" href="javascript:void(0);">
-                                                        <i class="bx bx-trash me-1"></i> Xoá
+                                                    <div class="modal fade" th:id="'modalCenter' + ${storage.id}" tabindex="-1" style="display: none;" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="modalCenterTitle">Chỉnh sửa Danh mục</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <form th:action="@{/storage/updateStorage}" th:object="${storageEdit}" method="post">
+                                                                    <div class="modal-body">
+                                                                        <input hidden="hidden" type="text" id="id" name="id" class="form-control" th:value="${storage.id}">
+                                                                        <div class="mb-3">
+                                                                            <label for="name" class="form-label">Tên chi nhánh</label>
+                                                                            <input type="text" id="name" name="name" class="form-control" th:value="${storage.name}">
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="address" class="form-label">Địa chỉ</label>
+                                                                            <input type="text" id=address name="address" class="form-control" th:value="${storage.address}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                                            Huỷ
+                                                                        </button>
+                                                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a th:href="@{/storage/deleteStorage/{id}(id=${storage.id})}" class="btn btn-outline-secondary">
+                                                        <i class="tf-icons bx bx-trash"></i>
                                                     </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-
-
-                                    </tbody>
-                                </table>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+
                             <!--Paging Products-->
                             <div class="demo-inline-spacing">
                                 <nav aria-label="Page navigation">

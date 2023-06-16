@@ -26,7 +26,8 @@ public class ProductRepositoryConverter implements RepositoryConverter<ProductEn
                 persistenceObject.getCategoryId(),
                 persistenceObject.getCreatedDate(),
                 persistenceObject.getUpdatedDate(),
-                persistenceObject.isAvailable()
+                persistenceObject.isAvailable(),
+                persistenceObject.getImageLink()
         );
     }
 
@@ -47,13 +48,14 @@ public class ProductRepositoryConverter implements RepositoryConverter<ProductEn
                 entityObject.getCreatedDate(),
                 entityObject.getUpdatedDate(),
                 entityObject.isAvailable(),
-                0
+                0,
+                entityObject.getImageLink()
         );
     }
 
     public Product mapToEntityInventory(final ProductEntity entityObject, ProductInventory inventory) {
         return new Product(
-                entityObject.getId(),
+                /*entityObject.getId(),
                 entityObject.getName(),
                 entityObject.getSearchName(),
                 entityObject.getDescription(),
@@ -67,7 +69,7 @@ public class ProductRepositoryConverter implements RepositoryConverter<ProductEn
                 entityObject.getCreatedDate(),
                 entityObject.getUpdatedDate(),
                 entityObject.isAvailable(),
-                inventory.getInventory()
+                inventory.getInventory()*/
         );
     }
 }
