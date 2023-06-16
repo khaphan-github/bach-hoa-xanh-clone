@@ -65,6 +65,4 @@ public class AdminControllerImpl {
 
         return "admin/products/category";
     }
-
-
 }
