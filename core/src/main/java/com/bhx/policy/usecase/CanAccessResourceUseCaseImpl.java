@@ -33,8 +33,13 @@ public class CanAccessResourceUseCaseImpl implements CanAccessResourceUseCase {
 
         Permission permissions = permissionRepositoryService.getPermissionByCredential(credential);
 
+
         if (permissions == null) {
             throw new PermissionNotFoundException("Permission not found");
+        }
+
+        if (!permissions.isActive()) {
+            return false;
         }
 
         for (String groupId : account.getGroupIds()) {

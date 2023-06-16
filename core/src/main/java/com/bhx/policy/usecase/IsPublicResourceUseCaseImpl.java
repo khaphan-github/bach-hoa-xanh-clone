@@ -32,7 +32,7 @@ public class IsPublicResourceUseCaseImpl implements IsPublicResourceUseCase {
             boolean isMatchUri = credential.getUri().startsWith(permission.getUri());
             boolean isMatchMethod = credential.getHttpMethod().equals(permission.getHttpMethod());
 
-            if (isMatchUri && isMatchMethod) {
+            if (isMatchUri && isMatchMethod && permission.isActive()) {
                 return true;
             }
         }
