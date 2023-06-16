@@ -20,9 +20,12 @@ public class StorageServiceImpl implements StorageRepositoryService {
     private final StorageRepository storageRepository;
     private final StorageRepositoryConverter storageRepositoryConverter;
     @Override
-    public Optional<Storage> getAStorageById(String id) {
-        Optional<StorageEntity> stored =  storageRepository.findById(id);
-        return Optional.ofNullable(storageRepositoryConverter.mapToEntity(stored.get()));
+    public Storage getAStorageById(String id) {
+        Optional<StorageEntity> stored = storageRepository.findById(id);
+        if (stored.isPresent()) {
+            return storageRepositoryConverter.mapToEntity(stored.get());
+        }
+        return null; // hoặc xử lý trường hợp không tìm thấy StorageEntity theo ID
     }
 
     @Override

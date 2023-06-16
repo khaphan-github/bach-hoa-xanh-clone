@@ -10,8 +10,7 @@ import com.bhx.storage.persistence.converter.StorageRepositoryConverter;
 import com.bhx.storage.persistence.impl.StorageServiceImpl;
 import com.bhx.storage.persistence.repositories.StorageRepository;
 import com.bhx.storage.ports.StorageRepositoryService;
-import com.bhx.storage.usecase.GetAllStorageUsecase;
-import com.bhx.storage.usecase.GetAllStorageUsecaseImpl;
+import com.bhx.storage.usecase.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,5 +32,15 @@ public class StorageConfiguration {
     @Bean
     public GetAllStorageUsecase getAllStorageUsecase() {
         return new GetAllStorageUsecaseImpl(storageService());
+    }
+
+    @Bean
+    public CreateAStorageUseCase createAStorageUseCase() {
+        return new CreateAStorageUseCaseImpl(storageService());
+    }
+
+    @Bean
+    public EditAStorageUseCase editAStorageUseCase() {
+        return new EditAStorageUseCaseImpl(storageService());
     }
 }

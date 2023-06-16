@@ -43,8 +43,8 @@ class UpdatePermissionUseCaseTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         boolean active = true;
-        Permission permission = new Permission(permissionId, "TestName", "Desc", new Date(), new Date(), active);
-        permissionRepository.save(permissionRepositoryConverter.mapToTable(permission));
+       /* Permission permission = new Permission(permissionId, "TestName", "Desc", new Date(), new Date(), active);
+        permissionRepository.save(permissionRepositoryConverter.mapToTable(permission));*/
     }
 
     @AfterEach

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StorageRepositoryService {
-    public Optional<Storage> getAStorageById(String id);
+    public Storage getAStorageById(String id);
     public boolean saveStorage(Storage storage);
     public boolean deleteAStorage(String id);
 

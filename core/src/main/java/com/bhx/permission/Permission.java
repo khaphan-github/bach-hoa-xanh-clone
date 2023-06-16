@@ -29,4 +29,5 @@ public class Permission extends SelfValidating<Permission> implements Serializab
     private Date createdAt;
     private Date updatedAt;
     private boolean isActive;
+
 }
