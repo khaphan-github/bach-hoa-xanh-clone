@@ -102,6 +102,7 @@ public class ProductConfiguration {
     public ProductRepositoryService productRepositoryService() {
         return new ProductServiceImpl(productRepository, productRepositoryConverter());
     }
+    @Bean
     public ProductInventoryRepositoryService InventoryService() {
         return new ProductInventoryServiceImpl(
                 productInventoryRepository,

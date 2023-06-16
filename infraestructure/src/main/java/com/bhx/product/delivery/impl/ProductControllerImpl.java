@@ -11,6 +11,7 @@ import com.bhx.product.exception.PagingWrongFormat;
 import com.bhx.product.exception.ProductNotFoundException;
 import com.bhx.product.ports.ProductRepositoryService;
 import com.bhx.product.usecase.GetAllProductsUseCase;
+import com.bhx.productInventory.ports.ProductInventoryRepositoryService;
 import com.bhx.productInventory.usecase.GetAllProductByUserLocateUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,10 +35,12 @@ public class ProductControllerImpl implements ProductController {
     private final GetNearestAddressByUserLocateUseCase getNearestAddressByUserLocateUseCase;
     private final GetAllProductByUserLocateUseCase getAllProductByUserLocateUseCase;
     private final ProductRepositoryService productRepositoryService;
+    private final ProductInventoryRepositoryService productInventoryRepositoryService;
 
     private Collection<Product> products;
     private String longitude;
     private String latitude;
+    private String nearest;
 
     @Override
     @GetMapping({"/", "/index"})
@@ -52,7 +55,7 @@ public class ProductControllerImpl implements ProductController {
     public String indexGetLocate(Locate myData) throws IOException, InterruptedException, PagingWrongFormat, ProductNotFoundException {
         latitude = myData.getLatitude();
         longitude = myData.getLongitude();
-        String nearest =getNearestAddressByUserLocateUseCase.excute(Double.parseDouble(longitude), Double.parseDouble(latitude));
+        nearest =getNearestAddressByUserLocateUseCase.excute(Double.parseDouble(longitude), Double.parseDouble(latitude));
         products= getAllProductByUserLocateUseCase.excute(0, 10,Double.parseDouble(longitude), Double.parseDouble(latitude));
         return "public/home/index";
     }
@@ -81,7 +84,7 @@ public class ProductControllerImpl implements ProductController {
     public String directDetails(Model model, @RequestParam("id") String id) throws ProductNotFoundException {
         model.addAttribute("active", "direct");
 
-        Product productDetail = productRepositoryService.getProductById(id);
+        Product productDetail = productInventoryRepositoryService.getAProductDetail(nearest, id);
         model.addAttribute("product", productDetail);
         return "public/direct/details";
     }
