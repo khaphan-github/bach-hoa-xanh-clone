@@ -17,12 +17,14 @@ public interface ProductController {
     String contact(Model model);
 
     String indexGetLocate(@RequestBody Locate myData) throws IOException, InterruptedException, PagingWrongFormat, ProductNotFoundException;
-    String shop(Model model);
+    String shop(Model model, int page, int size) throws PagingWrongFormat, IOException, ProductNotFoundException, InterruptedException;
 
-    String directDetails(Model model);
+    String directDetails(Model model, String id) throws ProductNotFoundException;
 
     String directShoppingCart(Model model);
 
     String directCheckout(Model model);
+
+    String getViewCategory(String href);
 
 }

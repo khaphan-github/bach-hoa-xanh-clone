@@ -43,7 +43,7 @@ public class ProductConfiguration {
     }
 
     @Bean
-    public ProductServiceImpl productService() {
+    public ProductRepositoryService productService() {
         return new ProductServiceImpl(this.productRepository, productRepositoryConverter());
     }
 
@@ -52,6 +52,8 @@ public class ProductConfiguration {
         return new GetAllProductsUseCaseImpl(productService());
     }
 
+    @Bean
+    public DeleteProductUseCaseImpl deleteProductUseCase(){return new DeleteProductUseCaseImpl(productService());}
     @Bean
     public CreateProductUseCaseImpl createProductUseCase() {
         return new CreateProductUseCaseImpl(productService());
@@ -102,6 +104,7 @@ public class ProductConfiguration {
     public ProductRepositoryService productRepositoryService() {
         return new ProductServiceImpl(productRepository, productRepositoryConverter());
     }
+    @Bean
     public ProductInventoryRepositoryService InventoryService() {
         return new ProductInventoryServiceImpl(
                 productInventoryRepository,

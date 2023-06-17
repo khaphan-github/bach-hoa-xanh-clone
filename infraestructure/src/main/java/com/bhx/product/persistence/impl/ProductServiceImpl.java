@@ -76,4 +76,11 @@ public class ProductServiceImpl implements ProductRepositoryService {
     public void saveMultipleProduct(List<Product> productList) {
         productRepository.saveAll(productList.stream().map(productRepositoryConverter::mapToTable).collect(Collectors.toList()));
     }
+
+    @Override
+    public void deleteProduct(String id) {
+        productRepository.deleteById(id);
+    }
+
+
 }

@@ -41,7 +41,7 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a th:href="@{/}">TRANG CHỦ</a></li>
+                <li class="active"><a th:href="@{/index}">TRANG CHỦ</a></li>
                 <li><a href="./shop-grid.html">CỬA HÀNG</a></li>
                 <li><a href="#">ĐIỀU HƯỜNG</a>
                     <ul class="header__menu__dropdown">
@@ -91,13 +91,13 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a th:href="@{/}"><img src="/static/img/logo.png" alt=""></a>
+                        <a th:href="@{/index}"><img src="/static/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li th:classappend="${active == 'home'} ? 'active' : ''"><a th:href="@{/}">Trang Chủ</a></li>
+                            <li th:classappend="${active == 'home'} ? 'active' : ''"><a th:href="@{/index}">Trang Chủ</a></li>
                             <li th:classappend="${active == 'shop'} ? 'active' : ''"><a th:href="@{/shop}">Cửa Hàng</a></li>
                             <li th:classappend="${active == 'direct'} ? 'active' : ''"><a href="#">Điều Hướng</a>
                                 <ul class="header__menu__dropdown">
@@ -138,44 +138,22 @@
                             <span>DANH MỤC</span>
                         </div>
                         <ul>
-                            <li><a href="#">Thịt tươi sống</a></li>
-                            <li><a href="#">Rau</a></li>
-                            <li><a href="#">Trái Cây & Hạt</a></li>
-                            <li><a href="#">Hải sản</a></li>
-                            <li><a href="#">Trứng, sữa</a></li>
-                            <li><a href="#">Thức ăn nhanh</a></li>
-                            <li><a href="#">Hành, gia vị</a></li>
+                            <li th:each="category : ${categories}">
+                                <a th:href="'/category?href='+${category.href}" th:text="${category.name}">
+                                </a>
+                            </li>
                         </ul>
+
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    Tất cả danh mục
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="Bạn cần tìm gì?">
-                                <button type="submit" class="site-btn">TÌM KIẾM</button>
-                            </form>
-                        </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h5>+84 99.999.999</h5>
-                                <span>Hỗ trợ 24/7</span>
-                            </div>
-                        </div>
-                    </div>
+
                         <div th:if="${active == 'home'}" class="hero__item set-bg" data-setbg="/static/img/hero/banner.jpg">
                             <div class="hero__text">
                                 <span>TRÁI CÂY TƯƠI</span>
                                 <h2>Rau <br />100% organic</h2>
                                 <p>Nhận và giao hàng miễn phí</p>
-                                <a href="#" class="primary-btn">MUA NGAY</a>
+                                <a href="/shop" class="primary-btn">MUA NGAY</a>
                             </div>
                         </div>
                 </div>
@@ -194,7 +172,7 @@
                     <div class="breadcrumb__text">
                         <h2>Organi Shop</h2>
                         <div class="breadcrumb__option">
-                            <a th:href="@{/}">Organi</a>
+                            <a th:href="@{/index}">Organi</a>
                                 <span th:switch="${active}">
                                     <span th:case="'shop'">Cửa Hàng</span>
                                     <span th:case="'contact'">Liên Hệ </span>

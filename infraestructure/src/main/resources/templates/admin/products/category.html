@@ -195,7 +195,9 @@
                                                 <div class="mb-3" id="table-csv-display">
 
                                                 </div>
+                                            </div>
 
+                                            <div id="modal-footer-csv" class="modal-footer">
 
                                             </div>
                                         </div>
@@ -204,7 +206,7 @@
                                 <div class="card-body" id="vertical-example">
                                         <div class="demo-inline-spacing">
                                             <div class="list-group">
-                                                <div class="row mb-3" th:each="category, status : ${categories}" th:if="${category.parentId == null}">
+                                                <div class="row mb-3" th:each="category, status : ${categories}">
                                                     <div class="col">
                                                         <button th:id="'btn-'+${category.id}" onclick="toggleActiveClass1(this)" th:attr="onclick='replaceParentCategory(\'' + ${category.id} + '\', \'' + ${category.name} + '\')'" class="btn btn-outline-gray text-black btn-root-category" >
                                                             <!-- Display the category name -->
@@ -255,7 +257,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a th:href="@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-outline-secondary">
+                                                        <a th:href="@{/admin/category/delete(id=${category.id})}" class="btn btn-outline-secondary">
                                                             <i class="tf-icons bx bx-trash"></i>
                                                         </a>
                                                     </div>
@@ -274,6 +276,30 @@
                                 <div class="col-auto card-body">
                                     <div class="btn-group" >
                                         <a data-bs-toggle="modal" data-bs-target="#modalAddCategory2" class="btn btn-primary text-white">Thêm nhóm loại</a>
+                                        <a data-bs-toggle="modal" data-bs-target="#modalAddCategoryCsv2" class="btn btn-outline-gray">Thêm từ csv</a>
+                                    </div>
+                                    <div class="modal fade" id="modalAddCategoryCsv2" tabindex="-1" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Thêm nhóm loại</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="formFileCsv" class="form-label">Tải lên file csv</label>
+                                                        <input class="form-control" type="file" id="formFileCsv2" accept=".xlsx, .xls">
+                                                    </div>
+                                                    <div class="mb-3" id="table-csv-display2">
+
+                                                    </div>
+                                                </div>
+
+                                                <div id="modal-footer-csv2" class="modal-footer">
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal fade" id="modalAddCategory2" tabindex="-1" style="display: none;" aria-hidden="true">
@@ -339,6 +365,31 @@
                                 <div class="col-auto card-body">
                                     <div class="btn-group" >
                                         <a data-bs-toggle="modal" data-bs-target="#modalAddCategory3" class="btn btn-primary text-white">Thêm loại</a>
+                                        <a data-bs-toggle="modal" data-bs-target="#modalAddCategoryCsv3" class="btn btn-outline-gray">Thêm từ csv</a>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="modalAddCategoryCsv3" tabindex="-1" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Thêm loại</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="formFileCsv" class="form-label">Tải lên file csv</label>
+                                                    <input class="form-control" type="file" id="formFileCsv3" accept=".xlsx, .xls">
+                                                </div>
+                                                <div class="mb-3" id="table-csv-display3">
+
+                                                </div>
+                                            </div>
+
+                                            <div id="modal-footer-csv3" class="modal-footer">
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal fade" id="modalAddCategory3" tabindex="-1" style="display: none;" aria-hidden="true">
@@ -418,5 +469,7 @@
         <script src="/static/admin/assets/js/ui-modals.js"></script>
         <script src="/static/admin/js/script_category.js"></script>
         <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>

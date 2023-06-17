@@ -209,7 +209,7 @@
     })
     .then(function (token) {
        document.cookie = "access-token=" + token + "; path=/";
-        window.location.href = '/admin/dashboard';
+        window.location.href = '/admin';
     })
     .catch(function (error) {
       window.location.href = '/auth';

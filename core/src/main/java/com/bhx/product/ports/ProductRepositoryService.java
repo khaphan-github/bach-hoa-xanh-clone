@@ -25,4 +25,7 @@ public interface ProductRepositoryService {
     public void inValidProductById(String id);
 
     public void saveMultipleProduct(List<Product> productList);
+
+
+    public void deleteProduct(String id);
 }

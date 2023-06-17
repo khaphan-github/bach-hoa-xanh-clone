@@ -2,6 +2,7 @@ package com.bhx.category.delivery;
 import com.bhx.category.Category;
 import com.bhx.category.exception.CategoryAlreadyExistException;
 import com.bhx.category.persistence.converters.view.CategoryRoot;
+import com.bhx.product.Product;
 import com.bhx.product.exception.ProductNotFoundException;
 import org.springframework.ui.Model;
 
@@ -17,4 +18,7 @@ public interface CategoryController {
 
 
 	public String createCategory(CategoryRoot category) throws CategoryAlreadyExistException;
+
+
+	public String createProduct();
 }

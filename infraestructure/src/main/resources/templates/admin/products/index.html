@@ -130,23 +130,124 @@
                                     <div class="btn-group" id="hover-dropdown-demo">
                                         <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-trigger="hover">Nhập sản phẩm</button>
                                         <ul class="dropdown-menu">
-                                            <li> <a class="dropdown-item" href="javascript:void(0);">Nhập 1 sản phẩm</a> </li>
-                                            <li> <a class="dropdown-item" id="file-link-csv" >Nhập từ tập tin csv</a> </li>
-                                            <input type="file" id="file-input-csv" style="display: none;">
+                                            <li> <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAddProduct">Nhập 1 sản phẩm</a> </li>
+                                            <li> <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalAddProductCsv">Thêm từ csv</a> </li>
+
                                         </ul>
                                     </div>
                                 </div>
 
-                                <div class="col-auto">
-                                    <div class="btn-group" >
-                                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-trigger="hover">Xuất sản phẩm</button>
-                                        <ul class="dropdown-menu">
-                                            <li> <a class="dropdown-item" href="javascript:void(0);">Xuất tập tin xml</a> </li>
-                                            <li> <a class="dropdown-item" href="javascript:void(0);">Xuất tập tin csv</a> </li>
-                                            <li> <a class="dropdown-item" href="javascript:void(0);">Xuất tập tin json</a> </li>
-                                        </ul>
+                                <div class="modal fade" id="modalAddProductCsv" tabindex="-1" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Thêm sản phẩm</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="formFileCsv" class="form-label">Tải lên file csv</label>
+                                                    <input class="form-control" type="file" id="formFileCsv" accept=".xlsx, .xls">
+                                                </div>
+                                                <div class="mb-3" id="table-csv-display">
+
+                                                </div>
+                                            </div>
+
+                                            <div id="modal-footer-csv" class="modal-footer">
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="modal fade" id="modalAddProduct" tabindex="-1" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalAddCategoryTitle3">Thêm sản phẩm</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form id="form-new-product" >
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Tên sản phẩm</label>
+                                                            <input type="text" name="name" required class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Giá sản phẩm</label>
+                                                            <input type="number"  name="price" required min="0" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Mô tả</label>
+                                                            <input type="text"  name="description"  required class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Ngày hết hạn</label>
+                                                            <input type="date" name="outDate" required  class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Giảm giá</label>
+                                                            <input type="number" name="discount"  min="0" max="100"  class="form-control">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Số lượng</label>
+                                                            <input type="number" name="quantity" required min="0" max="100" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <label class="form-label">Loại sản phẩm</label>
+                                                        <div class="col mb-3">
+                                                            <select id="select-option-root-category" required class="form-control mb-1">
+                                                                <option value="" disabled selected>Danh mục</option>
+                                                                <option th:each="category : ${root_category}" th:value="${category.id}" th:text="${category.name}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col mb-3">
+                                                            <select id="select-option-parent-category" required class="form-control mb-1">
+                                                                <option value="" disabled selected>Nhóm loại</option>
+                                                                <!-- Add additional options as needed -->
+
+                                                            </select>
+                                                        </div>
+                                                        <div class="col mb-3">
+                                                            <select id="select-option-product-category" name="categoryId" required class="form-control mb-1">
+                                                                <option value="" disabled selected>Loại sản phẩm</option>
+                                                            </select>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <label class="form-label">Ảnh sản phẩm</label>
+                                                            <input id="upload-images-product" type="file" name="descriptionImages" accept="image/*" multiple class="form-control">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                        Huỷ
+                                                    </button>
+                                                    <button class="btn btn-primary">Lưu</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
 
@@ -187,26 +288,7 @@
                                             </div>
                                         </td>
                                         <td th:text="${product.price + 'đ'}"></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button
-                                                        type="button"
-                                                        class="btn p-0 dropdown-toggle"
-                                                        data-bs-toggle="dropdown"
-                                                        th:id="${'sale-btn-text-'+product.id}"
-                                                        th:text="${product.discount}"
-                                                >
-
-                                                </button>
-                                                <div  class="dropdown-menu">
-                                                    <a th:each="j : ${#numbers.sequence(10, 15)}"
-                                                       th:text="${j}+'%'" class="dropdown-item"
-                                                       href="javascript:void(0);"
-                                                       th:attr="onclick='document.getElementById(\'sale-btn-text-' + ${product.id} + '\').innerText = this.innerText'"
-                                                    ></a>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        <td th:text="${product.discount + '%'}"></td>
                                         <td><span class="badge me-1" th:classappend="${product.quantity < 10 ? 'bg-label-warning':'bg-label-primary'}" th:text="${product.quantity}"></span></td>
                                         <td>
                                             <span class="badge me-1" th:classappend="${product.available ? 'bg-label-success' : 'bg-label-danger'}" th:text="${product.available ? 'Active':'Disable'}"></span>
@@ -220,7 +302,7 @@
                                                     <a class="dropdown-item" href="javascript:void(0);"
                                                     ><i class="bx bx-edit-alt me-1"></i> Chỉnh sửa</a
                                                     >
-                                                    <a class="dropdown-item" href="javascript:void(0);"
+                                                    <a class="dropdown-item" th:href="'/admin/products/delete?id='+${product.id}"
                                                     ><i class="bx bx-trash me-1"></i> Xoá</a
                                                     >
                                                 </div>
@@ -281,5 +363,8 @@
 <!-- Page JS -->
         <script src="/static/admin/assets/js/dashboards-analytics.js"></script>
         <script src="/static/admin/js/script_products.js"></script>
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>
