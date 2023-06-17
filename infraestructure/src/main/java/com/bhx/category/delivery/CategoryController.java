@@ -1,15 +1,24 @@
 package com.bhx.category.delivery;
-
-import java.util.Collection;
-
-import com.bhx.category.delivery.responses.NetflixResponse;
-import com.bhx.category.delivery.rest.CategoryRest;
-import com.bhx.global.exceptions.NetflixException;
+import com.bhx.category.Category;
+import com.bhx.category.exception.CategoryAlreadyExistException;
+import com.bhx.category.persistence.converters.view.CategoryRoot;
+import com.bhx.product.Product;
+import com.bhx.product.exception.ProductNotFoundException;
+import org.springframework.ui.Model;
 
 public interface CategoryController {
 
-	NetflixResponse<Collection<CategoryRest>> getCategories() throws NetflixException;
+	String getCategories(Model model) throws ProductNotFoundException;
 
-	NetflixResponse<Boolean> createCategory(CategoryRest category) throws NetflixException;
 
+	public String deleteCategory(String categoryId) throws CategoryAlreadyExistException;
+
+
+	public String updateCategory(String categoryId, Category category) throws CategoryAlreadyExistException;
+
+
+	public String createCategory(CategoryRoot category) throws CategoryAlreadyExistException;
+
+
+	public String createProduct();
 }

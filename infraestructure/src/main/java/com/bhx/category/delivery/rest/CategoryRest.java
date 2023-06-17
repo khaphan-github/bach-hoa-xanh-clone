@@ -1,6 +1,7 @@
 package com.bhx.category.delivery.rest;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,8 +19,9 @@ public class CategoryRest implements Serializable {
 	@NotNull
 	private String name;
 
-	private String thumbImage;
+	private String parentId;
 
+	private List<String> keywords;
 	@NotNull
 	private Boolean available;
 }

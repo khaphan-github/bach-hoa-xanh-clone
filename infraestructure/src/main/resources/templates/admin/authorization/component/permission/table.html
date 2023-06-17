@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="authorization-permission">
+    <div class="table-responsive text-nowrap">
+        <table id="authorization-permission-data-table" class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Chức năng</th>
+                <th>URI</th>
+                <th>Method</th>
+                <th>Nhóm quyền</th>
+                <th>Trạng thái</th>
+                <th>Mô tả</th>
+                <th style="width: 5%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="permission, stat : ${permissions}">
+                <!--                <td th:text="${stat.count}"></td>-->
+                <td>
+                    <strong th:text="${permission.name}"></strong>
+                </td>
+                <td>
+                    <strong th:text="${permission.uri}"></strong>
+                </td>
+                <td>
+                     <span th:text="${permission.method}"
+                           th:classappend="${permission.method == 'GET' ? 'badge bg-label-info' :
+                     permission.method == 'POST' ? 'badge bg-label-success' :
+                     permission.method == 'PUT' ? 'badge bg-label-warning' :
+                     permission.method == 'DELETE' ? 'badge bg-label-danger' : ''}">
+                    </span>
+
+                </td>
+                <td>
+                     <span th:each="groupName : ${permission.groupNames}" class="badge bg-label-primary me-1">
+                    <span th:text="${groupName}"></span>
+                         </span>
+                </td>
+                <td>
+                 <span th:class="${permission.active} ? 'badge bg-label-primary me-1' : 'badge bg-label-warning me-1'">
+                            <span th:text="${permission.active} ? 'Đang Kích hoạt' : 'Ngừng hoạt động'"></span>
+                    </span>
+                </td>
+                <td th:text="${permission.description}"></td>
+                <td>
+                    <button type="button"
+                            class="btn btn-sm btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bx bx-dots-vertical-rounded"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" style="">
+                        <li><a class="dropdown-item" href="javascript:void(0);"
+                               th:text="${permission.active} ? 'Hũy kích hoạt' : 'Kích hoạt'"></a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Xóa nhóm quyền</a></li>
+                        <li><a class="dropdown-item" th:href="@{/permissions/update-page(id=${permission.id})}">Chỉnh
+                            sửa</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Xem danh sách tài khoản</a></li>
+                        <li><a class="dropdown-item" href="javascript:void(0);">Xem danh sách quyền</a></li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--Paging Products-->
+    <div class="demo-inline-spacing">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item prev">
+                    <a class="page-link" href="javascript:void(0);"
+                    ><i class="tf-icon bx bx-chevrons-left"></i
+                    ></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">4</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="javascript:void(0);">5</a>
+                </li>
+                <li class="page-item next">
+                    <a class="page-link" href="javascript:void(0);"
+                    ><i class="tf-icon bx bx-chevrons-right"></i
+                    ></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>

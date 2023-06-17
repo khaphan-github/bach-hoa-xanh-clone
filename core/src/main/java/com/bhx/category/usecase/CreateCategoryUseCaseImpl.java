@@ -14,11 +14,10 @@ public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
 	@Override
 	public void execute(Category category) throws CategoryAlreadyExistException {
 
-		if(categoryRepositoryService.doesCategoryNameExists(category.getName())) {
+		if(Boolean.TRUE.equals(categoryRepositoryService.doesCategoryNameExists(category.getName()))) {
 			throw new CategoryAlreadyExistException();
-		};
+		}
 
 		categoryRepositoryService.saveCategory(category);
 	}
-
 }

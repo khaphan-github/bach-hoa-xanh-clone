@@ -12,7 +12,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +24,13 @@ import java.io.Serializable;
 public class CategoryEntity implements Serializable {
 	@Id
 	private String id;
+	@NotEmpty
 	private String name;
-	private String thumbImage;
+	@Nullable
+	private String parentId;
+	@Nullable
+	private List<String> keywords;
+	@NotEmpty
+	private String href;
 	private Boolean available;
 }

@@ -9,12 +9,12 @@ public class CategoryRestConverter implements RestConverter<CategoryRest, Catego
     @Override
     public Category mapToEntity(final CategoryRest rest) {
 
-        return new Category(null, rest.getName(), rest.getThumbImage(), rest.getAvailable());
+        return new Category(rest.getParentId(),rest.getName(),rest.getKeywords(),rest.getAvailable());
     }
 
     @Override
     public CategoryRest mapToRest(final Category entity) {
-        return new CategoryRest(entity.getName(), entity.getThumbImage(), entity.getAvailable());
+        return new CategoryRest(entity.getName(),entity.getParentId(),entity.getKeywords(),entity.getAvailable());
     }
 
 }

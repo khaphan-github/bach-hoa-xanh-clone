@@ -10,6 +10,40 @@
 'use strict';
 
 (function ($) {
+    /*------------------
+            Locate
+        --------------------*/
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+var data = {
+            latitude: latitude,
+            longitude: longitude
+        };
+
+        // Gửi yêu cầu AJAX đến controller
+        $.ajax({
+            type: 'POST',
+            url: '/',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function(response) {
+                console.log('Dữ liệu đã được gửi thành công');
+                // Xử lý phản hồi từ server (nếu cần)
+            },
+            error: function(error) {
+                console.log('Lỗi khi gửi dữ liệu');
+                // Xử lý lỗi (nếu cần)
+            }
+        });
+    }, function(error) {
+      console.log("Lỗi định vị: " + error.message);
+    });
+  } else {
+    console.log("Trình duyệt không hỗ trợ định vị");
+  }
 
     /*------------------
         Preloader
@@ -220,5 +254,6 @@
         }
         $button.parent().find('input').val(newVal);
     });
+
 
 })(jQuery);

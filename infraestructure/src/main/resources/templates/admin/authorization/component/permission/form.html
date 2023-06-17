@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="authorization-permission-form">
+    <div class="modal fade" id="exLargePermissionModal" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel4">Tạo chức năng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card mb-4">
+                        <form th:action="@{/permissions/create}" th:object="${createPermissionDto}" method="post">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h5 class="mb-0">1. Thông tin chức năng: </h5>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-name">Tên chức năng</label>
+                                    <input type="text" class="form-control" id="basic-default-name"
+                                           th:field="*{name}"
+                                           placeholder="product:search">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-endpoint">URI</label>
+                                    <input type="text" class="form-control" id="basic-default-endpoint"
+                                           th:field="*{uri}"
+                                           placeholder="/product/search">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Phương thức yêu cầu</label>
+                                    <select class="form-select placement-dropdown" th:field="*{httpMethod}">
+                                        <option value="GET" >GET</option>
+                                        <option value="POST" >POST</option>
+                                        <option value="PUT">PUT</option>
+                                        <option value="DELETE">DELETE</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Quyền truy cập</label>
+                                    <select class="form-select placement-dropdown" th:field="*{type}">
+                                        <option value="PERMITTED">Cho phép truy cập</option>
+                                        <option value="DENY">Từ chối truy cập</option>
+                                    </select>
+
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-password">Mô tả</label>
+                                    <input type="text" class="form-control" id="basic-default-password"
+                                           th:field="*{desc}"
+                                           placeholder="Chức năng tìm kiếm sản phẩm">
+                                </div>
+                                <div class="mb-3">
+                                    <hr class="m-0">
+                                </div>
+
+                                <div class="mb-3">
+                                    <h5 class="mb-0">2. Nhóm quyền truy cập: </h5>
+                                </div>
+                                <div class="mb-3">
+                                    <table id="authorization-permission-data-table" class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Thứ tự</th>
+                                            <th>Tên nhóm quyền</th>
+                                            <th>Mô tả</th>
+                                            <th>Kích hoạt</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="group, stat : ${groups}">
+                                            <td th:text="${stat.count}"></td>
+                                            <td>
+                                                <strong th:text="${group.name}"></strong>
+                                            </td>
+                                            <td th:text="${group.description}"></td>
+                                            <td>
+                                                <div class="form-check form-switch mb-2">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           th:field="*{selectedGroups}"
+                                                           th:value="${group.id}" id="${group.id}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Trạng thái</label>
+                                    <div class="form-check form-switch mb-2">
+                                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                               th:field="*{active}">
+                                        <label class="form-check-label" for="flexSwitchCheckDefault">Click để kích hoạt
+                                            tài khoản ngay khi tạo thành công</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" class="btn btn-outline-secondary" style="margin-right: 5px"
+                                            data-bs-dismiss="modal">Thoát
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
