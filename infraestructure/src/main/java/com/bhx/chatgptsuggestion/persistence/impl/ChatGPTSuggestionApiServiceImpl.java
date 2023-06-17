@@ -31,7 +31,7 @@ public class ChatGPTSuggestionApiServiceImpl implements ChatGPTSuggestionApiServ
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer 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");
+        headers.set("Authorization", "Bearer key");
 
         String requestBody = "{\"model\": \""
                 + "gpt-3.5-turbo-0301"
