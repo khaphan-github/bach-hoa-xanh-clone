@@ -25,4 +25,6 @@ public interface ProductController {
 
     String directCheckout(Model model);
 
+    String getViewCategory(String href);
+
 }
