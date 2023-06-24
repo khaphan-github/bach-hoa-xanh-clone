@@ -3,7 +3,6 @@ package com.bhx.group.persistence.impl;
 import com.bhx.group.persistence.converters.GroupRepositoryConverter;
 import com.bhx.group.persistence.entities.GroupEntity;
 import com.bhx.group.persistence.repository.GroupRepository;
-import com.bhx.menu.Menu;
 import com.bhx.group.Group;
 import com.bhx.group.exceptions.MenuAlreadyExistInGroupException;
 import com.bhx.group.exceptions.PermissionAlreadyExistInGroupException;
@@ -57,11 +56,6 @@ public class GroupServiceImpl implements GroupRepositoryService {
     }
 
     @Override
-    public Collection<Menu> getMenusInGroup(String groupId) {
-        return null;
-    }
-
-    @Override
     public Collection<Permission> getPermissionsInGroup(String groupId) {
         return null;
     }
@@ -83,11 +77,6 @@ public class GroupServiceImpl implements GroupRepositoryService {
 
     @Override
     public void addPermissionToGroup(String permissionId, List<Group> groups) throws PermissionAlreadyExistInGroupException {
-
-    }
-
-    @Override
-    public void addMenusToGroup(String groupId, List<Menu> menus) throws MenuAlreadyExistInGroupException {
 
     }
 }

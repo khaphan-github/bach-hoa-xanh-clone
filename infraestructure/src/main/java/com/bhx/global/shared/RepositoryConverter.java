@@ -1,7 +1,5 @@
 package com.bhx.global.shared;
 
-import com.bhx.product.Product;
-import com.bhx.product.persistence.entities.ProductEntity;
 
 import java.io.Serializable;
 

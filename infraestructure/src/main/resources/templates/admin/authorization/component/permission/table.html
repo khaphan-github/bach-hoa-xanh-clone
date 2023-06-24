@@ -41,7 +41,7 @@
                 </td>
                 <td>
                  <span th:class="${permission.active} ? 'badge bg-label-primary me-1' : 'badge bg-label-warning me-1'">
-                            <span th:text="${permission.active} ? 'Đang Kích hoạt' : 'Ngừng hoạt động'"></span>
+                            <span th:text="${permission.active} ? 'Active' : 'In Active'"></span>
                     </span>
                 </td>
                 <td th:text="${permission.description}"></td>

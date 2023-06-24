@@ -4,7 +4,6 @@ import com.bhx.group.Group;
 import com.bhx.group.exceptions.MenuAlreadyExistInGroupException;
 import com.bhx.group.exceptions.PermissionAlreadyExistInGroupException;
 import com.bhx.group.exceptions.UserAlreadyInGroupException;
-import com.bhx.menu.Menu;
 import com.bhx.permission.Permission;
 import com.bhx.user.Account;
 
@@ -21,7 +20,6 @@ public interface GroupRepositoryService {
     Collection<Group> getActiveGroup();
     Group getGroupById(String id);
     Group findByNameAndActive(String name);
-    Collection<Menu> getMenusInGroup(String groupId);
 
     Collection<Permission> getPermissionsInGroup(String groupId);
 
@@ -33,5 +31,4 @@ public interface GroupRepositoryService {
 
     void addPermissionToGroup(String permissionId, List<Group> groups) throws PermissionAlreadyExistInGroupException;
 
-    void addMenusToGroup(String groupId, List<Menu> menus) throws MenuAlreadyExistInGroupException;
 }
